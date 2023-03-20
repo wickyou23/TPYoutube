@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>authURLScheme</key>
+	<string>authURLScheme</string>
+	<key>clientID</key>
+	<string>clientID</string>
+	<key>innerYoutubeAPIKey</key>
+	<string>innerYoutubeAPIKey</string>
+	<key>youtubeAPIKey</key>
+	<string>youtubeAPIKey</string>
+</dict>
+</plist>

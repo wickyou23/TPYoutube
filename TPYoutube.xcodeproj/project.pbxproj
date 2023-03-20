@@ -1,0 +1,928 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A700CB0829B20167001493AA /* TPYTListVideosView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A700CB0729B20167001493AA /* TPYTListVideosView.swift */; };
+		A700CB0A29B2017B001493AA /* TPYTListVideosViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A700CB0929B2017B001493AA /* TPYTListVideosViewModel.swift */; };
+		A70F6AEB29A718B400061A0F /* TPYTServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F6AEA29A718B400061A0F /* TPYTServices.swift */; };
+		A70F6AED29A73C7200061A0F /* TPYTPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F6AEC29A73C7200061A0F /* TPYTPaging.swift */; };
+		A711A5A629C0747400580CAA /* TPVLCPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A711A5A529C0747400580CAA /* TPVLCPlayerView.swift */; };
+		A71D23A429B9B4550094ADCA /* TPMarqueeText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71D23A329B9B4550094ADCA /* TPMarqueeText.swift */; };
+		A720C66129BB156D00A41F44 /* TPWaveAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720C66029BB156D00A41F44 /* TPWaveAnimation.swift */; };
+		A720C66329BB355500A41F44 /* TPUIButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720C66229BB355500A41F44 /* TPUIButtonView.swift */; };
+		A72A15E329ADFD9000338C16 /* TPSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72A15E229ADFD9000338C16 /* TPSlider.swift */; };
+		A7354ABF29A8BEF200D964B0 /* TPYTStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7354ABE29A8BEF200D964B0 /* TPYTStorage.swift */; };
+		A738649329C81D7A009D6C62 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = A738649229C81D7A009D6C62 /* CocoaLumberjack */; };
+		A738649529C81D7A009D6C62 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A738649429C81D7A009D6C62 /* CocoaLumberjackSwift */; };
+		A738649729C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = A738649629C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend */; };
+		A738649929C83908009D6C62 /* TPKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A738649829C83908009D6C62 /* TPKeys.plist */; };
+		A738649B29C83BF8009D6C62 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A738649A29C83BF8009D6C62 /* AppViewModel.swift */; };
+		A75DB0FA29B5EAB700FE063B /* TPYTPlaylistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75DB0F929B5EAB700FE063B /* TPYTPlaylistItem.swift */; };
+		A75F4E4F29A62D1600D3D204 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A75F4E4E29A62D1600D3D204 /* CombineMoya */; };
+		A75F4E5129A62D1600D3D204 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A75F4E5029A62D1600D3D204 /* Moya */; };
+		A75F4E5329A62D1600D3D204 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A75F4E5229A62D1600D3D204 /* ReactiveMoya */; };
+		A75F4E5529A62D1600D3D204 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A75F4E5429A62D1600D3D204 /* RxMoya */; };
+		A75F4E5829A7109C00D3D204 /* TPYTServiceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75F4E5729A7109C00D3D204 /* TPYTServiceTarget.swift */; };
+		A77481FC29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = A77481FB29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper */; };
+		A77481FE29C3070500CB9F7A /* TPYTVideoV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77481FD29C3070500CB9F7A /* TPYTVideoV1.swift */; };
+		A785F25B29AF2F22004E526B /* TPVolumeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25729AF2F22004E526B /* TPVolumeSliderView.swift */; };
+		A785F25C29AF2F22004E526B /* TPYTPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25829AF2F22004E526B /* TPYTPlayerView.swift */; };
+		A785F25D29AF2F22004E526B /* TPPlayerSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25929AF2F22004E526B /* TPPlayerSliderView.swift */; };
+		A785F25E29AF2F22004E526B /* TPPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25A29AF2F22004E526B /* TPPlayerView.swift */; };
+		A785F26029AF2F9B004E526B /* TPPlayerControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25F29AF2F9B004E526B /* TPPlayerControllerView.swift */; };
+		A785F26629AF56C5004E526B /* TPGGServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26529AF56C5004E526B /* TPGGServices.swift */; };
+		A785F26929AF56EB004E526B /* TPGGServiceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26829AF56EB004E526B /* TPGGServiceTarget.swift */; };
+		A785F26B29AF59B5004E526B /* ITPGGServiceTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26A29AF59B5004E526B /* ITPGGServiceTargetType.swift */; };
+		A785F26D29AF5F0A004E526B /* TPGGProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26C29AF5F0A004E526B /* TPGGProfile.swift */; };
+		A785F27029AF6098004E526B /* TPStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26F29AF6098004E526B /* TPStorageManager.swift */; };
+		A785F27229AF63CF004E526B /* TPGoogleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F27129AF63CF004E526B /* TPGoogleStorage.swift */; };
+		A785F27629B05559004E526B /* TPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F27529B05559004E526B /* TPTheme.swift */; };
+		A78DE17429A4CBB300B968A2 /* TPYoutubeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE17329A4CBB300B968A2 /* TPYoutubeApp.swift */; };
+		A78DE17629A4CBB300B968A2 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE17529A4CBB300B968A2 /* AppView.swift */; };
+		A78DE17829A4CBB400B968A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78DE17729A4CBB400B968A2 /* Assets.xcassets */; };
+		A78DE17C29A4CBB400B968A2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78DE17B29A4CBB400B968A2 /* Preview Assets.xcassets */; };
+		A78DE18C29A5BAF700B968A2 /* TPYTSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE18B29A5BAF700B968A2 /* TPYTSearchView.swift */; };
+		A78DE18E29A5BB7900B968A2 /* TPYTPlaylistView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE18D29A5BB7900B968A2 /* TPYTPlaylistView.swift */; };
+		A78DE19529A5D09400B968A2 /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A78DE19429A5D09400B968A2 /* GTMAppAuth */; };
+		A78DE19829A5EADD00B968A2 /* TPGGAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE19729A5EADD00B968A2 /* TPGGAuthManager.swift */; };
+		A78DE19B29A6075F00B968A2 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A78DE19A29A6075F00B968A2 /* AppAuth */; };
+		A78DE1A029A61AA500B968A2 /* TPYTAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE19F29A61AA500B968A2 /* TPYTAPIManager.swift */; };
+		A78DE1A529A61BC900B968A2 /* TPYTItemResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE1A429A61BC900B968A2 /* TPYTItemResource.swift */; };
+		A78DE1A729A61BF500B968A2 /* TPYTSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE1A629A61BF500B968A2 /* TPYTSearchViewModel.swift */; };
+		A78DE1A929A61E2200B968A2 /* TPYTHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE1A829A61E2200B968A2 /* TPYTHelper.swift */; };
+		A79F72EB29C321B700413D76 /* TPYTBrowserPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F72EA29C321B700413D76 /* TPYTBrowserPlayerView.swift */; };
+		A79F72EF29C32B6100413D76 /* TPVLCMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F72EE29C32B6100413D76 /* TPVLCMetaData.swift */; };
+		A79F72FA29C41FFB00413D76 /* TPYoutubeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F72F929C41FFB00413D76 /* TPYoutubeTests.swift */; };
+		A7BA7BCE29B739E100220071 /* TPPlayerViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA7BCD29B739E100220071 /* TPPlayerViewModifier.swift */; };
+		A7BA7BD029B842DB00220071 /* TPYTPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA7BCF29B842DB00220071 /* TPYTPlayerManager.swift */; };
+		A7C08E3B29B59B43001106BA /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = A7C08E3A29B59B43001106BA /* Introspect */; };
+		A7C08E4329B5BE2C001106BA /* TPPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C08E4229B5BE2C001106BA /* TPPopupView.swift */; };
+		A7CD61EE29AC95F200297709 /* TPGGMoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CD61ED29AC95F200297709 /* TPGGMoyaProvider.swift */; };
+		A7CD61F129ACA12400297709 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = A7CD61F029ACA12400297709 /* CachedAsyncImage */; };
+		A7E14DD629B1A56600D5A2B6 /* TPYTVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E14DD529B1A56600D5A2B6 /* TPYTVideoCell.swift */; };
+		A7E14DD829B1AEF700D5A2B6 /* TPYTPlaylistViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E14DD729B1AEF700D5A2B6 /* TPYTPlaylistViewModel.swift */; };
+		A7E14DDA29B1B05700D5A2B6 /* TPYTPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E14DD929B1B05700D5A2B6 /* TPYTPlaylist.swift */; };
+		A7F814A929B1DE1200F0D9E5 /* TPYTVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F814A829B1DE1200F0D9E5 /* TPYTVideo.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A79F72FB29C41FFB00413D76 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A78DE16829A4CBB300B968A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A78DE16F29A4CBB300B968A2;
+			remoteInfo = TPYoutube;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A700CB0729B20167001493AA /* TPYTListVideosView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTListVideosView.swift; sourceTree = "<group>"; };
+		A700CB0929B2017B001493AA /* TPYTListVideosViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTListVideosViewModel.swift; sourceTree = "<group>"; };
+		A70F6AEA29A718B400061A0F /* TPYTServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTServices.swift; sourceTree = "<group>"; };
+		A70F6AEC29A73C7200061A0F /* TPYTPaging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPaging.swift; sourceTree = "<group>"; };
+		A711A5A529C0747400580CAA /* TPVLCPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPVLCPlayerView.swift; sourceTree = "<group>"; };
+		A71D23A329B9B4550094ADCA /* TPMarqueeText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPMarqueeText.swift; sourceTree = "<group>"; };
+		A720C66029BB156D00A41F44 /* TPWaveAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPWaveAnimation.swift; sourceTree = "<group>"; };
+		A720C66229BB355500A41F44 /* TPUIButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPUIButtonView.swift; sourceTree = "<group>"; };
+		A72A15E229ADFD9000338C16 /* TPSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSlider.swift; sourceTree = "<group>"; };
+		A7354ABE29A8BEF200D964B0 /* TPYTStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTStorage.swift; sourceTree = "<group>"; };
+		A738649829C83908009D6C62 /* TPKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TPKeys.plist; sourceTree = "<group>"; };
+		A738649A29C83BF8009D6C62 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		A75DB0F929B5EAB700FE063B /* TPYTPlaylistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPlaylistItem.swift; sourceTree = "<group>"; };
+		A75F4E5729A7109C00D3D204 /* TPYTServiceTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTServiceTarget.swift; sourceTree = "<group>"; };
+		A77481FA29C2D3E400CB9F7A /* youtube-ios-player-helper */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "youtube-ios-player-helper"; path = "TPYoutube/Packages/youtube-ios-player-helper"; sourceTree = "<group>"; };
+		A77481FD29C3070500CB9F7A /* TPYTVideoV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTVideoV1.swift; sourceTree = "<group>"; };
+		A785F25729AF2F22004E526B /* TPVolumeSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPVolumeSliderView.swift; sourceTree = "<group>"; };
+		A785F25829AF2F22004E526B /* TPYTPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPYTPlayerView.swift; sourceTree = "<group>"; };
+		A785F25929AF2F22004E526B /* TPPlayerSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPlayerSliderView.swift; sourceTree = "<group>"; };
+		A785F25A29AF2F22004E526B /* TPPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPlayerView.swift; sourceTree = "<group>"; };
+		A785F25F29AF2F9B004E526B /* TPPlayerControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPlayerControllerView.swift; sourceTree = "<group>"; };
+		A785F26529AF56C5004E526B /* TPGGServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPGGServices.swift; sourceTree = "<group>"; };
+		A785F26829AF56EB004E526B /* TPGGServiceTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPGGServiceTarget.swift; sourceTree = "<group>"; };
+		A785F26A29AF59B5004E526B /* ITPGGServiceTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ITPGGServiceTargetType.swift; sourceTree = "<group>"; };
+		A785F26C29AF5F0A004E526B /* TPGGProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPGGProfile.swift; sourceTree = "<group>"; };
+		A785F26F29AF6098004E526B /* TPStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPStorageManager.swift; sourceTree = "<group>"; };
+		A785F27129AF63CF004E526B /* TPGoogleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPGoogleStorage.swift; sourceTree = "<group>"; };
+		A785F27529B05559004E526B /* TPTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTheme.swift; sourceTree = "<group>"; };
+		A78DE17029A4CBB300B968A2 /* TPYoutube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPYoutube.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A78DE17329A4CBB300B968A2 /* TPYoutubeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYoutubeApp.swift; sourceTree = "<group>"; };
+		A78DE17529A4CBB300B968A2 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
+		A78DE17729A4CBB400B968A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A78DE17929A4CBB400B968A2 /* TPYoutube.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TPYoutube.entitlements; sourceTree = "<group>"; };
+		A78DE17B29A4CBB400B968A2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A78DE18529A4CFC000B968A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A78DE18B29A5BAF700B968A2 /* TPYTSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTSearchView.swift; sourceTree = "<group>"; };
+		A78DE18D29A5BB7900B968A2 /* TPYTPlaylistView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPlaylistView.swift; sourceTree = "<group>"; };
+		A78DE19729A5EADD00B968A2 /* TPGGAuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPGGAuthManager.swift; sourceTree = "<group>"; };
+		A78DE19F29A61AA500B968A2 /* TPYTAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTAPIManager.swift; sourceTree = "<group>"; };
+		A78DE1A429A61BC900B968A2 /* TPYTItemResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTItemResource.swift; sourceTree = "<group>"; };
+		A78DE1A629A61BF500B968A2 /* TPYTSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTSearchViewModel.swift; sourceTree = "<group>"; };
+		A78DE1A829A61E2200B968A2 /* TPYTHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTHelper.swift; sourceTree = "<group>"; };
+		A79F72EA29C321B700413D76 /* TPYTBrowserPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTBrowserPlayerView.swift; sourceTree = "<group>"; };
+		A79F72EE29C32B6100413D76 /* TPVLCMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPVLCMetaData.swift; sourceTree = "<group>"; };
+		A79F72F729C41FFB00413D76 /* TPYoutubeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TPYoutubeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A79F72F929C41FFB00413D76 /* TPYoutubeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYoutubeTests.swift; sourceTree = "<group>"; };
+		A7BA7BCD29B739E100220071 /* TPPlayerViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPlayerViewModifier.swift; sourceTree = "<group>"; };
+		A7BA7BCF29B842DB00220071 /* TPYTPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPlayerManager.swift; sourceTree = "<group>"; };
+		A7C08E4229B5BE2C001106BA /* TPPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPopupView.swift; sourceTree = "<group>"; };
+		A7CD61ED29AC95F200297709 /* TPGGMoyaProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPGGMoyaProvider.swift; sourceTree = "<group>"; };
+		A7E14DD529B1A56600D5A2B6 /* TPYTVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTVideoCell.swift; sourceTree = "<group>"; };
+		A7E14DD729B1AEF700D5A2B6 /* TPYTPlaylistViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPlaylistViewModel.swift; sourceTree = "<group>"; };
+		A7E14DD929B1B05700D5A2B6 /* TPYTPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPlaylist.swift; sourceTree = "<group>"; };
+		A7F814A829B1DE1200F0D9E5 /* TPYTVideo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTVideo.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A78DE16D29A4CBB300B968A2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A78DE19B29A6075F00B968A2 /* AppAuth in Frameworks */,
+				A738649329C81D7A009D6C62 /* CocoaLumberjack in Frameworks */,
+				A738649529C81D7A009D6C62 /* CocoaLumberjackSwift in Frameworks */,
+				A7C08E3B29B59B43001106BA /* Introspect in Frameworks */,
+				A7CD61F129ACA12400297709 /* CachedAsyncImage in Frameworks */,
+				A75F4E4F29A62D1600D3D204 /* CombineMoya in Frameworks */,
+				A75F4E5129A62D1600D3D204 /* Moya in Frameworks */,
+				A75F4E5529A62D1600D3D204 /* RxMoya in Frameworks */,
+				A78DE19529A5D09400B968A2 /* GTMAppAuth in Frameworks */,
+				A738649729C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
+				A75F4E5329A62D1600D3D204 /* ReactiveMoya in Frameworks */,
+				A77481FC29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79F72F429C41FFB00413D76 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6D752C11C5338BAB98A2B4CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A75F4E5629A7108000D3D204 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A785F26729AF56D2004E526B /* GoogleServices */,
+				A785F26129AF560A004E526B /* YoutubeServices */,
+				A7CD61ED29AC95F200297709 /* TPGGMoyaProvider.swift */,
+				A785F26A29AF59B5004E526B /* ITPGGServiceTargetType.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A785F25629AF2EF2004E526B /* TPPlayerView */ = {
+			isa = PBXGroup;
+			children = (
+				A79F72ED29C32B5000413D76 /* Models */,
+				A785F25929AF2F22004E526B /* TPPlayerSliderView.swift */,
+				A785F25729AF2F22004E526B /* TPVolumeSliderView.swift */,
+				A785F25F29AF2F9B004E526B /* TPPlayerControllerView.swift */,
+				A79F72EA29C321B700413D76 /* TPYTBrowserPlayerView.swift */,
+				A711A5A529C0747400580CAA /* TPVLCPlayerView.swift */,
+				A785F25829AF2F22004E526B /* TPYTPlayerView.swift */,
+				A7BA7BCF29B842DB00220071 /* TPYTPlayerManager.swift */,
+				A7BA7BCD29B739E100220071 /* TPPlayerViewModifier.swift */,
+				A785F25A29AF2F22004E526B /* TPPlayerView.swift */,
+			);
+			path = TPPlayerView;
+			sourceTree = "<group>";
+		};
+		A785F26129AF560A004E526B /* YoutubeServices */ = {
+			isa = PBXGroup;
+			children = (
+				A75F4E5729A7109C00D3D204 /* TPYTServiceTarget.swift */,
+				A70F6AEA29A718B400061A0F /* TPYTServices.swift */,
+			);
+			name = YoutubeServices;
+			sourceTree = "<group>";
+		};
+		A785F26729AF56D2004E526B /* GoogleServices */ = {
+			isa = PBXGroup;
+			children = (
+				A785F26829AF56EB004E526B /* TPGGServiceTarget.swift */,
+				A785F26529AF56C5004E526B /* TPGGServices.swift */,
+			);
+			name = GoogleServices;
+			sourceTree = "<group>";
+		};
+		A785F26E29AF6075004E526B /* Storages */ = {
+			isa = PBXGroup;
+			children = (
+				A7354ABE29A8BEF200D964B0 /* TPYTStorage.swift */,
+				A785F27129AF63CF004E526B /* TPGoogleStorage.swift */,
+			);
+			path = Storages;
+			sourceTree = "<group>";
+		};
+		A78DE16729A4CBB300B968A2 = {
+			isa = PBXGroup;
+			children = (
+				A7950AF729BECD71009AE141 /* Packages */,
+				A78DE17229A4CBB300B968A2 /* TPYoutube */,
+				A79F72F829C41FFB00413D76 /* TPYoutubeTests */,
+				A78DE17129A4CBB300B968A2 /* Products */,
+				6D752C11C5338BAB98A2B4CC /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		A78DE17129A4CBB300B968A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A78DE17029A4CBB300B968A2 /* TPYoutube.app */,
+				A79F72F729C41FFB00413D76 /* TPYoutubeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A78DE17229A4CBB300B968A2 /* TPYoutube */ = {
+			isa = PBXGroup;
+			children = (
+				A78DE18529A4CFC000B968A2 /* Info.plist */,
+				A75F4E5629A7108000D3D204 /* Services */,
+				A78DE1A329A61BB400B968A2 /* Models */,
+				A78DE19629A5EAC000B968A2 /* Managers */,
+				A785F26E29AF6075004E526B /* Storages */,
+				A785F25629AF2EF2004E526B /* TPPlayerView */,
+				A7C08E4429B5BE3C001106BA /* Views */,
+				A78DE17A29A4CBB400B968A2 /* Preview Content */,
+				A78DE1A829A61E2200B968A2 /* TPYTHelper.swift */,
+				A785F27529B05559004E526B /* TPTheme.swift */,
+				A78DE17529A4CBB300B968A2 /* AppView.swift */,
+				A738649A29C83BF8009D6C62 /* AppViewModel.swift */,
+				A78DE17329A4CBB300B968A2 /* TPYoutubeApp.swift */,
+				A738649829C83908009D6C62 /* TPKeys.plist */,
+				A78DE17729A4CBB400B968A2 /* Assets.xcassets */,
+				A78DE17929A4CBB400B968A2 /* TPYoutube.entitlements */,
+			);
+			path = TPYoutube;
+			sourceTree = "<group>";
+		};
+		A78DE17A29A4CBB400B968A2 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				A78DE17B29A4CBB400B968A2 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A78DE19629A5EAC000B968A2 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				A78DE19729A5EADD00B968A2 /* TPGGAuthManager.swift */,
+				A78DE19F29A61AA500B968A2 /* TPYTAPIManager.swift */,
+				A785F26F29AF6098004E526B /* TPStorageManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		A78DE1A329A61BB400B968A2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A78DE1A429A61BC900B968A2 /* TPYTItemResource.swift */,
+				A7F814A829B1DE1200F0D9E5 /* TPYTVideo.swift */,
+				A7E14DD929B1B05700D5A2B6 /* TPYTPlaylist.swift */,
+				A75DB0F929B5EAB700FE063B /* TPYTPlaylistItem.swift */,
+				A77481FD29C3070500CB9F7A /* TPYTVideoV1.swift */,
+				A70F6AEC29A73C7200061A0F /* TPYTPaging.swift */,
+				A785F26C29AF5F0A004E526B /* TPGGProfile.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A7950AF729BECD71009AE141 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				A77481FA29C2D3E400CB9F7A /* youtube-ios-player-helper */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		A79F72ED29C32B5000413D76 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A79F72EE29C32B6100413D76 /* TPVLCMetaData.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A79F72F829C41FFB00413D76 /* TPYoutubeTests */ = {
+			isa = PBXGroup;
+			children = (
+				A79F72F929C41FFB00413D76 /* TPYoutubeTests.swift */,
+			);
+			path = TPYoutubeTests;
+			sourceTree = "<group>";
+		};
+		A7C08E4429B5BE3C001106BA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A7C08E4529B5BE5A001106BA /* Components */,
+				A78DE18D29A5BB7900B968A2 /* TPYTPlaylistView.swift */,
+				A7E14DD729B1AEF700D5A2B6 /* TPYTPlaylistViewModel.swift */,
+				A78DE18B29A5BAF700B968A2 /* TPYTSearchView.swift */,
+				A78DE1A629A61BF500B968A2 /* TPYTSearchViewModel.swift */,
+				A700CB0729B20167001493AA /* TPYTListVideosView.swift */,
+				A700CB0929B2017B001493AA /* TPYTListVideosViewModel.swift */,
+				A7C08E4229B5BE2C001106BA /* TPPopupView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A7C08E4529B5BE5A001106BA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A71D23A329B9B4550094ADCA /* TPMarqueeText.swift */,
+				A7E14DD529B1A56600D5A2B6 /* TPYTVideoCell.swift */,
+				A72A15E229ADFD9000338C16 /* TPSlider.swift */,
+				A720C66029BB156D00A41F44 /* TPWaveAnimation.swift */,
+				A720C66229BB355500A41F44 /* TPUIButtonView.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A78DE16F29A4CBB300B968A2 /* TPYoutube */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A78DE17F29A4CBB400B968A2 /* Build configuration list for PBXNativeTarget "TPYoutube" */;
+			buildPhases = (
+				A78DE16C29A4CBB300B968A2 /* Sources */,
+				A78DE16D29A4CBB300B968A2 /* Frameworks */,
+				A78DE16E29A4CBB300B968A2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TPYoutube;
+			packageProductDependencies = (
+				A78DE19429A5D09400B968A2 /* GTMAppAuth */,
+				A78DE19A29A6075F00B968A2 /* AppAuth */,
+				A75F4E4E29A62D1600D3D204 /* CombineMoya */,
+				A75F4E5029A62D1600D3D204 /* Moya */,
+				A75F4E5229A62D1600D3D204 /* ReactiveMoya */,
+				A75F4E5429A62D1600D3D204 /* RxMoya */,
+				A7CD61F029ACA12400297709 /* CachedAsyncImage */,
+				A7C08E3A29B59B43001106BA /* Introspect */,
+				A77481FB29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper */,
+				A738649229C81D7A009D6C62 /* CocoaLumberjack */,
+				A738649429C81D7A009D6C62 /* CocoaLumberjackSwift */,
+				A738649629C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend */,
+			);
+			productName = TPYoutube;
+			productReference = A78DE17029A4CBB300B968A2 /* TPYoutube.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A79F72F629C41FFB00413D76 /* TPYoutubeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A79F72FD29C41FFB00413D76 /* Build configuration list for PBXNativeTarget "TPYoutubeTests" */;
+			buildPhases = (
+				A79F72F329C41FFB00413D76 /* Sources */,
+				A79F72F429C41FFB00413D76 /* Frameworks */,
+				A79F72F529C41FFB00413D76 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A79F72FC29C41FFB00413D76 /* PBXTargetDependency */,
+			);
+			name = TPYoutubeTests;
+			productName = TPYoutubeTests;
+			productReference = A79F72F729C41FFB00413D76 /* TPYoutubeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A78DE16829A4CBB300B968A2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					A78DE16F29A4CBB300B968A2 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+					A79F72F629C41FFB00413D76 = {
+						CreatedOnToolsVersion = 14.0.1;
+						TestTargetID = A78DE16F29A4CBB300B968A2;
+					};
+				};
+			};
+			buildConfigurationList = A78DE16B29A4CBB300B968A2 /* Build configuration list for PBXProject "TPYoutube" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A78DE16729A4CBB300B968A2;
+			packageReferences = (
+				A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth.git" */,
+				A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */,
+				A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */,
+				A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image.git" */,
+				A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */,
+				A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */,
+			);
+			productRefGroup = A78DE17129A4CBB300B968A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A78DE16F29A4CBB300B968A2 /* TPYoutube */,
+				A79F72F629C41FFB00413D76 /* TPYoutubeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A78DE16E29A4CBB300B968A2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A78DE17C29A4CBB400B968A2 /* Preview Assets.xcassets in Resources */,
+				A738649929C83908009D6C62 /* TPKeys.plist in Resources */,
+				A78DE17829A4CBB400B968A2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79F72F529C41FFB00413D76 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A78DE16C29A4CBB300B968A2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A78DE1A929A61E2200B968A2 /* TPYTHelper.swift in Sources */,
+				A78DE19829A5EADD00B968A2 /* TPGGAuthManager.swift in Sources */,
+				A711A5A629C0747400580CAA /* TPVLCPlayerView.swift in Sources */,
+				A785F26929AF56EB004E526B /* TPGGServiceTarget.swift in Sources */,
+				A78DE17629A4CBB300B968A2 /* AppView.swift in Sources */,
+				A79F72EB29C321B700413D76 /* TPYTBrowserPlayerView.swift in Sources */,
+				A785F25D29AF2F22004E526B /* TPPlayerSliderView.swift in Sources */,
+				A720C66129BB156D00A41F44 /* TPWaveAnimation.swift in Sources */,
+				A785F27029AF6098004E526B /* TPStorageManager.swift in Sources */,
+				A700CB0829B20167001493AA /* TPYTListVideosView.swift in Sources */,
+				A720C66329BB355500A41F44 /* TPUIButtonView.swift in Sources */,
+				A785F27229AF63CF004E526B /* TPGoogleStorage.swift in Sources */,
+				A785F26B29AF59B5004E526B /* ITPGGServiceTargetType.swift in Sources */,
+				A78DE1A529A61BC900B968A2 /* TPYTItemResource.swift in Sources */,
+				A75F4E5829A7109C00D3D204 /* TPYTServiceTarget.swift in Sources */,
+				A7C08E4329B5BE2C001106BA /* TPPopupView.swift in Sources */,
+				A7BA7BCE29B739E100220071 /* TPPlayerViewModifier.swift in Sources */,
+				A7E14DDA29B1B05700D5A2B6 /* TPYTPlaylist.swift in Sources */,
+				A78DE18C29A5BAF700B968A2 /* TPYTSearchView.swift in Sources */,
+				A785F26629AF56C5004E526B /* TPGGServices.swift in Sources */,
+				A738649B29C83BF8009D6C62 /* AppViewModel.swift in Sources */,
+				A78DE17429A4CBB300B968A2 /* TPYoutubeApp.swift in Sources */,
+				A785F25E29AF2F22004E526B /* TPPlayerView.swift in Sources */,
+				A7CD61EE29AC95F200297709 /* TPGGMoyaProvider.swift in Sources */,
+				A7BA7BD029B842DB00220071 /* TPYTPlayerManager.swift in Sources */,
+				A7E14DD829B1AEF700D5A2B6 /* TPYTPlaylistViewModel.swift in Sources */,
+				A78DE18E29A5BB7900B968A2 /* TPYTPlaylistView.swift in Sources */,
+				A78DE1A029A61AA500B968A2 /* TPYTAPIManager.swift in Sources */,
+				A75DB0FA29B5EAB700FE063B /* TPYTPlaylistItem.swift in Sources */,
+				A785F26D29AF5F0A004E526B /* TPGGProfile.swift in Sources */,
+				A7354ABF29A8BEF200D964B0 /* TPYTStorage.swift in Sources */,
+				A785F25C29AF2F22004E526B /* TPYTPlayerView.swift in Sources */,
+				A785F27629B05559004E526B /* TPTheme.swift in Sources */,
+				A78DE1A729A61BF500B968A2 /* TPYTSearchViewModel.swift in Sources */,
+				A72A15E329ADFD9000338C16 /* TPSlider.swift in Sources */,
+				A77481FE29C3070500CB9F7A /* TPYTVideoV1.swift in Sources */,
+				A70F6AED29A73C7200061A0F /* TPYTPaging.swift in Sources */,
+				A79F72EF29C32B6100413D76 /* TPVLCMetaData.swift in Sources */,
+				A785F25B29AF2F22004E526B /* TPVolumeSliderView.swift in Sources */,
+				A70F6AEB29A718B400061A0F /* TPYTServices.swift in Sources */,
+				A71D23A429B9B4550094ADCA /* TPMarqueeText.swift in Sources */,
+				A7E14DD629B1A56600D5A2B6 /* TPYTVideoCell.swift in Sources */,
+				A700CB0A29B2017B001493AA /* TPYTListVideosViewModel.swift in Sources */,
+				A7F814A929B1DE1200F0D9E5 /* TPYTVideo.swift in Sources */,
+				A785F26029AF2F9B004E526B /* TPPlayerControllerView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A79F72F329C41FFB00413D76 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A79F72FA29C41FFB00413D76 /* TPYoutubeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A79F72FC29C41FFB00413D76 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A78DE16F29A4CBB300B968A2 /* TPYoutube */;
+			targetProxy = A79F72FB29C41FFB00413D76 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		A78DE17D29A4CBB400B968A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A78DE17E29A4CBB400B968A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		A78DE18029A4CBB400B968A2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TPYoutube/TPYoutube.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TPYoutube/Preview Content\"";
+				DEVELOPMENT_TEAM = D8252FJRUX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TPYoutube/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tp.example.TPYoutube;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A78DE18129A4CBB400B968A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TPYoutube/TPYoutube.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"TPYoutube/Preview Content\"";
+				DEVELOPMENT_TEAM = D8252FJRUX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TPYoutube/Info.plist;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 12.3;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tp.example.TPYoutube;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A79F72FE29C41FFB00413D76 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D8252FJRUX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tp.example.unittest.TPYoutubeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TPYoutube.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TPYoutube";
+			};
+			name = Debug;
+		};
+		A79F72FF29C41FFB00413D76 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = D8252FJRUX;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tp.example.unittest.TPYoutubeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TPYoutube.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TPYoutube";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A78DE16B29A4CBB300B968A2 /* Build configuration list for PBXProject "TPYoutube" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A78DE17D29A4CBB400B968A2 /* Debug */,
+				A78DE17E29A4CBB400B968A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A78DE17F29A4CBB400B968A2 /* Build configuration list for PBXNativeTarget "TPYoutube" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A78DE18029A4CBB400B968A2 /* Debug */,
+				A78DE18129A4CBB400B968A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A79F72FD29C41FFB00413D76 /* Build configuration list for PBXNativeTarget "TPYoutubeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A79F72FE29C41FFB00413D76 /* Debug */,
+				A79F72FF29C41FFB00413D76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.8.0;
+			};
+		};
+		A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+		A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GTMAppAuth.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.0;
+			};
+		};
+		A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.3;
+			};
+		};
+		A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image.git" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A738649229C81D7A009D6C62 /* CocoaLumberjack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */;
+			productName = CocoaLumberjack;
+		};
+		A738649429C81D7A009D6C62 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */;
+			productName = CocoaLumberjackSwift;
+		};
+		A738649629C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */;
+			productName = CocoaLumberjackSwiftLogBackend;
+		};
+		A75F4E4E29A62D1600D3D204 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */;
+			productName = CombineMoya;
+		};
+		A75F4E5029A62D1600D3D204 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */;
+			productName = Moya;
+		};
+		A75F4E5229A62D1600D3D204 /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */;
+			productName = ReactiveMoya;
+		};
+		A75F4E5429A62D1600D3D204 /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */;
+			productName = RxMoya;
+		};
+		A77481FB29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = YouTubeiOSPlayerHelper;
+		};
+		A78DE19429A5D09400B968A2 /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth.git" */;
+			productName = GTMAppAuth;
+		};
+		A78DE19A29A6075F00B968A2 /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
+			productName = AppAuth;
+		};
+		A7C08E3A29B59B43001106BA /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */;
+			productName = Introspect;
+		};
+		A7CD61F029ACA12400297709 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image.git" */;
+			productName = CachedAsyncImage;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = A78DE16829A4CBB300B968A2 /* Project object */;
+}
