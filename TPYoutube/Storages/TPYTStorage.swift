@@ -82,6 +82,9 @@ struct TPYTStorage {
         if videos.count > 100 {
             mVideos = Array(videos[0...99])
         }
+        else {
+            mVideos = videos
+        }
         
         var videoItems = [TPYTVideo]()
         var playlistItems = [TPYTPlaylist]()

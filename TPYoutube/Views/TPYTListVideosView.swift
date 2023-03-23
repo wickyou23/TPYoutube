@@ -29,7 +29,7 @@ struct TPYTListVideosView: View {
                 List(vm.videos, id: \.id, rowContent: {
                     video in
                     TPYTVideoCell(video: video, onSelected: { selectedVideo in
-                        TPYTPlayerManager.shared.load(video: selectedVideo)
+                        TPYTPlayerManager.shared.load(video: selectedVideo, playlist: vm.videos)
                     })
                     .tag(video)
                     .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))

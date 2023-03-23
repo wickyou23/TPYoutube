@@ -14,7 +14,7 @@ struct TPYTVideoV1: Codable {
     
     var isExpired: Bool {
         let expiredTime = streamingData.expiresInSeconds.doubleValue ?? 0
-        return (Date.now.timeIntervalSince1970 / 1000) >= ((createdTime.timeIntervalSince1970 / 1000) + expiredTime)
+        return Date.now.timeIntervalSince1970 >= createdTime.timeIntervalSince1970 + expiredTime
     }
     
     enum InnerResponseContextCodingKeys: CodingKey {

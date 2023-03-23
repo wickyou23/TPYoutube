@@ -23,6 +23,10 @@ class TPYTPlaylistItem: TPYTItemResource {
         return "\(snippet.channelTitle) • \(snippet.publishedAt.timeAgo)"
     }
     
+    override var subTitleForPlayingInfo: String {
+        return snippet.channelTitle
+    }
+    
     enum CodingKeys: CodingKey {
         case snippet
         case contentDetails

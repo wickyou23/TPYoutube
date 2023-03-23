@@ -10,6 +10,7 @@ import MobileVLCKit
 import MediaPlayer
 
 class TPVLCMetaData {
+    var video: TPYTItemResource?
     var title: String = ""
     var artworkImage: UIImage?
     var artist: String = ""
@@ -21,9 +22,9 @@ class TPVLCMetaData {
     
     func updateMetadataFromMedia(video: TPYTItemResource, mediaPlayer: VLCMediaPlayer) {
         title = video.title
-        artist = video.subTitle
+        artist = video.subTitleForPlayingInfo
         if let url = URL(string: video.thumbnails.high.url),
-            let image = getCachedImage(from: URLRequest(url: url)) {
+           let image = UIImage.getImageCached(from: URLRequest(url: url)) {
             artworkImage = image
         }
         
@@ -36,12 +37,8 @@ class TPVLCMetaData {
         
         position = Double(mediaPlayer.position)
         populateInfoCenterFromMetadata()
-    }
-    
-    private func getCachedImage(from request: URLRequest) -> UIImage? {
-        guard let cachedResponse = URLCache.imageCache.cachedResponse(for: request),
-                let image = UIImage(data: cachedResponse.data) else { return nil }
-        return image
+        
+        iLog("Video metadata updated: [playbackDuration] \(playbackDuration) - [playbackRate] \(playbackRate) - [elapsedPlaybackTime] \(self.elapsedPlaybackTime) - [position] \(mediaPlayer.position)")
     }
     
     private func populateInfoCenterFromMetadata() {

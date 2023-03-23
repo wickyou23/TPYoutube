@@ -41,7 +41,7 @@ struct TPYTSearchView: View {
                 video in
                 TPYTVideoCell(video: video, onSelected: {
                     selectedVideo in
-                    TPYTPlayerManager.shared.load(video: selectedVideo)
+                    TPYTPlayerManager.shared.load(video: selectedVideo, playlist: vm.videos)
                 })
                 .id(video)
                 .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16))

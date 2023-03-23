@@ -23,7 +23,9 @@ protocol ITPYTItemResource {
     var subTitle: String { get }
     var thumbnails: TPYTVideoThumbnails { get }
     var channelTitle: String { get }
+    var subTitleForPlayingInfo: String { get }
     var videoV1: TPYTVideoV1? { get }
+    var isLiveContent: Bool { get }
 }
 
 class TPYTItemResource: ITPYTItemResource, Identifiable, Codable, Hashable {
@@ -82,6 +84,7 @@ class TPYTItemResource: ITPYTItemResource, Identifiable, Codable, Hashable {
     var subTitle: String { fatalError("Must Override") }
     var thumbnails: TPYTVideoThumbnails {  fatalError("Must Override") }
     var channelTitle: String { fatalError("Must Override") }
+    var subTitleForPlayingInfo: String { fatalError("Must Override") }
     var videoV1: TPYTVideoV1? {
         guard let _videoV1 = TPStorageManager.shared.getVideoV1ById(videoId: id) else {
             return nil
@@ -92,6 +95,14 @@ class TPYTItemResource: ITPYTItemResource, Identifiable, Codable, Hashable {
         }
         
         return _videoV1
+    }
+    
+    var isLiveContent: Bool {
+        if let videoV1 = self.videoV1 {
+            return videoV1.videoDetails.isLiveContent
+        }
+        
+        return false
     }
 }
 
@@ -157,6 +168,10 @@ struct TPYTVideoThumbnails: Codable {
         try container.encode(self.default, forKey: .default)
         try container.encode(self.medium, forKey: .medium)
         try container.encode(self.high, forKey: .high)
+    }
+    
+    func getRealSize(_ originSize: TPYTVideoThumbnailsDetail) -> CGSize {
+        return CGSize(width: originSize.width, height: (originSize.width * medium.width) / originSize.height)
     }
 }
 

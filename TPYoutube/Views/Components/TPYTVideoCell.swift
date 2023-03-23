@@ -15,6 +15,7 @@ struct TPYTVideoCell: View {
     @State private var titleHtml: AttributedString?
     @State private var isTouchingDown = false
     @State private var currentVideoPlayed: TPYTItemResource?
+    @State private var cachedThumbnailImg: Image?
     
     private let touchingAnimation: Animation = .linear(duration: 0.1)
     private var touchingDownScale: Double {
@@ -24,30 +25,60 @@ struct TPYTVideoCell: View {
     var video: TPYTItemResource
     var onSelected: (TPYTItemResource) -> Void
     
-    var body: some View {
-        HStack(alignment: .top) {
+    @ViewBuilder
+    var thumbnailImageView: some View {
+        if let thumbnailImage = self.cachedThumbnailImg {
+            thumbnailImage.resizable()
+        }
+        else {
             CachedAsyncImage(url: URL(string: video.thumbnails.default.url)) { phase in
                 switch phase {
                 case .success(let image):
-                    image.resizable()
-                case .failure(_), .empty:
+                    Color.clear
+                        .onAppear {
+                            cachedThumbnailImg = image
+                        }
+                case .failure(_):
                     VStack {
                         Image(systemName: "icloud.slash.fill")
                             .foregroundColor(.gray)
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(uiColor: UIColor.systemGray5))
                 default:
                     VStack {
                         ProgressView()
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color(uiColor: UIColor.systemGray5))
                 }
             }
+        }
+    }
+    
+    var body: some View {
+        HStack(alignment: .top) {
+            VStack {
+                thumbnailImageView
+            }
+            .animation(.linear, value: cachedThumbnailImg)
+            .background(Color(uiColor: UIColor.systemGray5))
             .frame(width: 80 / 0.75, height: 80)
             .cornerRadius(4)
-
+            .overlay {
+                if video.isLiveContent {
+                    VStack {
+                        Text("LIVE")
+                            .appFont(8)
+                            .foregroundColor(.white)
+                            .padding(EdgeInsets(top: 0, leading: 2, bottom: 0, trailing: 2))
+                        
+                    }
+                    .background(theme.appColor)
+                    .cornerRadius(2)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomTrailing)
+                    .padding(EdgeInsets(top: 0, leading: 0, bottom: 4, trailing: 4))
+                }
+            }
+            
             VStack(alignment: .leading, spacing: 6) {
                 if titleHtml == nil {
                     Text(video.title)
@@ -59,13 +90,13 @@ struct TPYTVideoCell: View {
                         .appFont()
                         .lineLimit(2)
                 }
-
+                
                 HStack {
                     if currentVideoPlayed?.id == video.id {
                         TPWaveAnimation()
                             .frame(height: 15)
                     }
-
+                    
                     Text(video.subTitle)
                         .appFont(13)
                         .foregroundColor(.gray)

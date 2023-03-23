@@ -34,7 +34,6 @@
 		A785F25B29AF2F22004E526B /* TPVolumeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25729AF2F22004E526B /* TPVolumeSliderView.swift */; };
 		A785F25C29AF2F22004E526B /* TPYTPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25829AF2F22004E526B /* TPYTPlayerView.swift */; };
 		A785F25D29AF2F22004E526B /* TPPlayerSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25929AF2F22004E526B /* TPPlayerSliderView.swift */; };
-		A785F25E29AF2F22004E526B /* TPPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25A29AF2F22004E526B /* TPPlayerView.swift */; };
 		A785F26029AF2F9B004E526B /* TPPlayerControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25F29AF2F9B004E526B /* TPPlayerControllerView.swift */; };
 		A785F26629AF56C5004E526B /* TPGGServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26529AF56C5004E526B /* TPGGServices.swift */; };
 		A785F26929AF56EB004E526B /* TPGGServiceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26829AF56EB004E526B /* TPGGServiceTarget.swift */; };
@@ -103,7 +102,6 @@
 		A785F25729AF2F22004E526B /* TPVolumeSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPVolumeSliderView.swift; sourceTree = "<group>"; };
 		A785F25829AF2F22004E526B /* TPYTPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPYTPlayerView.swift; sourceTree = "<group>"; };
 		A785F25929AF2F22004E526B /* TPPlayerSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPlayerSliderView.swift; sourceTree = "<group>"; };
-		A785F25A29AF2F22004E526B /* TPPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPPlayerView.swift; sourceTree = "<group>"; };
 		A785F25F29AF2F9B004E526B /* TPPlayerControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPlayerControllerView.swift; sourceTree = "<group>"; };
 		A785F26529AF56C5004E526B /* TPGGServices.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPGGServices.swift; sourceTree = "<group>"; };
 		A785F26829AF56EB004E526B /* TPGGServiceTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPGGServiceTarget.swift; sourceTree = "<group>"; };
@@ -204,7 +202,6 @@
 				A785F25829AF2F22004E526B /* TPYTPlayerView.swift */,
 				A7BA7BCF29B842DB00220071 /* TPYTPlayerManager.swift */,
 				A7BA7BCD29B739E100220071 /* TPPlayerViewModifier.swift */,
-				A785F25A29AF2F22004E526B /* TPPlayerView.swift */,
 			);
 			path = TPPlayerView;
 			sourceTree = "<group>";
@@ -454,12 +451,12 @@
 			);
 			mainGroup = A78DE16729A4CBB300B968A2;
 			packageReferences = (
-				A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth.git" */,
-				A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */,
-				A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */,
-				A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image.git" */,
-				A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */,
-				A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */,
+				A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth" */,
+				A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */,
+				A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
+				A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
 			productRefGroup = A78DE17129A4CBB300B968A2 /* Products */;
 			projectDirPath = "";
@@ -560,7 +557,6 @@
 				A785F26629AF56C5004E526B /* TPGGServices.swift in Sources */,
 				A738649B29C83BF8009D6C62 /* AppViewModel.swift in Sources */,
 				A78DE17429A4CBB300B968A2 /* TPYoutubeApp.swift in Sources */,
-				A785F25E29AF2F22004E526B /* TPPlayerView.swift in Sources */,
 				A7CD61EE29AC95F200297709 /* TPGGMoyaProvider.swift in Sources */,
 				A7BA7BD029B842DB00220071 /* TPYTPlayerManager.swift in Sources */,
 				A7E14DD829B1AEF700D5A2B6 /* TPYTPlaylistViewModel.swift in Sources */,
@@ -874,7 +870,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */ = {
+		A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/CocoaLumberjack/CocoaLumberjack.git";
 			requirement = {
@@ -882,7 +878,7 @@
 				minimumVersion = 3.8.0;
 			};
 		};
-		A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */ = {
+		A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Moya/Moya.git";
 			requirement = {
@@ -890,7 +886,7 @@
 				minimumVersion = 15.0.3;
 			};
 		};
-		A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth.git" */ = {
+		A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GTMAppAuth.git";
 			requirement = {
@@ -898,7 +894,7 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */ = {
+		A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
 			requirement = {
@@ -906,7 +902,7 @@
 				minimumVersion = 1.6.0;
 			};
 		};
-		A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */ = {
+		A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
 			requirement = {
@@ -914,7 +910,7 @@
 				minimumVersion = 0.2.3;
 			};
 		};
-		A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image.git" */ = {
+		A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
 			requirement = {
@@ -927,37 +923,37 @@
 /* Begin XCSwiftPackageProductDependency section */
 		A738649229C81D7A009D6C62 /* CocoaLumberjack */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjack;
 		};
 		A738649429C81D7A009D6C62 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwift;
 		};
 		A738649629C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack.git" */;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
 			productName = CocoaLumberjackSwiftLogBackend;
 		};
 		A75F4E4E29A62D1600D3D204 /* CombineMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = CombineMoya;
 		};
 		A75F4E5029A62D1600D3D204 /* Moya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = Moya;
 		};
 		A75F4E5229A62D1600D3D204 /* ReactiveMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = ReactiveMoya;
 		};
 		A75F4E5429A62D1600D3D204 /* RxMoya */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya.git" */;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = RxMoya;
 		};
 		A77481FB29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper */ = {
@@ -966,22 +962,22 @@
 		};
 		A78DE19429A5D09400B968A2 /* GTMAppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth.git" */;
+			package = A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
 			productName = GTMAppAuth;
 		};
 		A78DE19A29A6075F00B968A2 /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
+			package = A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
 		};
 		A7C08E3A29B59B43001106BA /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect.git" */;
+			package = A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
 			productName = Introspect;
 		};
 		A7CD61F029ACA12400297709 /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image.git" */;
+			package = A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
 			productName = CachedAsyncImage;
 		};
 /* End XCSwiftPackageProductDependency section */

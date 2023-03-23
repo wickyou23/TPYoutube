@@ -30,8 +30,9 @@ fileprivate struct TPMainPlayerView: View {
     @State private var mainPlayerPosition: CGRect = .zero
     @State private var titleHtml: AttributedString?
     @State private var tabbarBottom: CGFloat?
+    @State private var mainColorOfImage: [Color] = []
     
-    private let sizeImage = UIScreen.main.bounds.width * 0.75
+    private let sizeImage = CGSize(width: UIScreen.main.bounds.width * 0.7, height: UIScreen.main.bounds.width * 0.7)
     private let screenSize = UIScreen.main.bounds
     private let minimizeSize: CGFloat = 65
     private let minimizeScale: CGFloat = 0.15
@@ -40,7 +41,7 @@ fileprivate struct TPMainPlayerView: View {
     }
     
     private var discScalePosition: CGPoint {
-        isMinimize ? CGPoint(x: (sizeImage * minimizeScale) / 2 + 8, y: minimizeSize / 2) : CGPoint(x: screenSize.width / 2, y: mainPlayerPosition.origin.y + (sizeImage / 2))
+        isMinimize ? CGPoint(x: (sizeImage.width * minimizeScale) / 2 + 12, y: minimizeSize / 2) : CGPoint(x: screenSize.width / 2, y: mainPlayerPosition.origin.y + (sizeImage.height / 2) - 10)
     }
     
     var video: TPYTItemResource {
@@ -70,9 +71,17 @@ fileprivate struct TPMainPlayerView: View {
         .ignoresSafeArea()
         .padding(.zero)
         .onChange(of: player.currentVideo, perform: { newValue in
-            if let _ = newValue, player.isPresented {
+            guard let _ = newValue else { return }
+            if player.isPresented {
                 DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.35) {
                     titleHtml = video.title.decodeStringToHTMLAttribute(uiFont: theme.appUIFont(.body, weight: .medium), color: .white)
+                }
+            }
+            
+            Task(priority: .background) {
+                let colors = await getGradientColorsFromImage()
+                DispatchQueue.main.async {
+                    mainColorOfImage = colors
                 }
             }
         })
@@ -84,23 +93,13 @@ fileprivate struct TPMainPlayerView: View {
                 if !isMinimize {
                     getMainPlayer()
                         .zIndex(0)
-                        .background(
-                            GeometryReader(content: {
-                                mainPlayerGeo in
-                                Color.clear
-                                    .onAppear {
-                                        let frame = mainPlayerGeo.frame(in: CoordinateSpace.global)
-                                        mainPlayerPosition = frame
-                                    }
-                            })
-                        )
                 }
                 else {
                     getMinimizePlayer()
                         .zIndex(0)
                 }
                 
-                getDiscView()
+                getThumbView()
                     .scaleEffect(x: discScale, y: discScale)
                     .position(x: discScalePosition.x, y: discScalePosition.y)
                     .zIndex(1)
@@ -124,8 +123,7 @@ fileprivate struct TPMainPlayerView: View {
                     
                     Button {
                         player.isPresented.toggle()
-                        player.cleanPlayer()
-                        player.currentVideo = nil
+                        player.closePlayer()
                     } label: {
                         Image(systemName: "xmark")
                             .resizable()
@@ -142,18 +140,37 @@ fileprivate struct TPMainPlayerView: View {
         }
         .frame(width: screenSize.size.width, height: isMinimize ? minimizeSize : screenSize.size.height, alignment: .bottom)
         .clipped()
-        .background(Color(uiColor: UIColor.darkGray))
+        .background(
+            ZStack(content: {
+                Color.black
+                LinearGradient(colors: isMinimize ? [Color(uiColor: .darkGray)] : mainColorOfImage,
+                               startPoint: isMinimize ? .leading : .top,
+                               endPoint: isMinimize ? .trailing : .bottom)
+            })
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .ignoresSafeArea()
+        )
     }
     
     @ViewBuilder private func getMainPlayer() -> some View {
         VStack {
             Spacer()
-                .frame(width: sizeImage, height: sizeImage)
+                .frame(width: 100, height: (UIApplication.shared.tpKeyWindow?.safeAreaInsets.top ?? 0) + 50)
             
             Spacer()
-                .frame(height: 30)
+                .frame(width: sizeImage.width, height: sizeImage.height + 30)
+                .background(
+                    GeometryReader(content: {
+                        mainPlayerGeo in
+                        Color.clear
+                            .onAppear {
+                                let frame = mainPlayerGeo.frame(in: CoordinateSpace.global)
+                                mainPlayerPosition = frame
+                            }
+                    })
+                )
             
-            VStack(alignment: .leading, spacing: 6) {
+            VStack(alignment: .center, spacing: 6) {
                 if titleHtml == nil {
                     Text(video.title)
                         .transition(.opacity)
@@ -163,6 +180,7 @@ fileprivate struct TPMainPlayerView: View {
                 }
                 else {
                     Text(titleHtml!)
+                        .multilineTextAlignment(.center)
                         .transition(.opacity)
                         .lineLimit(2)
                 }
@@ -184,25 +202,29 @@ fileprivate struct TPMainPlayerView: View {
             }
             .frame(height: 50)
             
-            Spacer()
-                .frame(height: 40)
-            
-            TPPlayerControllerView()
-            
-            Spacer()
-                .frame(height: 40)
+            VStack {
+                TPPlayerControllerView()
+            }
+            .frame(maxHeight: .infinity)
             
             TPVolumeSliderView()
                 .frame(width: screenSize.size.width * 0.7)
+            
+            Spacer()
+                .frame(height: (UIApplication.shared.tpKeyWindow?.safeAreaInsets.bottom ?? 0) + 50)
         }
-        .padding()
+        .frame(maxHeight: .infinity, alignment: .top)
+        .padding(EdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20))
     }
     
     @ViewBuilder private func getMinimizePlayer() -> some View {
         ZStack(alignment: .leading) {
             HStack(spacing: 8, content: {
                 Spacer()
-                    .frame(width: sizeImage * minimizeScale)
+                    .frame(width: sizeImage.width * minimizeScale)
+                
+                Spacer()
+                    .frame(width: 4)
                 
                 VStack(alignment: .leading, spacing: 5) {
                     if titleHtml == nil {
@@ -243,7 +265,7 @@ fileprivate struct TPMainPlayerView: View {
                 .tint(.white)
                 .disabled(!player.isPlayerReady)
                 .frame(width: 35, height: 30)
-
+                
             })
             .padding(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 8))
             
@@ -260,7 +282,7 @@ fileprivate struct TPMainPlayerView: View {
         .frame(maxWidth: .infinity)
     }
     
-    @ViewBuilder private func getDiscView() -> some View {
+    @ViewBuilder private func getThumbView() -> some View {
         ZStack {
             VStack {
                 TPYTPlayerView()
@@ -274,6 +296,8 @@ fileprivate struct TPMainPlayerView: View {
                     image
                         .resizable()
                         .scaledToFill()
+                        .frame(width: video.thumbnails.getRealSize(video.thumbnails.high).width,
+                               height: video.thumbnails.getRealSize(video.thumbnails.high).height)
                 default:
                     CachedAsyncImage(url: URL(string: video.thumbnails.default.url)!, content: {
                         smallPhase in
@@ -288,20 +312,21 @@ fileprivate struct TPMainPlayerView: View {
                     })
                 }
             }
-            .frame(width: sizeImage, height: sizeImage)
-            .cornerRadius(sizeImage / 2)
-            
-            Circle()
-                .fill(Color(uiColor: UIColor.darkGray))
-                .frame(width: 80, height: 80)
-            
-            Circle()
-                .fill(.white)
-                .frame(width: 20, height: 20)
+            .frame(width: UIScreen.main.bounds.width - 40, height: sizeImage.height)
+            .cornerRadius(8)
         }
         .shadow(color: .black, radius: 10)
-        .rotationEffect(.degrees(player.isPlaying ? 360 : 0))
-        .animation(Animation.linear(duration: 10).speed(0.1).repeatForever(autoreverses: false), value: player.isPlaying)
+    }
+    
+    private func getGradientColorsFromImage() async -> [Color] {
+        guard let mainColor = UIImage.getImageCached(from: URLRequest(url: URL(string: video.thumbnails.default.url)!))?.getAverageColor()
+        else {
+            return [Color(uiColor: .darkGray)]
+        }
+        
+        return [Color(uiColor: mainColor),
+                Color(uiColor: mainColor),
+                Color(uiColor: .black)]
     }
 }
 
@@ -332,7 +357,8 @@ struct TPPlayerViewModifier_Previews: PreviewProvider {
             }
             .onAppear {
                 DispatchQueue.main.async {
-                    playerManager.load(video: TPYTSearchViewModel().getDumpVideos().first!)
+                    let dumpVideos = TPYTSearchViewModel().getDumpVideos()
+                    playerManager.load(video: dumpVideos.first!, playlist: dumpVideos, isAutoPlay: false)
                 }
             }
         }

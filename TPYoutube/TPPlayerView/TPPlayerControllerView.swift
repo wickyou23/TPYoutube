@@ -18,11 +18,16 @@ struct TPPlayerControllerView: View {
     var body: some View {
         HStack(spacing: 40) {
             Button {
-                if player.isPlaying {
-                    player.next10()
+                if player.isPlaylist {
+                    player.backSong()
+                }
+                else {
+                    if player.isPlaying {
+                        player.next10()
+                    }
                 }
             } label: {
-                Image(systemName: "gobackward.10")
+                Image(systemName: player.isPlaylist ? "backward.fill" : "gobackward.10")
                     .resizable(resizingMode: .stretch)
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)
@@ -54,11 +59,16 @@ struct TPPlayerControllerView: View {
             }
             
             Button {
-                if player.isPlaying {
-                    player.next10()
+                if player.isPlaylist {
+                    player.nextSong()
+                }
+                else {
+                    if player.isPlaying {
+                        player.next10()
+                    }
                 }
             } label: {
-                Image(systemName: "goforward.10")
+                Image(systemName: player.isPlaylist ? "forward.fill" : "goforward.10")
                     .resizable(resizingMode: .stretch)
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 30, height: 30)

@@ -74,15 +74,26 @@ enum TPYTPlayerViewState {
     }
 }
 
+protocol ITPYTPlayerAction {
+    func play()
+    func pause()
+    func seekToTime(time: Float)
+    func next10()
+    func back10()
+    func nextSong()
+    func backSong()
+    func closePlayer()
+}
+
 class TPYTPlayerManager: NSObject, ObservableObject {
     static let shared = TPYTPlayerManager()
     
-    @Published var state: TPYTPlayerViewState = .unknown
     @Published var playertime: TPYTPlayerTime = .init(time: 0, duration: 0)
-    @Published var action: TPYTPlayerViewAction = .noAction
     @Published var isPresented = false
-    @Published var currentVideo: TPYTItemResource?
     @Published var playerType: TPYTPlayerType = .undefined
+    
+    @Published private(set) var state: TPYTPlayerViewState = .unknown
+    @Published private(set) var currentVideo: TPYTItemResource?
     
     private var appDidEnterBackground = false
     private var videoDuration: Float = 0
@@ -90,7 +101,12 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     private let commandCenter = MPRemoteCommandCenter.shared()
     private var subscriptions = Set<AnyCancellable>()
     private var vlcMediaMetaData: TPVLCMetaData = .init()
+    private var playlist: [TPYTItemResource] = []
+    private var currentIndexVideo: Int = 0
     
+    var isAutoPlay = true
+    var isLoopList = false
+    var isPlaylist: Bool { playlist.count > 1 }
     var isPlaying: Bool {
         switch playerType {
         case .vlc:
@@ -115,6 +131,7 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     lazy var vlcPlayerUIView: TPVLCPAudiolaybackView = {
         let uiView = TPVLCPAudiolaybackView()
         uiView.vlcPlayer.delegate = self
+        uiView.delegate = self
         return uiView
     }()
     
@@ -133,12 +150,36 @@ class TPYTPlayerManager: NSObject, ObservableObject {
                                                selector: #selector(self.appDidBecomeActive(_:)),
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.handleAudioInterruption(_:)),
+                                               name: AVAudioSession.interruptionNotification,
+                                               object: AVAudioSession.sharedInstance())
     }
     
-    func load(video: TPYTItemResource) {
+    func load(video: TPYTItemResource,
+              playlist: [TPYTItemResource],
+              isAutoPlay: Bool = true,
+              isRandomOrder: Bool = false,
+              isLoopList: Bool = true) {
+        currentIndexVideo = playlist.firstIndex(where: { $0.id == video.id }) ?? 0
+        self.playlist = playlist
+        self.isLoopList = isLoopList
+        self.isAutoPlay = isAutoPlay
+        
+        setupRemoteTransportControls()
+        
+        load(video: video)
+    }
+    
+    private func load(video: TPYTItemResource) {
         TPStorageManager.shared.addVideoToHistory(video: video)
         currentVideo = video
         state = .loadingDetails
+        
+        if !isPresented {
+            isPresented = true
+        }
         
         if video.videoV1 == nil {
             TPYTAPIManager.ytService.getVideoV1(videoId: video.id)
@@ -192,21 +233,112 @@ class TPYTPlayerManager: NSObject, ObservableObject {
             
             let vlcMedia = VLCMedia(url: audioUrl)
             vlcPlayer.media = vlcMedia
-            vlcMediaMetaData.updateMetadataFromMedia(video: crVideo, mediaPlayer: vlcPlayer)
+            vlcPlayer.media?.delegate = self
             state = .ready
+            if isAutoPlay {
+                vlcPlayer.play()
+            }
         case .ytBrowser:
             ytPlayer.load(withVideoId: crVideo.id, playerVars: ["height": 144, "width": 256])
         case .undefined:
             return
         }
+    }
+    
+    private func cleanPlayer() {
+        vlcMediaMetaData = .init()
+        playertime = .zero
         
-        setupRemoteTransportControls()
-        
-        if !isPresented {
-            isPresented = true
+        switch playerType {
+        case .vlc:
+            vlcPlayer.media = nil
+        case .ytBrowser:
+            ytPlayer.removeWebView()
+        case .undefined:
+            return
         }
     }
     
+    private func getCachedImage(from request: URLRequest) -> UIImage? {
+        guard let cachedResponse = URLCache.imageCache.cachedResponse(for: request),
+              let image = UIImage(data: cachedResponse.data) else { return nil }
+        return image
+    }
+    
+    private func setupRemoteTransportControls() {
+        UIApplication.shared.beginReceivingRemoteControlEvents()
+        let commandCenter = MPRemoteCommandCenter.shared()
+        
+        commandCenter.nextTrackCommand.isEnabled = isPlaylist
+        commandCenter.nextTrackCommand.addTarget { [unowned self] _ in
+            self.nextSong()
+            return .success
+        }
+        
+        commandCenter.previousTrackCommand.isEnabled = isPlaylist
+        commandCenter.previousTrackCommand.addTarget { [unowned self] _ in
+            self.backSong()
+            return .success
+        }
+        
+        commandCenter.skipForwardCommand.isEnabled = !isPlaylist
+        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(value: 10)]
+        commandCenter.skipForwardCommand.addTarget { [unowned self] _ in
+            if isPlaying {
+                next10()
+                return .success
+            }
+            
+            return .commandFailed
+        }
+        
+        commandCenter.skipBackwardCommand.isEnabled = !isPlaylist
+        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(value: 10)]
+        commandCenter.skipBackwardCommand.addTarget {
+            [unowned self] _ in
+            if isPlaying {
+                back10()
+                return .success
+            }
+            
+            return .commandFailed
+        }
+        
+        commandCenter.playCommand.addTarget {
+            [unowned self] _ in
+            if !isPlaying {
+                play()
+                return .success
+            }
+            
+            return .commandFailed
+        }
+        
+        commandCenter.pauseCommand.addTarget {
+            [unowned self] _ in
+            if isPlaying {
+                pause()
+                return .success
+            }
+            
+            return .commandFailed
+        }
+        
+        commandCenter.changePlaybackPositionCommand.addTarget {
+            [unowned self] event in
+            if let event = event as? MPChangePlaybackPositionCommandEvent,
+               isPlaying {
+                seekToTime(time: Float(event.positionTime))
+                return .success
+            }
+            
+            
+            return .commandFailed
+        }
+    }
+}
+
+extension TPYTPlayerManager: ITPYTPlayerAction {
     func play() {
         switch playerType {
         case .vlc:
@@ -263,89 +395,37 @@ class TPYTPlayerManager: NSObject, ObservableObject {
         }
     }
     
-    func cleanPlayer() {
-        UIApplication.shared.endReceivingRemoteControlEvents()
-        MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
-        vlcMediaMetaData = .init()
-        playertime = .zero
-        
-        switch playerType {
-        case .vlc:
-            vlcPlayer.media = nil
-        case .ytBrowser:
-            ytPlayer.removeWebView()
-        case .undefined:
+    func nextSong() {
+        guard !playlist.isEmpty else {
             return
         }
+        
+        currentIndexVideo += 1
+        if currentIndexVideo >= playlist.count, isLoopList {
+            currentIndexVideo = 0
+        }
+        
+        load(video: playlist[currentIndexVideo])
     }
     
-    private func getCachedImage(from request: URLRequest) -> UIImage? {
-        guard let cachedResponse = URLCache.imageCache.cachedResponse(for: request),
-              let image = UIImage(data: cachedResponse.data) else { return nil }
-        return image
+    func backSong() {
+        guard !playlist.isEmpty else {
+            return
+        }
+        
+        currentIndexVideo -= 1
+        if currentIndexVideo < 0, isLoopList {
+            currentIndexVideo = playlist.count - 1
+        }
+        
+        load(video: playlist[currentIndexVideo])
     }
     
-    private func setupRemoteTransportControls() {
-        UIApplication.shared.beginReceivingRemoteControlEvents()
-        let commandCenter = MPRemoteCommandCenter.shared()
-        
-        commandCenter.nextTrackCommand.isEnabled = false
-        commandCenter.previousTrackCommand.isEnabled = false
-        
-        commandCenter.skipForwardCommand.isEnabled = true
-        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(value: 10)]
-        commandCenter.skipForwardCommand.addTarget { [unowned self] _ in
-            if isPlaying {
-                next10()
-                return .success
-            }
-            
-            return .commandFailed
-        }
-        
-        commandCenter.skipBackwardCommand.isEnabled = true
-        commandCenter.skipForwardCommand.preferredIntervals = [NSNumber(value: 10)]
-        commandCenter.skipBackwardCommand.addTarget {
-            [unowned self] _ in
-            if isPlaying {
-                back10()
-                return .success
-            }
-            
-            return .commandFailed
-        }
-        
-        commandCenter.playCommand.addTarget {
-            [unowned self] _ in
-            if !isPlaying {
-                play()
-                return .success
-            }
-            
-            return .commandFailed
-        }
-        
-        commandCenter.pauseCommand.addTarget {
-            [unowned self] _ in
-            if isPlaying {
-                pause()
-                return .success
-            }
-            
-            return .commandFailed
-        }
-        
-        commandCenter.changePlaybackPositionCommand.addTarget {
-            [unowned self] event in
-            if let event = event as? MPChangePlaybackPositionCommandEvent,
-                isPlaying {
-                seekToTime(time: Float(event.positionTime))
-                return .success
-            }
-            
-            
-            return .commandFailed
-        }
+    func closePlayer() {
+        currentVideo = nil
+        UIApplication.shared.endReceivingRemoteControlEvents()
+        MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
+        cleanPlayer()
     }
 }
 
@@ -364,6 +444,56 @@ extension TPYTPlayerManager {
         }
         
         return state.getMinimizeIconPlay()
+    }
+    
+    @objc func appDidEnterBackground(_ notification: Notification) {
+        iLog("I'm in background")
+        appDidEnterBackground = true
+    }
+    
+    @objc func appDidBecomeActive(_ notification: Notification) {
+        iLog("I'm wakeup")
+        appDidEnterBackground = false
+    }
+    
+    @objc func handleSilenceSecondaryAudioHintNotification(_ notification: Notification) {
+        iLog("Another app is playing their audio")
+        guard let info = notification.userInfo,
+              let isPlayingSecondaryAudio = info[AVAudioSessionSilenceSecondaryAudioHintTypeKey] as? Bool else {
+            return
+        }
+        
+        if isPlayingSecondaryAudio && isPlaying {
+            self.pause()
+        }
+        else if isAutoPlay && !isPlayingSecondaryAudio && !isPlaying {
+            self.play()
+        }
+    }   
+    
+    @objc func handleAudioInterruption(_ notification: Notification) {
+        guard let userInfo = notification.userInfo,
+              let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+              let type = AVAudioSession.InterruptionType(rawValue: typeValue),
+              let _ = currentVideo else {
+            return
+        }
+        
+        switch type {
+        case .began:
+            guard isPlaying else { return }
+            iLog("[PAUSE] Another app is playing their audio")
+            self.pause()
+        case .ended:
+            guard let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt else { return }
+            let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+            if options.contains(.shouldResume), !isPlaying {
+                iLog("[RESUME] Another app is playing their audio")
+                self.play()
+            }
+        default:
+            break
+        }
     }
 }
 
@@ -388,7 +518,9 @@ extension TPYTPlayerManager: YTPlayerViewDelegate {
     
     func playerViewDidBecomeReady(_ playerView: YTPlayerView, andPlayDuration duration: Float) {
         iLog("playerViewDidBecomeReady and duration \(duration.rounded())")
-        //        playerView.playVideo()
+        if isAutoPlay {
+            playerView.playVideo()
+        }
         
         videoDuration = duration
         DispatchQueue.main.async {
@@ -396,16 +528,6 @@ extension TPYTPlayerManager: YTPlayerViewDelegate {
             self?.state = .ready
             self?.playertime = TPYTPlayerTime(time: 0, duration: duration.rounded())
         }
-    }
-    
-    @objc func appDidEnterBackground(_ notification: Notification) {
-        iLog("appDidEnterBackground")
-        appDidEnterBackground = true
-    }
-    
-    @objc func appDidBecomeActive(_ notification: Notification) {
-        iLog("appDidBecomeActive")
-        appDidEnterBackground = false
     }
     
     func playerView(_ playerView: YTPlayerView, didPlayTime playTime: Float) {
@@ -425,33 +547,49 @@ extension TPYTPlayerManager: YTPlayerViewDelegate {
 
 extension TPYTPlayerManager: VLCMediaPlayerDelegate {
     func mediaPlayerStateChanged(_ aNotification: Notification) {
-        guard let currentVideo = currentVideo else { return }
+        defer {
+            if let currentVideo = currentVideo,
+               let media = vlcPlayer.media,
+               (media.length.intValue / 1000) > 0,
+               vlcPlayer.isPlaying {
+                vlcMediaMetaData.updateMetadataFromMedia(video: currentVideo,
+                                                         mediaPlayer: vlcPlayer)
+            }
+        }
         
+        guard let _ = currentVideo else { return }
         
         switch vlcPlayer.state {
         case .buffering:
             state = vlcPlayer.isPlaying ? .playing : .buffering
-            vlcPlayer.media?.delegate = self
             let playbackDuration = Double(vlcPlayer.media!.length.intValue / 1000)
             if let elapsedPlaybackTime = vlcPlayer.time.value {
                 let playbackTime = elapsedPlaybackTime.doubleValue / 1000
-                iLog("[VLC PlayerTime] \(playbackTime) - \(playbackDuration)")
+                iLog("\(playbackTime) - \(playbackDuration)")
                 playertime = TPYTPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
             }
             else {
                 playertime = TPYTPlayerTime(time: 0, duration: Float(playbackDuration))
             }
+            
+            return
+        case .ended:
+            playertime = TPYTPlayerTime(time: playertime.time + 1, duration: playertime.duration)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                [unowned self] in
+                self.nextSong()
+            }
         default:
-            state = TPYTPlayerViewState.convertState(vlcState: vlcPlayer.state)
             break
         }
         
-        vlcMediaMetaData.updateMetadataFromMedia(video: currentVideo,
-                                                 mediaPlayer: vlcPlayer)
+        state = TPYTPlayerViewState.convertState(vlcState: vlcPlayer.state)
+        iLog("State changed: \(state)")
     }
     
     func mediaPlayerTimeChanged(_ aNotification: Notification) {
-        let playbackDuration = Double(vlcPlayer.media!.length.intValue / 1000)
+        guard let media = vlcPlayer.media else { return }
+        let playbackDuration = Double(media.length.intValue / 1000)
         if let elapsedPlaybackTime = vlcPlayer.time.value {
             let playbackTime = elapsedPlaybackTime.doubleValue / 1000
             iLog("[VLC PlayerTime] \(playbackTime) - \(playbackDuration)")
@@ -462,8 +600,18 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
 
 extension TPYTPlayerManager: VLCMediaDelegate {
     func mediaMetaDataDidChange(_ aMedia: VLCMedia) {
-        guard let currentVideo = currentVideo else { return }
+        //        guard let currentVideo = currentVideo else { return }
+        //        vlcMediaMetaData.updateMetadataFromMedia(video: currentVideo,
+        //                                                 mediaPlayer: vlcPlayer)
+    }
+}
+
+extension TPYTPlayerManager: TPVLCPAudiolaybackViewDelegate {
+    func mediaPlayerMediaChanged(newMedia: VLCMedia) {
+        iLog("mediaPlayerMediaChanged")
         
+        guard let currentVideo = currentVideo else { return }
+        vlcMediaMetaData = .init()
         vlcMediaMetaData.updateMetadataFromMedia(video: currentVideo,
                                                  mediaPlayer: vlcPlayer)
     }

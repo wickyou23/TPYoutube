@@ -28,6 +28,19 @@ class TPYTVideo: TPYTItemResource {
         return "\(snippet.channelTitle) • \(snippet.publishedAt.timeAgo)"
     }
     
+    override var subTitleForPlayingInfo: String {
+        return snippet.channelTitle
+    }
+    
+    override var isLiveContent: Bool {
+        let superLiveContent = super.isLiveContent
+        if !superLiveContent {
+            return snippet.liveBroadcastContent == "live" || snippet.liveBroadcastContent == "upcoming"
+        }
+        
+        return false
+    }
+    
     enum CodingKeys: CodingKey {
         case id
         case snippet
