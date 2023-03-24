@@ -103,6 +103,10 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     private var vlcMediaMetaData: TPVLCMetaData = .init()
     private var playlist: [TPYTItemResource] = []
     private var currentIndexVideo: Int = 0
+    private var cancellables: [AnyCancellable] = []
+    private let reachability = TPReachabilityNetwork(hostName1: "google.com",
+                                                     hostName2: "baidu.com",
+                                                     hostName3: "youtube.com")
     
     var isAutoPlay = true
     var isLoopList = false
@@ -150,11 +154,14 @@ class TPYTPlayerManager: NSObject, ObservableObject {
                                                selector: #selector(self.appDidBecomeActive(_:)),
                                                name: UIApplication.didBecomeActiveNotification,
                                                object: nil)
-        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(self.handleAudioInterruption(_:)),
                                                name: AVAudioSession.interruptionNotification,
                                                object: AVAudioSession.sharedInstance())
+        
+        reachability.tpReachabilityPublisher?
+            .sink(receiveValue: self.handleReachabilityChange(_:))
+            .store(in: &cancellables)
     }
     
     func load(video: TPYTItemResource,
@@ -427,6 +434,10 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
         cleanPlayer()
     }
+    
+    private func handleReachabilityChange(_ connection: Reachability.Connection) {
+        iLog("[Reachability.Connection] \(connection)")
+    }
 }
 
 extension TPYTPlayerManager {
@@ -469,7 +480,7 @@ extension TPYTPlayerManager {
         else if isAutoPlay && !isPlayingSecondaryAudio && !isPlaying {
             self.play()
         }
-    }   
+    }
     
     @objc func handleAudioInterruption(_ notification: Notification) {
         guard let userInfo = notification.userInfo,
@@ -579,6 +590,8 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
                 [unowned self] in
                 self.nextSong()
             }
+        case .error:
+            break
         default:
             break
         }

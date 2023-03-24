@@ -23,6 +23,8 @@
 		A738649729C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = A738649629C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend */; };
 		A738649929C83908009D6C62 /* TPKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = A738649829C83908009D6C62 /* TPKeys.plist */; };
 		A738649B29C83BF8009D6C62 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A738649A29C83BF8009D6C62 /* AppViewModel.swift */; };
+		A73864A229CD91B2009D6C62 /* ReachabilityNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73864A129CD91B2009D6C62 /* ReachabilityNetwork.swift */; };
+		A73864A429CD92B5009D6C62 /* TPReachabilityNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73864A329CD92B5009D6C62 /* TPReachabilityNetwork.swift */; };
 		A75DB0FA29B5EAB700FE063B /* TPYTPlaylistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75DB0F929B5EAB700FE063B /* TPYTPlaylistItem.swift */; };
 		A75F4E4F29A62D1600D3D204 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A75F4E4E29A62D1600D3D204 /* CombineMoya */; };
 		A75F4E5129A62D1600D3D204 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A75F4E5029A62D1600D3D204 /* Moya */; };
@@ -95,6 +97,8 @@
 		A7354ABE29A8BEF200D964B0 /* TPYTStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTStorage.swift; sourceTree = "<group>"; };
 		A738649829C83908009D6C62 /* TPKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TPKeys.plist; sourceTree = "<group>"; };
 		A738649A29C83BF8009D6C62 /* AppViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppViewModel.swift; sourceTree = "<group>"; };
+		A73864A129CD91B2009D6C62 /* ReachabilityNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityNetwork.swift; sourceTree = "<group>"; };
+		A73864A329CD92B5009D6C62 /* TPReachabilityNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPReachabilityNetwork.swift; sourceTree = "<group>"; };
 		A75DB0F929B5EAB700FE063B /* TPYTPlaylistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPlaylistItem.swift; sourceTree = "<group>"; };
 		A75F4E5729A7109C00D3D204 /* TPYTServiceTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTServiceTarget.swift; sourceTree = "<group>"; };
 		A77481FA29C2D3E400CB9F7A /* youtube-ios-player-helper */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "youtube-ios-player-helper"; path = "TPYoutube/Packages/youtube-ios-player-helper"; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 				A785F26129AF560A004E526B /* YoutubeServices */,
 				A7CD61ED29AC95F200297709 /* TPGGMoyaProvider.swift */,
 				A785F26A29AF59B5004E526B /* ITPGGServiceTargetType.swift */,
+				A73864A329CD92B5009D6C62 /* TPReachabilityNetwork.swift */,
+				A73864A129CD91B2009D6C62 /* ReachabilityNetwork.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -569,6 +575,8 @@
 				A785F27629B05559004E526B /* TPTheme.swift in Sources */,
 				A78DE1A729A61BF500B968A2 /* TPYTSearchViewModel.swift in Sources */,
 				A72A15E329ADFD9000338C16 /* TPSlider.swift in Sources */,
+				A73864A229CD91B2009D6C62 /* ReachabilityNetwork.swift in Sources */,
+				A73864A429CD92B5009D6C62 /* TPReachabilityNetwork.swift in Sources */,
 				A77481FE29C3070500CB9F7A /* TPYTVideoV1.swift in Sources */,
 				A70F6AED29A73C7200061A0F /* TPYTPaging.swift in Sources */,
 				A79F72EF29C32B6100413D76 /* TPVLCMetaData.swift in Sources */,
