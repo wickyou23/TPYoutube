@@ -85,6 +85,8 @@ protocol ITPYTPlayerAction {
     func closePlayer()
 }
 
+//MARK: - TPYTPlayerManager
+
 class TPYTPlayerManager: NSObject, ObservableObject {
     static let shared = TPYTPlayerManager()
     
@@ -104,9 +106,13 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     private var playlist: [TPYTItemResource] = []
     private var currentIndexVideo: Int = 0
     private var cancellables: [AnyCancellable] = []
+    private var isNetworkChanged: Bool = false
+    private var latestReachabilityConnection: Reachability.Connection?
     private let reachability = TPReachabilityNetwork(hostName1: "google.com",
                                                      hostName2: "baidu.com",
                                                      hostName3: "youtube.com")
+    private var reloadVideoTimer: Timer?
+    private var reloadVideoTime: TPYTPlayerTime?
     
     var isAutoPlay = true
     var isLoopList = false
@@ -179,10 +185,14 @@ class TPYTPlayerManager: NSObject, ObservableObject {
         load(video: video)
     }
     
-    private func load(video: TPYTItemResource) {
+    private func load(video: TPYTItemResource, isReloading: Bool = false) {
         TPStorageManager.shared.addVideoToHistory(video: video)
         currentVideo = video
         state = .loadingDetails
+        
+        if !isReloading {
+            cleanPlayer()
+        }
         
         if !isPresented {
             isPresented = true
@@ -227,8 +237,6 @@ class TPYTPlayerManager: NSObject, ObservableObject {
             return
         }
         
-        cleanPlayer()
-        
         switch playerType {
         case .vlc:
             guard let videoV1 = crVideo.videoV1, let audioUrl = videoV1.getAudioURL() else {
@@ -255,6 +263,8 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     private func cleanPlayer() {
         vlcMediaMetaData = .init()
         playertime = .zero
+        reloadVideoTimer?.invalidate()
+        reloadVideoTimer = nil
         
         switch playerType {
         case .vlc:
@@ -429,14 +439,24 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
     }
     
     func closePlayer() {
+        isPresented = false
         currentVideo = nil
+        
         UIApplication.shared.endReceivingRemoteControlEvents()
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
+        
         cleanPlayer()
     }
     
     private func handleReachabilityChange(_ connection: Reachability.Connection) {
         iLog("[Reachability.Connection] \(connection)")
+        if let latestReachabilityConnection = latestReachabilityConnection,
+            latestReachabilityConnection != connection,
+            !isNetworkChanged {
+            isNetworkChanged = true
+        }
+        
+        latestReachabilityConnection = connection
     }
 }
 
@@ -559,6 +579,7 @@ extension TPYTPlayerManager: YTPlayerViewDelegate {
 extension TPYTPlayerManager: VLCMediaPlayerDelegate {
     func mediaPlayerStateChanged(_ aNotification: Notification) {
         defer {
+            iLog("State changed: \(state)")
             if let currentVideo = currentVideo,
                let media = vlcPlayer.media,
                (media.length.intValue / 1000) > 0,
@@ -573,14 +594,22 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
         switch vlcPlayer.state {
         case .buffering:
             state = vlcPlayer.isPlaying ? .playing : .buffering
-            let playbackDuration = Double(vlcPlayer.media!.length.intValue / 1000)
-            if let elapsedPlaybackTime = vlcPlayer.time.value {
-                let playbackTime = elapsedPlaybackTime.doubleValue / 1000
-                iLog("\(playbackTime) - \(playbackDuration)")
-                playertime = TPYTPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
+            if let reloadVideoTime = self.reloadVideoTime {
+                iLog("Tryning to reload video at (\(reloadVideoTime.time) - \(reloadVideoTime.duration))")
+                vlcPlayer.jumpForward(Int32(max(0, reloadVideoTime.time - 2)))
+                playertime = TPYTPlayerTime(time: reloadVideoTime.time - 2, duration: reloadVideoTime.duration)
+                self.reloadVideoTime = nil
             }
             else {
-                playertime = TPYTPlayerTime(time: 0, duration: Float(playbackDuration))
+                let playbackDuration = Double(vlcPlayer.media!.length.intValue / 1000)
+                if let elapsedPlaybackTime = vlcPlayer.time.value {
+                    let playbackTime = elapsedPlaybackTime.doubleValue / 1000
+                    iLog("\(playbackTime) - \(playbackDuration)")
+                    playertime = TPYTPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
+                }
+                else {
+                    playertime = TPYTPlayerTime(time: 0, duration: Float(playbackDuration))
+                }
             }
             
             return
@@ -591,13 +620,13 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
                 self.nextSong()
             }
         case .error:
+            closePlayer()
             break
         default:
             break
         }
         
         state = TPYTPlayerViewState.convertState(vlcState: vlcPlayer.state)
-        iLog("State changed: \(state)")
     }
     
     func mediaPlayerTimeChanged(_ aNotification: Notification) {
@@ -607,7 +636,31 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
             let playbackTime = elapsedPlaybackTime.doubleValue / 1000
             iLog("[VLC PlayerTime] \(playbackTime) - \(playbackDuration)")
             playertime = TPYTPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
+            
+            ///The solution is just temporary because vlckit doesn't support APIs needed.
+            ///After 5s if the player doesn't change time, it means that the network was lost or very slow or URL from youtube was closed.
+            startReloadAudio()
         }
+    }
+    
+    private func startReloadAudio() {
+        reloadVideoTimer?.invalidate()
+        reloadVideoTimer = nil
+        
+        guard playerType == .vlc else {
+            return
+        }
+        
+        reloadVideoTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {
+            [weak self] _ in
+            guard let self = self else { return }
+            guard let currentVideo = self.currentVideo,
+                    self.vlcPlayer.state == .buffering,
+                    self.vlcPlayer.isPlaying else { return }
+            iLog("Trying to reload current video")
+            self.reloadVideoTime = self.playertime
+            self.load(video: currentVideo, isReloading: true)
+        })
     }
 }
 

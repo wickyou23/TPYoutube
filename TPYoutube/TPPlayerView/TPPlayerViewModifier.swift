@@ -122,7 +122,6 @@ fileprivate struct TPMainPlayerView: View {
                     Spacer()
                     
                     Button {
-                        player.isPresented.toggle()
                         player.closePlayer()
                     } label: {
                         Image(systemName: "xmark")
@@ -170,7 +169,7 @@ fileprivate struct TPMainPlayerView: View {
                     })
                 )
             
-            VStack(alignment: .center, spacing: 6) {
+            VStack(spacing: 6) {
                 if titleHtml == nil {
                     Text(video.title)
                         .transition(.opacity)
@@ -191,7 +190,7 @@ fileprivate struct TPMainPlayerView: View {
                 
             }
             .animation(.linear, value: titleHtml)
-            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(maxWidth: .infinity)
             
             Spacer()
                 .frame(height: 8)

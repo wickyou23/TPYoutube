@@ -10,6 +10,8 @@ import Combine
 
 class TPReachabilityNetwork {
     private(set) var tpReachabilityPublisher: AnyPublisher<Reachability.Connection, Never>?
+    
+    private(set) var lastConnection: Reachability.Connection = .unavailable
     private var reachabilities: [Reachability] = []
     private var hostNames: [String] = []
     
@@ -65,13 +67,27 @@ class TPReachabilityNetwork {
     }
     
     private func createCombinePublisers(_ publishers: [AnyPublisher<Reachability.Connection, Never>]) {
+        weak var _self = self
         func handleResponse(_ connections: [Reachability.Connection]) -> Reachability.Connection {
-            let set = Set(connections)
-            if let first = set.first, set.count == 1 {
-                return first
+            var grouping = [Reachability.Connection: Int]()
+            for connection in connections {
+                grouping[connection] = grouping[connection] == nil ? 1 : (grouping[connection]! + 1)
             }
             
-            return Reachability.Connection.unavailable
+            if let a = grouping[.wifi], let b = grouping[.cellular] {
+                _self?.lastConnection = a > b ? .wifi : .cellular
+            }
+            else if let _ = grouping[.wifi] {
+                _self?.lastConnection = .wifi
+            }
+            else if let _ = grouping[.cellular] {
+                _self?.lastConnection = .cellular
+            }
+            else {
+                _self?.lastConnection = .unavailable
+            }
+            
+            return _self?.lastConnection ?? .unavailable
         }
         
         if publishers.count == 1 {
