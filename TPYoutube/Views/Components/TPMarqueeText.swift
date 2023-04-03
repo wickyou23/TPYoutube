@@ -10,7 +10,9 @@ import SwiftUI
 import Combine
 
 struct TPMarqueeText: View {
+    #if os(iOS)
     @StateObject private var vm = _TPMarqueeTextViewModel()
+    #endif
     
     private let text: String?
     private let attributeText: AttributedString?
@@ -28,7 +30,11 @@ struct TPMarqueeText: View {
     private let leftFade: CGFloat = 8
     private let rightFade: CGFloat = 8
     private var isAnimated: Bool {
+        #if os(iOS)
         return manualAnimation && textAnimate && !vm.keyboardIsVisible
+        #else
+        return manualAnimation && textAnimate
+        #endif
     }
     
     @ViewBuilder
@@ -177,6 +183,7 @@ fileprivate extension View {
     }
 }
 
+#if os(iOS)
 fileprivate class _TPMarqueeTextViewModel: ObservableObject {
     @Published var keyboardHeight: CGFloat = 0
     @Published var keyboardIsVisible = false
@@ -207,6 +214,7 @@ fileprivate class _TPMarqueeTextViewModel: ObservableObject {
             .store(in: &keyboardCancellables)
     }
 }
+#endif
 
 struct TPMarqueeText_Previews: PreviewProvider {
     static var previews: some View {
@@ -225,7 +233,9 @@ struct TPMarqueeText_Previews: PreviewProvider {
                     }
                 }
                 .environmentObject(TPTheme.shared)
+                #if os(iOS)
                 .environmentObject(TPYTPlayerManager.shared)
+                #endif
             }
         }
     }

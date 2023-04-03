@@ -27,13 +27,17 @@ class TPYTListVideosViewModel: ObservableObject {
     @Published private(set) var videos: [TPYTItemResource] = []
     
     private(set) var listType: TPYTVideoType!
-    private var subscriptions = Set<AnyCancellable>()
+    private var videosSubscription: AnyCancellable?
     
     func getListVideo() {
         state = .getting
+        
+        videosSubscription?.cancel()
+        videosSubscription = nil
+        
         switch listType! {
         case .likedVideos:
-            TPYTAPIManager.ytService.getLikedVideos()
+            videosSubscription = TPYTAPIManager.ytService.getLikedVideos()
                 .sink { completion in
                     guard case let .failure(error) = completion else { return }
                     DispatchQueue.main.async {
@@ -50,7 +54,6 @@ class TPYTListVideosViewModel: ObservableObject {
                         self.state = .done(nil)
                     }
                 }
-                .store(in: &subscriptions)
         case .mostPopular:
             guard let profile = TPGGAuthManager.shared.profile,
                     let regionCode = profile.locale?.region?.identifier else {
@@ -58,7 +61,7 @@ class TPYTListVideosViewModel: ObservableObject {
                 return
             }
 
-            TPYTAPIManager.ytService.getMostPopularVideos(regionCode: regionCode)
+            videosSubscription = TPYTAPIManager.ytService.getMostPopularVideos(regionCode: regionCode)
                 .sink { completion in
                     guard case let .failure(error) = completion else { return }
                     DispatchQueue.main.async {
@@ -75,9 +78,8 @@ class TPYTListVideosViewModel: ObservableObject {
                         self.state = .done(nil)
                     }
                 }
-                .store(in: &subscriptions)
         case .playListVideos(let playlist):
-            TPYTAPIManager.ytService.getVideosByPlaylist(playlist: playlist)
+            videosSubscription = TPYTAPIManager.ytService.getVideosByPlaylist(playlist: playlist)
                 .sink { completion in
                     guard case let .failure(error) = completion else { return }
                     DispatchQueue.main.async {
@@ -94,7 +96,6 @@ class TPYTListVideosViewModel: ObservableObject {
                         self.state = .done(nil)
                     }
                 }
-                .store(in: &subscriptions)
         case .historyVideo:
             DispatchQueue.main.async {
                 [weak self] in

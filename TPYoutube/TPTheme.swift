@@ -41,6 +41,10 @@ class TPTheme: ObservableObject {
         return UIFont(name: getFontNameWithWeight(weight), size: styleFont.pointSize)!
     }
     
+    func appUIFont(_ size: CGFloat, weight: Font.Weight = .regular) -> UIFont {
+        return UIFont(name: getFontNameWithWeight(weight), size: size)!
+    }
+    
     private func getFontNameWithWeight(_ weight: Font.Weight) -> String {
         switch weight {
         case .medium:

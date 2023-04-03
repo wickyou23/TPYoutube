@@ -23,15 +23,3 @@ struct TPYTAPIManager {
     private let ytService = TPYTServicesImp()
     private let ggService = TPGGServicesImp()
 }
-
-extension Publisher {
-    func mapMoyaError() -> Publishers.MapError<Self, MoyaError> {
-        return self.mapError({
-            guard let moyaError = $0 as? MoyaError else {
-                return MoyaError.underlying($0, nil)
-            }
-            
-            return moyaError
-        })
-    }
-}

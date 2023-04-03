@@ -80,12 +80,14 @@ protocol ITPYTPlayerAction {
     func seekToTime(time: Float)
     func next10()
     func back10()
-    func nextSong()
-    func backSong()
+    func nextSong() -> TPYTItemResource?
+    func backSong() -> TPYTItemResource?
     func closePlayer()
 }
 
 //MARK: - TPYTPlayerManager
+
+private let LIMITED_RELOADING_VIDEO = 3
 
 class TPYTPlayerManager: NSObject, ObservableObject {
     static let shared = TPYTPlayerManager()
@@ -101,7 +103,6 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     private var videoDuration: Float = 0
     private var videoPlaytime: Float = 0
     private let commandCenter = MPRemoteCommandCenter.shared()
-    private var subscriptions = Set<AnyCancellable>()
     private var vlcMediaMetaData: TPVLCMetaData = .init()
     private var playlist: [TPYTItemResource] = []
     private var currentIndexVideo: Int = 0
@@ -113,6 +114,8 @@ class TPYTPlayerManager: NSObject, ObservableObject {
                                                      hostName3: "youtube.com")
     private var reloadVideoTimer: Timer?
     private var reloadVideoTime: TPYTPlayerTime?
+    private var videoV1Subscription: AnyCancellable?
+    private var reloadVideoCount = 0
     
     var isAutoPlay = true
     var isLoopList = false
@@ -199,7 +202,9 @@ class TPYTPlayerManager: NSObject, ObservableObject {
         }
         
         if video.videoV1 == nil {
-            TPYTAPIManager.ytService.getVideoV1(videoId: video.id)
+            videoV1Subscription?.cancel()
+            videoV1Subscription = nil
+            videoV1Subscription = TPYTAPIManager.ytService.getVideoV1(videoId: video.id)
                 .timeout(5, scheduler: DispatchQueue.global())
                 .sink { completion in
                     guard case let .failure(error) = completion else { return }
@@ -222,7 +227,6 @@ class TPYTPlayerManager: NSObject, ObservableObject {
                         self.loadCurrentVideo()
                     }
                 }
-                .store(in: &subscriptions)
         }
         else {
             state = .unknown
@@ -265,6 +269,7 @@ class TPYTPlayerManager: NSObject, ObservableObject {
         playertime = .zero
         reloadVideoTimer?.invalidate()
         reloadVideoTimer = nil
+        reloadVideoCount = 0
         
         switch playerType {
         case .vlc:
@@ -412,9 +417,10 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
         }
     }
     
-    func nextSong() {
+    @discardableResult
+    func nextSong() -> TPYTItemResource? {
         guard !playlist.isEmpty else {
-            return
+            return nil
         }
         
         currentIndexVideo += 1
@@ -422,12 +428,15 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
             currentIndexVideo = 0
         }
         
-        load(video: playlist[currentIndexVideo])
+        let nextVideo = playlist[currentIndexVideo]
+        load(video: nextVideo)
+        return nextVideo
     }
     
-    func backSong() {
+    @discardableResult
+    func backSong() -> TPYTItemResource? {
         guard !playlist.isEmpty else {
-            return
+            return nil
         }
         
         currentIndexVideo -= 1
@@ -435,7 +444,9 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
             currentIndexVideo = playlist.count - 1
         }
         
-        load(video: playlist[currentIndexVideo])
+        let backVideo = playlist[currentIndexVideo]
+        load(video: backVideo)
+        return backVideo
     }
     
     func closePlayer() {
@@ -596,8 +607,8 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
             state = vlcPlayer.isPlaying ? .playing : .buffering
             if let reloadVideoTime = self.reloadVideoTime {
                 iLog("Tryning to reload video at (\(reloadVideoTime.time) - \(reloadVideoTime.duration))")
-                vlcPlayer.jumpForward(Int32(max(0, reloadVideoTime.time - 2)))
-                playertime = TPYTPlayerTime(time: reloadVideoTime.time - 2, duration: reloadVideoTime.duration)
+                vlcPlayer.jumpForward(Int32(max(0, reloadVideoTime.time - 1)))
+                playertime = TPYTPlayerTime(time: reloadVideoTime.time - 1, duration: reloadVideoTime.duration)
                 self.reloadVideoTime = nil
             }
             else {
@@ -647,9 +658,7 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
         reloadVideoTimer?.invalidate()
         reloadVideoTimer = nil
         
-        guard playerType == .vlc else {
-            return
-        }
+        guard playerType == .vlc else { return }
         
         reloadVideoTimer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {
             [weak self] _ in
@@ -658,8 +667,15 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
                     self.vlcPlayer.state == .buffering,
                     self.vlcPlayer.isPlaying else { return }
             iLog("Trying to reload current video")
-            self.reloadVideoTime = self.playertime
-            self.load(video: currentVideo, isReloading: true)
+            if self.reloadVideoCount == LIMITED_RELOADING_VIDEO {
+                self.reloadVideoCount = 0
+                self.nextSong()
+            }
+            else {
+                self.reloadVideoCount += 1
+                self.reloadVideoTime = self.playertime
+                self.load(video: currentVideo, isReloading: true)
+            }
         })
     }
 }

@@ -9,6 +9,7 @@ import SwiftUI
 import AVKit
 import MobileVLCKit
 import CocoaLumberjackSwift
+import WatchConnectivity
 
 @main
 struct TPYoutubeApp: App {
@@ -53,6 +54,12 @@ class MyAppDelegate: NSObject, UIApplicationDelegate {
         fileLogger.logFileManager.maximumNumberOfLogFiles = 7
         DDLog.add(fileLogger)
         #endif
+        
+        //Setup WCSession
+        if WCSession.isSupported() {
+            WCSession.default.delegate = AppViewModel.shared.wcSessionDelegator
+            WCSession.default.activate()
+        }
         
         return true
     }

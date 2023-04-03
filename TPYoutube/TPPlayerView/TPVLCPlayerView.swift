@@ -111,6 +111,6 @@ class TPVLCPAudiolaybackView: UIView {
 
 struct TPYTPlayerAudioView_Previews: PreviewProvider {
     static var previews: some View {
-        TPYTPlayerAudioView(video: TPYTSearchViewModel().getDumpVideos().first!)
+        TPYTPlayerAudioView(video: TPDummyDatas().getDumpVideos().first!)
     }
 }

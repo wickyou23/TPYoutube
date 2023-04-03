@@ -13,6 +13,11 @@ struct AppView: View {
     @EnvironmentObject private var theme: TPTheme
     
     var body: some View {
+        #if os(watchOS)
+        VStack {
+            Text("Hello AWTPYoutube")
+        }
+        #else
         TabView {
             NavigationView {
                 TPYTSearchView()
@@ -44,6 +49,7 @@ struct AppView: View {
 
             UITabBar.appearance().scrollEdgeAppearance = appearance
         }
+        #endif
     }
 }
 

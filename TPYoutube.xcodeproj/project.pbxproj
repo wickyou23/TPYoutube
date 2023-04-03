@@ -31,7 +31,6 @@
 		A75F4E5329A62D1600D3D204 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A75F4E5229A62D1600D3D204 /* ReactiveMoya */; };
 		A75F4E5529A62D1600D3D204 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A75F4E5429A62D1600D3D204 /* RxMoya */; };
 		A75F4E5829A7109C00D3D204 /* TPYTServiceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75F4E5729A7109C00D3D204 /* TPYTServiceTarget.swift */; };
-		A77481FC29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper in Frameworks */ = {isa = PBXBuildFile; productRef = A77481FB29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper */; };
 		A77481FE29C3070500CB9F7A /* TPYTVideoV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77481FD29C3070500CB9F7A /* TPYTVideoV1.swift */; };
 		A785F25B29AF2F22004E526B /* TPVolumeSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25729AF2F22004E526B /* TPVolumeSliderView.swift */; };
 		A785F25C29AF2F22004E526B /* TPYTPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F25829AF2F22004E526B /* TPYTPlayerView.swift */; };
@@ -44,6 +43,41 @@
 		A785F27029AF6098004E526B /* TPStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26F29AF6098004E526B /* TPStorageManager.swift */; };
 		A785F27229AF63CF004E526B /* TPGoogleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F27129AF63CF004E526B /* TPGoogleStorage.swift */; };
 		A785F27629B05559004E526B /* TPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F27529B05559004E526B /* TPTheme.swift */; };
+		A78A52D529D2FBA600175490 /* TPSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A52D429D2FBA600175490 /* TPSuggestion.swift */; };
+		A78A52E729D3EF7000175490 /* TPGGServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26529AF56C5004E526B /* TPGGServices.swift */; };
+		A78A52E829D3EF7000175490 /* TPGGServiceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26829AF56EB004E526B /* TPGGServiceTarget.swift */; };
+		A78A52E929D3EF8100175490 /* TPYTHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE1A829A61E2200B968A2 /* TPYTHelper.swift */; };
+		A78A52F529D3F1F400175490 /* CocoaLumberjack in Frameworks */ = {isa = PBXBuildFile; productRef = A78A52F429D3F1F400175490 /* CocoaLumberjack */; };
+		A78A52F729D3F1F400175490 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A78A52F629D3F1F400175490 /* CocoaLumberjackSwift */; };
+		A78A52F929D3F1F400175490 /* CocoaLumberjackSwiftLogBackend in Frameworks */ = {isa = PBXBuildFile; productRef = A78A52F829D3F1F400175490 /* CocoaLumberjackSwiftLogBackend */; };
+		A78A52FA29D3F24800175490 /* TPYTItemResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE1A429A61BC900B968A2 /* TPYTItemResource.swift */; };
+		A78A52FB29D3F24800175490 /* TPYTVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F814A829B1DE1200F0D9E5 /* TPYTVideo.swift */; };
+		A78A52FC29D3F24800175490 /* TPYTPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F6AEC29A73C7200061A0F /* TPYTPaging.swift */; };
+		A78A52FD29D3F24800175490 /* TPYTPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E14DD929B1B05700D5A2B6 /* TPYTPlaylist.swift */; };
+		A78A52FE29D3F24800175490 /* TPYTPlaylistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75DB0F929B5EAB700FE063B /* TPYTPlaylistItem.swift */; };
+		A78A52FF29D3F24800175490 /* TPGGProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26C29AF5F0A004E526B /* TPGGProfile.swift */; };
+		A78A530029D3F24800175490 /* TPSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A52D429D2FBA600175490 /* TPSuggestion.swift */; };
+		A78A530129D3F24800175490 /* TPYTVideoV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77481FD29C3070500CB9F7A /* TPYTVideoV1.swift */; };
+		A78A530229D3F27000175490 /* TPGGMoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CD61ED29AC95F200297709 /* TPGGMoyaProvider.swift */; };
+		A78A530329D3F31C00175490 /* TPYTServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F6AEA29A718B400061A0F /* TPYTServices.swift */; };
+		A78A530429D3F31C00175490 /* TPYTServiceTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75F4E5729A7109C00D3D204 /* TPYTServiceTarget.swift */; };
+		A78A530529D3F32000175490 /* ReachabilityNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73864A129CD91B2009D6C62 /* ReachabilityNetwork.swift */; };
+		A78A530629D3F32000175490 /* ITPGGServiceTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26A29AF59B5004E526B /* ITPGGServiceTargetType.swift */; };
+		A78A530729D3F32000175490 /* TPReachabilityNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = A73864A329CD92B5009D6C62 /* TPReachabilityNetwork.swift */; };
+		A78A530829D3F32700175490 /* TPYTAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE19F29A61AA500B968A2 /* TPYTAPIManager.swift */; };
+		A78A530929D3F32700175490 /* TPStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26F29AF6098004E526B /* TPStorageManager.swift */; };
+		A78A530A29D3F32700175490 /* TPGGAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE19729A5EADD00B968A2 /* TPGGAuthManager.swift */; };
+		A78A530B29D3F32A00175490 /* TPYTStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7354ABE29A8BEF200D964B0 /* TPYTStorage.swift */; };
+		A78A530C29D3F32A00175490 /* TPGoogleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F27129AF63CF004E526B /* TPGoogleStorage.swift */; };
+		A78A530E29D3F36800175490 /* GTMAppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A78A530D29D3F36800175490 /* GTMAppAuth */; };
+		A78A531029D3F36800175490 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = A78A530F29D3F36800175490 /* AppAuth */; };
+		A78A531229D3F36800175490 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = A78A531129D3F36800175490 /* AppAuthCore */; };
+		A78A531429D3F36800175490 /* AppAuthTV in Frameworks */ = {isa = PBXBuildFile; productRef = A78A531329D3F36800175490 /* AppAuthTV */; };
+		A78A531629D3F36800175490 /* CombineMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A78A531529D3F36800175490 /* CombineMoya */; };
+		A78A531829D3F36800175490 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = A78A531729D3F36800175490 /* Moya */; };
+		A78A531A29D3F36800175490 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A78A531929D3F36800175490 /* ReactiveMoya */; };
+		A78A531C29D3F36800175490 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = A78A531B29D3F36800175490 /* RxMoya */; };
+		A78A531D29D3F39500175490 /* AppViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A738649A29C83BF8009D6C62 /* AppViewModel.swift */; };
 		A78DE17429A4CBB300B968A2 /* TPYoutubeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE17329A4CBB300B968A2 /* TPYoutubeApp.swift */; };
 		A78DE17629A4CBB300B968A2 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE17529A4CBB300B968A2 /* AppView.swift */; };
 		A78DE17829A4CBB400B968A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A78DE17729A4CBB400B968A2 /* Assets.xcassets */; };
@@ -60,9 +94,45 @@
 		A79F72EB29C321B700413D76 /* TPYTBrowserPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F72EA29C321B700413D76 /* TPYTBrowserPlayerView.swift */; };
 		A79F72EF29C32B6100413D76 /* TPVLCMetaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F72EE29C32B6100413D76 /* TPVLCMetaData.swift */; };
 		A79F72FA29C41FFB00413D76 /* TPYoutubeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79F72F929C41FFB00413D76 /* TPYoutubeTests.swift */; };
+		A7B2982329D568F90063DB01 /* AWTPYoutubeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2982229D568F90063DB01 /* AWTPYoutubeApp.swift */; };
+		A7B2982529D568F90063DB01 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2982429D568F90063DB01 /* ContentView.swift */; };
+		A7B2982729D568F90063DB01 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7B2982629D568F90063DB01 /* Assets.xcassets */; };
+		A7B2982A29D568F90063DB01 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7B2982929D568F90063DB01 /* Preview Assets.xcassets */; };
+		A7B2982D29D568F90063DB01 /* AWTPYoutube Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = A7B2982029D568F90063DB01 /* AWTPYoutube Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A7B2983D29D579310063DB01 /* YouTubeiOSPlayerHelper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7B2983C29D579190063DB01 /* YouTubeiOSPlayerHelper.framework */; };
+		A7B2983E29D579320063DB01 /* YouTubeiOSPlayerHelper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = A7B2983C29D579190063DB01 /* YouTubeiOSPlayerHelper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		A7B2984129D57A640063DB01 /* AWTPYTSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2984029D57A640063DB01 /* AWTPYTSearchView.swift */; };
+		A7B2984329D57A9B0063DB01 /* AWTPYTSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2984229D57A9B0063DB01 /* AWTPYTSearchViewModel.swift */; };
+		A7B2984529D5804C0063DB01 /* TPGGProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26C29AF5F0A004E526B /* TPGGProfile.swift */; };
+		A7B2984629D5804C0063DB01 /* TPYTPaging.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70F6AEC29A73C7200061A0F /* TPYTPaging.swift */; };
+		A7B2984729D5804C0063DB01 /* TPSuggestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78A52D429D2FBA600175490 /* TPSuggestion.swift */; };
+		A7B2984829D5804C0063DB01 /* TPYTItemResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE1A429A61BC900B968A2 /* TPYTItemResource.swift */; };
+		A7B2984929D5804C0063DB01 /* TPYTVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7F814A829B1DE1200F0D9E5 /* TPYTVideo.swift */; };
+		A7B2984A29D5804C0063DB01 /* TPYTPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7E14DD929B1B05700D5A2B6 /* TPYTPlaylist.swift */; };
+		A7B2984B29D5804C0063DB01 /* TPYTPlaylistItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75DB0F929B5EAB700FE063B /* TPYTPlaylistItem.swift */; };
+		A7B2984C29D5804C0063DB01 /* TPYTVideoV1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77481FD29C3070500CB9F7A /* TPYTVideoV1.swift */; };
+		A7B2984D29D581B00063DB01 /* TPStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F26F29AF6098004E526B /* TPStorageManager.swift */; };
+		A7B2984E29D581DE0063DB01 /* TPYTStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7354ABE29A8BEF200D964B0 /* TPYTStorage.swift */; };
+		A7B2984F29D581E20063DB01 /* TPGoogleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F27129AF63CF004E526B /* TPGoogleStorage.swift */; };
+		A7B2985029D581EA0063DB01 /* TPYTHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78DE1A829A61E2200B968A2 /* TPYTHelper.swift */; };
+		A7B2985629D582D30063DB01 /* CocoaLumberjackSwift in Frameworks */ = {isa = PBXBuildFile; productRef = A7B2985529D582D30063DB01 /* CocoaLumberjackSwift */; };
+		A7B2985C29D58F780063DB01 /* TPWCCommandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2985B29D58F780063DB01 /* TPWCCommandStatus.swift */; };
+		A7B2988E29DA7FEB0063DB01 /* AWTPApplicationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2988D29DA7FEB0063DB01 /* AWTPApplicationDelegate.swift */; };
+		A7B2989029DA805E0063DB01 /* TPWCCommandStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2985B29D58F780063DB01 /* TPWCCommandStatus.swift */; };
+		A7B2989229DA81A30063DB01 /* TPWCSessionCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2989129DA81A30063DB01 /* TPWCSessionCommands.swift */; };
+		A7B2989529DA8B6F0063DB01 /* TPWCSessionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2989429DA8B6F0063DB01 /* TPWCSessionHandler.swift */; };
+		A7B2989929DA92970063DB01 /* AWTPWCSessionCommands.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B2989829DA92970063DB01 /* AWTPWCSessionCommands.swift */; };
+		A7B298AD29DAB3400063DB01 /* TPWCSessionDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B298AC29DAB3400063DB01 /* TPWCSessionDelegator.swift */; };
+		A7B298B129DAB4C90063DB01 /* AWTPWCSessionDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B298B029DAB4C90063DB01 /* AWTPWCSessionDelegator.swift */; };
+		A7B298B329DAB5F90063DB01 /* TPDummyDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B298B229DAB5F90063DB01 /* TPDummyDatas.swift */; };
+		A7B298B429DAB63A0063DB01 /* TPDummyDatas.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B298B229DAB5F90063DB01 /* TPDummyDatas.swift */; };
+		A7B298B629DAB9740063DB01 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = A7B298B529DAB9740063DB01 /* CachedAsyncImage */; };
+		A7B298B729DABA1B0063DB01 /* TPTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = A785F27529B05559004E526B /* TPTheme.swift */; };
+		A7B298BB29DAC0400063DB01 /* AWTPVideoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B298BA29DAC0400063DB01 /* AWTPVideoCell.swift */; };
+		A7B298BD29DAC23C0063DB01 /* AWTPPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B298BC29DAC23C0063DB01 /* AWTPPlayerView.swift */; };
+		A7B298BF29DAC24D0063DB01 /* AWTPPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B298BE29DAC24D0063DB01 /* AWTPPlayerViewModel.swift */; };
 		A7BA7BCE29B739E100220071 /* TPPlayerViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA7BCD29B739E100220071 /* TPPlayerViewModifier.swift */; };
 		A7BA7BD029B842DB00220071 /* TPYTPlayerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA7BCF29B842DB00220071 /* TPYTPlayerManager.swift */; };
-		A7C08E3B29B59B43001106BA /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = A7C08E3A29B59B43001106BA /* Introspect */; };
 		A7C08E4329B5BE2C001106BA /* TPPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C08E4229B5BE2C001106BA /* TPPopupView.swift */; };
 		A7CD61EE29AC95F200297709 /* TPGGMoyaProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CD61ED29AC95F200297709 /* TPGGMoyaProvider.swift */; };
 		A7CD61F129ACA12400297709 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = A7CD61F029ACA12400297709 /* CachedAsyncImage */; };
@@ -73,14 +143,63 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A79F72FB29C41FFB00413D76 /* PBXContainerItemProxy */ = {
+		A78A52EC29D3F17900175490 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A78DE16829A4CBB300B968A2 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = A78DE16F29A4CBB300B968A2;
 			remoteInfo = TPYoutube;
 		};
+		A7B2982B29D568F90063DB01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A78DE16829A4CBB300B968A2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7B2981F29D568F80063DB01;
+			remoteInfo = "AWTPYoutube Watch App";
+		};
+		A7B2983B29D579190063DB01 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7B2983729D579190063DB01 /* youtube-ios-player-helper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B3C76A1A1B975AA700F375B4;
+			remoteInfo = YouTubeiOSPlayerHelper;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A78A533429D53E8700175490 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				A7B2982D29D568F90063DB01 /* AWTPYoutube Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7B2983F29D579320063DB01 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A7B2983E29D579320063DB01 /* YouTubeiOSPlayerHelper.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7B2987229D59E350063DB01 /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		8525FDC04F589F0C95DFEA44 /* Pods-TPYoutube.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TPYoutube.release.xcconfig"; path = "Target Support Files/Pods-TPYoutube/Pods-TPYoutube.release.xcconfig"; sourceTree = "<group>"; };
@@ -101,7 +220,6 @@
 		A73864A329CD92B5009D6C62 /* TPReachabilityNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPReachabilityNetwork.swift; sourceTree = "<group>"; };
 		A75DB0F929B5EAB700FE063B /* TPYTPlaylistItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPlaylistItem.swift; sourceTree = "<group>"; };
 		A75F4E5729A7109C00D3D204 /* TPYTServiceTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTServiceTarget.swift; sourceTree = "<group>"; };
-		A77481FA29C2D3E400CB9F7A /* youtube-ios-player-helper */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = "youtube-ios-player-helper"; path = "TPYoutube/Packages/youtube-ios-player-helper"; sourceTree = "<group>"; };
 		A77481FD29C3070500CB9F7A /* TPYTVideoV1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTVideoV1.swift; sourceTree = "<group>"; };
 		A785F25729AF2F22004E526B /* TPVolumeSliderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPVolumeSliderView.swift; sourceTree = "<group>"; };
 		A785F25829AF2F22004E526B /* TPYTPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPYTPlayerView.swift; sourceTree = "<group>"; };
@@ -114,6 +232,8 @@
 		A785F26F29AF6098004E526B /* TPStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPStorageManager.swift; sourceTree = "<group>"; };
 		A785F27129AF63CF004E526B /* TPGoogleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPGoogleStorage.swift; sourceTree = "<group>"; };
 		A785F27529B05559004E526B /* TPTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPTheme.swift; sourceTree = "<group>"; };
+		A78A52D429D2FBA600175490 /* TPSuggestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPSuggestion.swift; sourceTree = "<group>"; };
+		A78A531E29D3FB4800175490 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A78DE17029A4CBB300B968A2 /* TPYoutube.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPYoutube.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A78DE17329A4CBB300B968A2 /* TPYoutubeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYoutubeApp.swift; sourceTree = "<group>"; };
 		A78DE17529A4CBB300B968A2 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
@@ -132,6 +252,27 @@
 		A79F72EE29C32B6100413D76 /* TPVLCMetaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPVLCMetaData.swift; sourceTree = "<group>"; };
 		A79F72F729C41FFB00413D76 /* TPYoutubeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TPYoutubeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A79F72F929C41FFB00413D76 /* TPYoutubeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYoutubeTests.swift; sourceTree = "<group>"; };
+		A7B2982029D568F90063DB01 /* AWTPYoutube Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AWTPYoutube Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7B2982229D568F90063DB01 /* AWTPYoutubeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTPYoutubeApp.swift; sourceTree = "<group>"; };
+		A7B2982429D568F90063DB01 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		A7B2982629D568F90063DB01 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A7B2982929D568F90063DB01 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		A7B2983729D579190063DB01 /* youtube-ios-player-helper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "youtube-ios-player-helper.xcodeproj"; path = "TPYoutube/Packages/youtube-ios-player-helper/youtube-ios-player-helper.xcodeproj"; sourceTree = "<group>"; };
+		A7B2984029D57A640063DB01 /* AWTPYTSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTPYTSearchView.swift; sourceTree = "<group>"; };
+		A7B2984229D57A9B0063DB01 /* AWTPYTSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTPYTSearchViewModel.swift; sourceTree = "<group>"; };
+		A7B2984429D57BB90063DB01 /* AWTPYoutube Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "AWTPYoutube Watch App.entitlements"; sourceTree = "<group>"; };
+		A7B2985B29D58F780063DB01 /* TPWCCommandStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPWCCommandStatus.swift; sourceTree = "<group>"; };
+		A7B2986029D59BCC0063DB01 /* AWTPYoutube-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "AWTPYoutube-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		A7B2988D29DA7FEB0063DB01 /* AWTPApplicationDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AWTPApplicationDelegate.swift; sourceTree = "<group>"; };
+		A7B2989129DA81A30063DB01 /* TPWCSessionCommands.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TPWCSessionCommands.swift; sourceTree = "<group>"; };
+		A7B2989429DA8B6F0063DB01 /* TPWCSessionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPWCSessionHandler.swift; sourceTree = "<group>"; };
+		A7B2989829DA92970063DB01 /* AWTPWCSessionCommands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTPWCSessionCommands.swift; sourceTree = "<group>"; };
+		A7B298AC29DAB3400063DB01 /* TPWCSessionDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPWCSessionDelegator.swift; sourceTree = "<group>"; };
+		A7B298B029DAB4C90063DB01 /* AWTPWCSessionDelegator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTPWCSessionDelegator.swift; sourceTree = "<group>"; };
+		A7B298B229DAB5F90063DB01 /* TPDummyDatas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPDummyDatas.swift; sourceTree = "<group>"; };
+		A7B298BA29DAC0400063DB01 /* AWTPVideoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTPVideoCell.swift; sourceTree = "<group>"; };
+		A7B298BC29DAC23C0063DB01 /* AWTPPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTPPlayerView.swift; sourceTree = "<group>"; };
+		A7B298BE29DAC24D0063DB01 /* AWTPPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWTPPlayerViewModel.swift; sourceTree = "<group>"; };
 		A7BA7BCD29B739E100220071 /* TPPlayerViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPlayerViewModifier.swift; sourceTree = "<group>"; };
 		A7BA7BCF29B842DB00220071 /* TPYTPlayerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPYTPlayerManager.swift; sourceTree = "<group>"; };
 		A7C08E4229B5BE2C001106BA /* TPPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TPPopupView.swift; sourceTree = "<group>"; };
@@ -150,8 +291,8 @@
 			files = (
 				A78DE19B29A6075F00B968A2 /* AppAuth in Frameworks */,
 				A738649329C81D7A009D6C62 /* CocoaLumberjack in Frameworks */,
+				A7B2983D29D579310063DB01 /* YouTubeiOSPlayerHelper.framework in Frameworks */,
 				A738649529C81D7A009D6C62 /* CocoaLumberjackSwift in Frameworks */,
-				A7C08E3B29B59B43001106BA /* Introspect in Frameworks */,
 				A7CD61F129ACA12400297709 /* CachedAsyncImage in Frameworks */,
 				A75F4E4F29A62D1600D3D204 /* CombineMoya in Frameworks */,
 				A75F4E5129A62D1600D3D204 /* Moya in Frameworks */,
@@ -159,7 +300,6 @@
 				A78DE19529A5D09400B968A2 /* GTMAppAuth in Frameworks */,
 				A738649729C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
 				A75F4E5329A62D1600D3D204 /* ReactiveMoya in Frameworks */,
-				A77481FC29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper in Frameworks */,
 				4C38A197A432ECF9B6F1E2FE /* Pods_TPYoutube.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -168,6 +308,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78A531429D3F36800175490 /* AppAuthTV in Frameworks */,
+				A78A531029D3F36800175490 /* AppAuth in Frameworks */,
+				A78A531829D3F36800175490 /* Moya in Frameworks */,
+				A78A531C29D3F36800175490 /* RxMoya in Frameworks */,
+				A78A531A29D3F36800175490 /* ReactiveMoya in Frameworks */,
+				A78A52F729D3F1F400175490 /* CocoaLumberjackSwift in Frameworks */,
+				A78A530E29D3F36800175490 /* GTMAppAuth in Frameworks */,
+				A78A52F929D3F1F400175490 /* CocoaLumberjackSwiftLogBackend in Frameworks */,
+				A78A52F529D3F1F400175490 /* CocoaLumberjack in Frameworks */,
+				A78A531629D3F36800175490 /* CombineMoya in Frameworks */,
+				A78A531229D3F36800175490 /* AppAuthCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7B2981D29D568F80063DB01 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7B2985629D582D30063DB01 /* CocoaLumberjackSwift in Frameworks */,
+				A7B298B629DAB9740063DB01 /* CachedAsyncImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -186,6 +346,7 @@
 		A75F4E5629A7108000D3D204 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A7B298AB29DAB3210063DB01 /* WCSessionServices */,
 				A785F26729AF56D2004E526B /* GoogleServices */,
 				A785F26129AF560A004E526B /* YoutubeServices */,
 				A7CD61ED29AC95F200297709 /* TPGGMoyaProvider.swift */,
@@ -242,9 +403,10 @@
 		A78DE16729A4CBB300B968A2 = {
 			isa = PBXGroup;
 			children = (
-				A7950AF729BECD71009AE141 /* Packages */,
+				A7B2983729D579190063DB01 /* youtube-ios-player-helper.xcodeproj */,
 				A78DE17229A4CBB300B968A2 /* TPYoutube */,
 				A79F72F829C41FFB00413D76 /* TPYoutubeTests */,
+				A7B2982129D568F90063DB01 /* AWTPYoutube Watch App */,
 				A78DE17129A4CBB300B968A2 /* Products */,
 				6D752C11C5338BAB98A2B4CC /* Pods */,
 				D81A3DCEECB657E20B7C419A /* Frameworks */,
@@ -256,6 +418,7 @@
 			children = (
 				A78DE17029A4CBB300B968A2 /* TPYoutube.app */,
 				A79F72F729C41FFB00413D76 /* TPYoutubeTests.xctest */,
+				A7B2982029D568F90063DB01 /* AWTPYoutube Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -271,6 +434,7 @@
 				A785F25629AF2EF2004E526B /* TPPlayerView */,
 				A7C08E4429B5BE3C001106BA /* Views */,
 				A78DE17A29A4CBB400B968A2 /* Preview Content */,
+				A7B2985729D58E720063DB01 /* Shared */,
 				A78DE1A829A61E2200B968A2 /* TPYTHelper.swift */,
 				A785F27529B05559004E526B /* TPTheme.swift */,
 				A78DE17529A4CBB300B968A2 /* AppView.swift */,
@@ -311,16 +475,9 @@
 				A77481FD29C3070500CB9F7A /* TPYTVideoV1.swift */,
 				A70F6AEC29A73C7200061A0F /* TPYTPaging.swift */,
 				A785F26C29AF5F0A004E526B /* TPGGProfile.swift */,
+				A78A52D429D2FBA600175490 /* TPSuggestion.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		A7950AF729BECD71009AE141 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				A77481FA29C2D3E400CB9F7A /* youtube-ios-player-helper */,
-			);
-			name = Packages;
 			sourceTree = "<group>";
 		};
 		A79F72ED29C32B5000413D76 /* Models */ = {
@@ -334,9 +491,98 @@
 		A79F72F829C41FFB00413D76 /* TPYoutubeTests */ = {
 			isa = PBXGroup;
 			children = (
+				A78A531E29D3FB4800175490 /* Info.plist */,
 				A79F72F929C41FFB00413D76 /* TPYoutubeTests.swift */,
 			);
 			path = TPYoutubeTests;
+			sourceTree = "<group>";
+		};
+		A7B2982129D568F90063DB01 /* AWTPYoutube Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				A7B298AE29DAB4A90063DB01 /* Services */,
+				A7B298B829DABFDE0063DB01 /* Views */,
+				A7B2988D29DA7FEB0063DB01 /* AWTPApplicationDelegate.swift */,
+				A7B2982229D568F90063DB01 /* AWTPYoutubeApp.swift */,
+				A7B2982429D568F90063DB01 /* ContentView.swift */,
+				A7B2986029D59BCC0063DB01 /* AWTPYoutube-Watch-App-Info.plist */,
+				A7B2982629D568F90063DB01 /* Assets.xcassets */,
+				A7B2984429D57BB90063DB01 /* AWTPYoutube Watch App.entitlements */,
+				A7B2982829D568F90063DB01 /* Preview Content */,
+			);
+			path = "AWTPYoutube Watch App";
+			sourceTree = "<group>";
+		};
+		A7B2982829D568F90063DB01 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				A7B2982929D568F90063DB01 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		A7B2983829D579190063DB01 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A7B2983C29D579190063DB01 /* YouTubeiOSPlayerHelper.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A7B2985729D58E720063DB01 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				A7B2985B29D58F780063DB01 /* TPWCCommandStatus.swift */,
+				A7B2989129DA81A30063DB01 /* TPWCSessionCommands.swift */,
+				A7B298B229DAB5F90063DB01 /* TPDummyDatas.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		A7B298AB29DAB3210063DB01 /* WCSessionServices */ = {
+			isa = PBXGroup;
+			children = (
+				A7B298AC29DAB3400063DB01 /* TPWCSessionDelegator.swift */,
+				A7B2989429DA8B6F0063DB01 /* TPWCSessionHandler.swift */,
+			);
+			name = WCSessionServices;
+			sourceTree = "<group>";
+		};
+		A7B298AE29DAB4A90063DB01 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A7B298AF29DAB4B40063DB01 /* WCSessionServices */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A7B298AF29DAB4B40063DB01 /* WCSessionServices */ = {
+			isa = PBXGroup;
+			children = (
+				A7B298B029DAB4C90063DB01 /* AWTPWCSessionDelegator.swift */,
+				A7B2989829DA92970063DB01 /* AWTPWCSessionCommands.swift */,
+			);
+			name = WCSessionServices;
+			sourceTree = "<group>";
+		};
+		A7B298B829DABFDE0063DB01 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A7B298B929DAC01C0063DB01 /* Components */,
+				A7B2984029D57A640063DB01 /* AWTPYTSearchView.swift */,
+				A7B2984229D57A9B0063DB01 /* AWTPYTSearchViewModel.swift */,
+				A7B298BC29DAC23C0063DB01 /* AWTPPlayerView.swift */,
+				A7B298BE29DAC24D0063DB01 /* AWTPPlayerViewModel.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A7B298B929DAC01C0063DB01 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				A7B298BA29DAC0400063DB01 /* AWTPVideoCell.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		A7C08E4429B5BE3C001106BA /* Views */ = {
@@ -386,10 +632,13 @@
 				A78DE16D29A4CBB300B968A2 /* Frameworks */,
 				A78DE16E29A4CBB300B968A2 /* Resources */,
 				79A4E0ABA5F16EAF85D6B567 /* [CP] Embed Pods Frameworks */,
+				A78A533429D53E8700175490 /* Embed Watch Content */,
+				A7B2983F29D579320063DB01 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				A7B2982C29D568F90063DB01 /* PBXTargetDependency */,
 			);
 			name = TPYoutube;
 			packageProductDependencies = (
@@ -400,8 +649,6 @@
 				A75F4E5229A62D1600D3D204 /* ReactiveMoya */,
 				A75F4E5429A62D1600D3D204 /* RxMoya */,
 				A7CD61F029ACA12400297709 /* CachedAsyncImage */,
-				A7C08E3A29B59B43001106BA /* Introspect */,
-				A77481FB29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper */,
 				A738649229C81D7A009D6C62 /* CocoaLumberjack */,
 				A738649429C81D7A009D6C62 /* CocoaLumberjackSwift */,
 				A738649629C81D7A009D6C62 /* CocoaLumberjackSwiftLogBackend */,
@@ -421,12 +668,47 @@
 			buildRules = (
 			);
 			dependencies = (
-				A79F72FC29C41FFB00413D76 /* PBXTargetDependency */,
+				A78A52ED29D3F17900175490 /* PBXTargetDependency */,
 			);
 			name = TPYoutubeTests;
+			packageProductDependencies = (
+				A78A52F429D3F1F400175490 /* CocoaLumberjack */,
+				A78A52F629D3F1F400175490 /* CocoaLumberjackSwift */,
+				A78A52F829D3F1F400175490 /* CocoaLumberjackSwiftLogBackend */,
+				A78A530D29D3F36800175490 /* GTMAppAuth */,
+				A78A530F29D3F36800175490 /* AppAuth */,
+				A78A531129D3F36800175490 /* AppAuthCore */,
+				A78A531329D3F36800175490 /* AppAuthTV */,
+				A78A531529D3F36800175490 /* CombineMoya */,
+				A78A531729D3F36800175490 /* Moya */,
+				A78A531929D3F36800175490 /* ReactiveMoya */,
+				A78A531B29D3F36800175490 /* RxMoya */,
+			);
 			productName = TPYoutubeTests;
 			productReference = A79F72F729C41FFB00413D76 /* TPYoutubeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A7B2981F29D568F80063DB01 /* AWTPYoutube Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A7B2982E29D568F90063DB01 /* Build configuration list for PBXNativeTarget "AWTPYoutube Watch App" */;
+			buildPhases = (
+				A7B2981C29D568F80063DB01 /* Sources */,
+				A7B2981D29D568F80063DB01 /* Frameworks */,
+				A7B2981E29D568F80063DB01 /* Resources */,
+				A7B2987229D59E350063DB01 /* Embed ExtensionKit Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "AWTPYoutube Watch App";
+			packageProductDependencies = (
+				A7B2985529D582D30063DB01 /* CocoaLumberjackSwift */,
+				A7B298B529DAB9740063DB01 /* CachedAsyncImage */,
+			);
+			productName = "AWTPYoutube Watch App";
+			productReference = A7B2982029D568F90063DB01 /* AWTPYoutube Watch App.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -445,6 +727,9 @@
 						CreatedOnToolsVersion = 14.0.1;
 						TestTargetID = A78DE16F29A4CBB300B968A2;
 					};
+					A7B2981F29D568F80063DB01 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
 				};
 			};
 			buildConfigurationList = A78DE16B29A4CBB300B968A2 /* Build configuration list for PBXProject "TPYoutube" */;
@@ -461,18 +746,34 @@
 				A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 				A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */,
 				A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
-				A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */,
 			);
 			productRefGroup = A78DE17129A4CBB300B968A2 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A7B2983829D579190063DB01 /* Products */;
+					ProjectRef = A7B2983729D579190063DB01 /* youtube-ios-player-helper.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				A78DE16F29A4CBB300B968A2 /* TPYoutube */,
+				A7B2981F29D568F80063DB01 /* AWTPYoutube Watch App */,
 				A79F72F629C41FFB00413D76 /* TPYoutubeTests */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		A7B2983C29D579190063DB01 /* YouTubeiOSPlayerHelper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = YouTubeiOSPlayerHelper.framework;
+			remoteRef = A7B2983B29D579190063DB01 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A78DE16E29A4CBB300B968A2 /* Resources */ = {
@@ -489,6 +790,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7B2981E29D568F80063DB01 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7B2982A29D568F90063DB01 /* Preview Assets.xcassets in Resources */,
+				A7B2982729D568F90063DB01 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -547,11 +857,14 @@
 				A785F26929AF56EB004E526B /* TPGGServiceTarget.swift in Sources */,
 				A78DE17629A4CBB300B968A2 /* AppView.swift in Sources */,
 				A79F72EB29C321B700413D76 /* TPYTBrowserPlayerView.swift in Sources */,
+				A7B298AD29DAB3400063DB01 /* TPWCSessionDelegator.swift in Sources */,
 				A785F25D29AF2F22004E526B /* TPPlayerSliderView.swift in Sources */,
 				A720C66129BB156D00A41F44 /* TPWaveAnimation.swift in Sources */,
 				A785F27029AF6098004E526B /* TPStorageManager.swift in Sources */,
 				A700CB0829B20167001493AA /* TPYTListVideosView.swift in Sources */,
 				A720C66329BB355500A41F44 /* TPUIButtonView.swift in Sources */,
+				A7B2989529DA8B6F0063DB01 /* TPWCSessionHandler.swift in Sources */,
+				A7B2985C29D58F780063DB01 /* TPWCCommandStatus.swift in Sources */,
 				A785F27229AF63CF004E526B /* TPGoogleStorage.swift in Sources */,
 				A785F26B29AF59B5004E526B /* ITPGGServiceTargetType.swift in Sources */,
 				A78DE1A529A61BC900B968A2 /* TPYTItemResource.swift in Sources */,
@@ -559,12 +872,14 @@
 				A7C08E4329B5BE2C001106BA /* TPPopupView.swift in Sources */,
 				A7BA7BCE29B739E100220071 /* TPPlayerViewModifier.swift in Sources */,
 				A7E14DDA29B1B05700D5A2B6 /* TPYTPlaylist.swift in Sources */,
+				A78A52D529D2FBA600175490 /* TPSuggestion.swift in Sources */,
 				A78DE18C29A5BAF700B968A2 /* TPYTSearchView.swift in Sources */,
 				A785F26629AF56C5004E526B /* TPGGServices.swift in Sources */,
 				A738649B29C83BF8009D6C62 /* AppViewModel.swift in Sources */,
 				A78DE17429A4CBB300B968A2 /* TPYoutubeApp.swift in Sources */,
 				A7CD61EE29AC95F200297709 /* TPGGMoyaProvider.swift in Sources */,
 				A7BA7BD029B842DB00220071 /* TPYTPlayerManager.swift in Sources */,
+				A7B2989229DA81A30063DB01 /* TPWCSessionCommands.swift in Sources */,
 				A7E14DD829B1AEF700D5A2B6 /* TPYTPlaylistViewModel.swift in Sources */,
 				A78DE18E29A5BB7900B968A2 /* TPYTPlaylistView.swift in Sources */,
 				A78DE1A029A61AA500B968A2 /* TPYTAPIManager.swift in Sources */,
@@ -572,6 +887,7 @@
 				A785F26D29AF5F0A004E526B /* TPGGProfile.swift in Sources */,
 				A7354ABF29A8BEF200D964B0 /* TPYTStorage.swift in Sources */,
 				A785F25C29AF2F22004E526B /* TPYTPlayerView.swift in Sources */,
+				A7B298B329DAB5F90063DB01 /* TPDummyDatas.swift in Sources */,
 				A785F27629B05559004E526B /* TPTheme.swift in Sources */,
 				A78DE1A729A61BF500B968A2 /* TPYTSearchViewModel.swift in Sources */,
 				A72A15E329ADFD9000338C16 /* TPSlider.swift in Sources */,
@@ -594,17 +910,77 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78A530429D3F31C00175490 /* TPYTServiceTarget.swift in Sources */,
+				A78A530C29D3F32A00175490 /* TPGoogleStorage.swift in Sources */,
+				A78A531D29D3F39500175490 /* AppViewModel.swift in Sources */,
+				A78A52FD29D3F24800175490 /* TPYTPlaylist.swift in Sources */,
+				A78A530629D3F32000175490 /* ITPGGServiceTargetType.swift in Sources */,
+				A78A530029D3F24800175490 /* TPSuggestion.swift in Sources */,
+				A78A530329D3F31C00175490 /* TPYTServices.swift in Sources */,
+				A78A530929D3F32700175490 /* TPStorageManager.swift in Sources */,
+				A78A530B29D3F32A00175490 /* TPYTStorage.swift in Sources */,
+				A78A52FE29D3F24800175490 /* TPYTPlaylistItem.swift in Sources */,
+				A78A52FB29D3F24800175490 /* TPYTVideo.swift in Sources */,
+				A78A530729D3F32000175490 /* TPReachabilityNetwork.swift in Sources */,
+				A78A52FF29D3F24800175490 /* TPGGProfile.swift in Sources */,
+				A78A52FA29D3F24800175490 /* TPYTItemResource.swift in Sources */,
+				A78A530829D3F32700175490 /* TPYTAPIManager.swift in Sources */,
+				A78A52E829D3EF7000175490 /* TPGGServiceTarget.swift in Sources */,
+				A78A530129D3F24800175490 /* TPYTVideoV1.swift in Sources */,
+				A78A52FC29D3F24800175490 /* TPYTPaging.swift in Sources */,
+				A78A52E929D3EF8100175490 /* TPYTHelper.swift in Sources */,
+				A78A52E729D3EF7000175490 /* TPGGServices.swift in Sources */,
 				A79F72FA29C41FFB00413D76 /* TPYoutubeTests.swift in Sources */,
+				A78A530229D3F27000175490 /* TPGGMoyaProvider.swift in Sources */,
+				A78A530A29D3F32700175490 /* TPGGAuthManager.swift in Sources */,
+				A78A530529D3F32000175490 /* ReachabilityNetwork.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A7B2981C29D568F80063DB01 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7B2984A29D5804C0063DB01 /* TPYTPlaylist.swift in Sources */,
+				A7B2984129D57A640063DB01 /* AWTPYTSearchView.swift in Sources */,
+				A7B2984829D5804C0063DB01 /* TPYTItemResource.swift in Sources */,
+				A7B2982529D568F90063DB01 /* ContentView.swift in Sources */,
+				A7B2984B29D5804C0063DB01 /* TPYTPlaylistItem.swift in Sources */,
+				A7B2989029DA805E0063DB01 /* TPWCCommandStatus.swift in Sources */,
+				A7B298BF29DAC24D0063DB01 /* AWTPPlayerViewModel.swift in Sources */,
+				A7B2984929D5804C0063DB01 /* TPYTVideo.swift in Sources */,
+				A7B2984D29D581B00063DB01 /* TPStorageManager.swift in Sources */,
+				A7B2984629D5804C0063DB01 /* TPYTPaging.swift in Sources */,
+				A7B2984C29D5804C0063DB01 /* TPYTVideoV1.swift in Sources */,
+				A7B2984329D57A9B0063DB01 /* AWTPYTSearchViewModel.swift in Sources */,
+				A7B298BB29DAC0400063DB01 /* AWTPVideoCell.swift in Sources */,
+				A7B2984529D5804C0063DB01 /* TPGGProfile.swift in Sources */,
+				A7B2989929DA92970063DB01 /* AWTPWCSessionCommands.swift in Sources */,
+				A7B2982329D568F90063DB01 /* AWTPYoutubeApp.swift in Sources */,
+				A7B2985029D581EA0063DB01 /* TPYTHelper.swift in Sources */,
+				A7B298BD29DAC23C0063DB01 /* AWTPPlayerView.swift in Sources */,
+				A7B298B429DAB63A0063DB01 /* TPDummyDatas.swift in Sources */,
+				A7B2988E29DA7FEB0063DB01 /* AWTPApplicationDelegate.swift in Sources */,
+				A7B298B729DABA1B0063DB01 /* TPTheme.swift in Sources */,
+				A7B2984E29D581DE0063DB01 /* TPYTStorage.swift in Sources */,
+				A7B298B129DAB4C90063DB01 /* AWTPWCSessionDelegator.swift in Sources */,
+				A7B2984729D5804C0063DB01 /* TPSuggestion.swift in Sources */,
+				A7B2984F29D581E20063DB01 /* TPGoogleStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A79F72FC29C41FFB00413D76 /* PBXTargetDependency */ = {
+		A78A52ED29D3F17900175490 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = A78DE16F29A4CBB300B968A2 /* TPYoutube */;
-			targetProxy = A79F72FB29C41FFB00413D76 /* PBXContainerItemProxy */;
+			targetProxy = A78A52EC29D3F17900175490 /* PBXContainerItemProxy */;
+		};
+		A7B2982C29D568F90063DB01 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7B2981F29D568F80063DB01 /* AWTPYoutube Watch App */;
+			targetProxy = A7B2982B29D568F90063DB01 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -722,6 +1098,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D0B5C4A969D3F68065701F1F /* Pods-TPYoutube.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TPYoutube/TPYoutube.entitlements;
@@ -765,6 +1142,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8525FDC04F589F0C95DFEA44 /* Pods-TPYoutube.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = TPYoutube/TPYoutube.entitlements;
@@ -812,6 +1190,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D8252FJRUX;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TPYoutubeTests/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tp.example.unittest.TPYoutubeTests;
@@ -832,6 +1212,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D8252FJRUX;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TPYoutubeTests/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.tp.example.unittest.TPYoutubeTests;
@@ -842,6 +1224,75 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TPYoutube.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TPYoutube";
 				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A7B2982F29D568F90063DB01 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "AWTPYoutube Watch App/AWTPYoutube Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AWTPYoutube Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = D8252FJRUX;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "AWTPYoutube-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = AWTPYoutube;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.tp.example.TPYoutube;
+				INFOPLIST_KEY_WKExtensionDelegateClassName = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tp.example.TPYoutube.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		A7B2983029D568F90063DB01 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "AWTPYoutube Watch App/AWTPYoutube Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"AWTPYoutube Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = D8252FJRUX;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "AWTPYoutube-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = AWTPYoutube;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.tp.example.TPYoutube;
+				INFOPLIST_KEY_WKExtensionDelegateClassName = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tp.example.TPYoutube.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
 		};
@@ -871,6 +1322,15 @@
 			buildConfigurations = (
 				A79F72FE29C41FFB00413D76 /* Debug */,
 				A79F72FF29C41FFB00413D76 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A7B2982E29D568F90063DB01 /* Build configuration list for PBXNativeTarget "AWTPYoutube Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A7B2982F29D568F90063DB01 /* Debug */,
+				A7B2983029D568F90063DB01 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -908,14 +1368,6 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.6.0;
-			};
-		};
-		A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.2.3;
 			};
 		};
 		A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
@@ -964,9 +1416,60 @@
 			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = RxMoya;
 		};
-		A77481FB29C2D40F00CB9F7A /* YouTubeiOSPlayerHelper */ = {
+		A78A52F429D3F1F400175490 /* CocoaLumberjack */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = YouTubeiOSPlayerHelper;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjack;
+		};
+		A78A52F629D3F1F400175490 /* CocoaLumberjackSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		A78A52F829D3F1F400175490 /* CocoaLumberjackSwiftLogBackend */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwiftLogBackend;
+		};
+		A78A530D29D3F36800175490 /* GTMAppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A78DE19329A5D09400B968A2 /* XCRemoteSwiftPackageReference "GTMAppAuth" */;
+			productName = GTMAppAuth;
+		};
+		A78A530F29D3F36800175490 /* AppAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuth;
+		};
+		A78A531129D3F36800175490 /* AppAuthCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthCore;
+		};
+		A78A531329D3F36800175490 /* AppAuthTV */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			productName = AppAuthTV;
+		};
+		A78A531529D3F36800175490 /* CombineMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = CombineMoya;
+		};
+		A78A531729D3F36800175490 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		A78A531929D3F36800175490 /* ReactiveMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = ReactiveMoya;
+		};
+		A78A531B29D3F36800175490 /* RxMoya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A75F4E4D29A62D1500D3D204 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = RxMoya;
 		};
 		A78DE19429A5D09400B968A2 /* GTMAppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
@@ -978,10 +1481,15 @@
 			package = A78DE19929A6075F00B968A2 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
 		};
-		A7C08E3A29B59B43001106BA /* Introspect */ = {
+		A7B2985529D582D30063DB01 /* CocoaLumberjackSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = A7C08E3929B59B43001106BA /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
-			productName = Introspect;
+			package = A738649129C81D7A009D6C62 /* XCRemoteSwiftPackageReference "CocoaLumberjack" */;
+			productName = CocoaLumberjackSwift;
+		};
+		A7B298B529DAB9740063DB01 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A7CD61EF29ACA12400297709 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
 		};
 		A7CD61F029ACA12400297709 /* CachedAsyncImage */ = {
 			isa = XCSwiftPackageProductDependency;

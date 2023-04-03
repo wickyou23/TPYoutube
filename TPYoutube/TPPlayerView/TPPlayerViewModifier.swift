@@ -356,7 +356,7 @@ struct TPPlayerViewModifier_Previews: PreviewProvider {
             }
             .onAppear {
                 DispatchQueue.main.async {
-                    let dumpVideos = TPYTSearchViewModel().getDumpVideos()
+                    let dumpVideos = TPDummyDatas().getDumpVideos()
                     playerManager.load(video: dumpVideos.first!, playlist: dumpVideos, isAutoPlay: false)
                 }
             }

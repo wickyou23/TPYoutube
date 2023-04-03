@@ -147,7 +147,7 @@ struct TPYTVideoCell: View {
 
 struct TPYTVideoCell_Previews: PreviewProvider {
     static var previews: some View {
-        TPYTVideoCell(video: TPYTSearchViewModel().getDumpVideos().first!, onSelected: { _ in })
+        TPYTVideoCell(video: TPDummyDatas().getDumpVideos().first!, onSelected: { _ in })
             .environmentObject(TPTheme.shared)
     }
 }

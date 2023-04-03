@@ -13,6 +13,7 @@ private struct TPYTStorageKey {
     static let appHistoryVideos = "appHistoryVideos#video"
     static let appHistoryPlaylistVideos = "appHistoryVideos#playlist"
     static let youtubeVideoV1Key = "youtubeVideoV1Key"
+    static let recentSuggestionKey = "recentSuggestionKey"
     
     fileprivate static let youtubeVideoV1IndexingKey = "youtubeVideoV1Key#indexing"
 }
@@ -31,16 +32,36 @@ struct TPYTStorage {
         }
     }
     
-    func getSearchingVideoPage() -> TPYTPaging<TPYTVideo>? {
+//    func getSearchingVideoPage() -> TPYTPaging<TPYTVideo>? {
+//        guard let data = ud.data(forKey: TPYTStorageKey.youtubeVideoPageKey) else {
+//            iLog("Caching Data not found")
+//            return nil
+//        }
+//        
+//        let decoder = JSONDecoder()
+//        decoder.dateDecodingStrategy = Date.getISO8601DateDecodingStrategy()
+//        do {
+//            return try decoder.decode(TPYTPaging<TPYTVideo>.self, from: data)
+//        } catch {
+//            eLog("[JSONDecoder]: \(error.localizedDescription)")
+//            return nil
+//        }
+//    }
+    
+    func getSearchingVideoPage<T: Decodable>(type: T.Type = TPYTPaging<TPYTVideo>.self) -> T? {
         guard let data = ud.data(forKey: TPYTStorageKey.youtubeVideoPageKey) else {
             iLog("Caching Data not found")
             return nil
         }
         
+        if T.self == Data.self {
+            return data as? T
+        }
+        
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = Date.getISO8601DateDecodingStrategy()
         do {
-            return try decoder.decode(TPYTPaging<TPYTVideo>.self, from: data)
+            return try decoder.decode(T.self, from: data)
         } catch {
             eLog("[JSONDecoder]: \(error.localizedDescription)")
             return nil
@@ -167,6 +188,32 @@ struct TPYTStorage {
         } catch {
             eLog("[JSONDecoder] \(error.localizedDescription)")
             return ([], [:])
+        }
+    }
+    
+    func saveRecentSuggestions(search: [TPSuggestion]) {
+        let encoder = JSONEncoder()
+        do {
+            let datas = try encoder.encode(search.compactMap({ $0.text }))
+            ud.set(datas, forKey: TPYTStorageKey.recentSuggestionKey)
+        } catch {
+            eLog("[JSONEncoder] \(error.localizedDescription)")
+        }
+    }
+    
+    func getRecentSuggestions() -> [TPSuggestion]? {
+        guard let data = ud.data(forKey: TPYTStorageKey.recentSuggestionKey) else {
+            iLog("Caching Data not found")
+            return nil
+        }
+        
+        let decoder = JSONDecoder()
+        do {
+            let texts = try decoder.decode([String].self, from: data)
+            return texts.compactMap({ TPSuggestion(text: $0, isRecent: true) })
+        } catch {
+            eLog("[JSONDecoder]: \(error.localizedDescription)")
+            return nil
         }
     }
     

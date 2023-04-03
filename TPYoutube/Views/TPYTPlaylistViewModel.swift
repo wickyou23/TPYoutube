@@ -26,7 +26,7 @@ class TPYTPlaylistViewModel: ObservableObject {
     @Published private(set) var state: TPYTPlaylistViewModelState = .done(nil)
     
     private var currentPage: TPYTPaging<TPYTPlaylist>!
-    private var subscriptions = Set<AnyCancellable>()
+    private var playlistSubscription: AnyCancellable?
     private var isGettingPlaylistForTheFirstTime = false
     
     init() {
@@ -49,7 +49,9 @@ class TPYTPlaylistViewModel: ObservableObject {
             state = .getting
         }
         
-        TPYTAPIManager.ytService.getPlaylist()
+        playlistSubscription?.cancel()
+        playlistSubscription = nil
+        playlistSubscription = TPYTAPIManager.ytService.getPlaylist()
             .sink { completion in
                 guard case let .failure(error) = completion else { return }
                 DispatchQueue.main.async {
@@ -68,7 +70,6 @@ class TPYTPlaylistViewModel: ObservableObject {
                     self.state = .done(nil)
                 }
             }
-            .store(in: &subscriptions)
     }
     
     

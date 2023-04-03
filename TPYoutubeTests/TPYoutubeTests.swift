@@ -6,8 +6,13 @@
 //
 
 import XCTest
+import Combine
+import CombineMoya
 
 final class TPYoutubeTests: XCTestCase {
+    
+    private var cancelable = Set<AnyCancellable>()
+    private let ggService = TPGGServicesImp()
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -45,6 +50,26 @@ final class TPYoutubeTests: XCTestCase {
         }
         
         task.resume()
+        waitForExpectations(timeout: 30, handler: nil)
+    }
+    
+    func testGetSuggestQueries() {
+        let expectation = expectation(description: "API TEST")
+        ggService.getSuggestQueries(q: "Truyện")
+            .sink { completion in
+                guard case let .failure(error) = completion,
+                        let nserror = error.asAFError?.underlyingError else {
+                    return
+                }
+                
+                XCTAssertThrowsError(nserror)
+                expectation.fulfill()
+            } receiveValue: { value in
+                debugPrint(value)
+                expectation.fulfill()
+            }
+            .store(in: &cancelable)
+        
         waitForExpectations(timeout: 30, handler: nil)
     }
     

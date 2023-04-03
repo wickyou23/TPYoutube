@@ -10,23 +10,31 @@ import Moya
 
 enum TPGGServiceTarget {
     case getMyProfile
+    case getSuggestQueries(q: String)
 }
 
 extension TPGGServiceTarget: ITPGGServiceTargetType {
     var baseURL: URL {
-        URL(string: "https://www.googleapis.com/oauth2/v3")!
+        switch self {
+        case .getMyProfile:
+            return URL(string: "https://www.googleapis.com")!
+        case .getSuggestQueries:
+            return URL(string: "https://suggestqueries.google.com")!
+        }
     }
     
     var path: String {
         switch self {
         case .getMyProfile:
-            return "/userinfo"
+            return "/oauth2/v3/userinfo"
+        case .getSuggestQueries:
+            return "/complete/search"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getMyProfile:
+        case .getMyProfile, .getSuggestQueries:
             return .get
         }
     }
@@ -35,16 +43,28 @@ extension TPGGServiceTarget: ITPGGServiceTargetType {
         switch self {
         case .getMyProfile:
             return .requestParameters(parameters: [:], encoding: URLEncoding.queryString)
+        case .getSuggestQueries(let q):
+            let params = [
+                "client": "firefox",
+                "q": q
+            ]
+            
+            return .requestParameters(parameters: params, encoding: URLEncoding.queryString)
         }
     }
     
     var headers: [String : String]? {
-        var customHeader = ["Accept": "application/json"]
-        if let ytAuth = TPGGAuthManager.shared.authorization,
-           let accessToken = ytAuth.authState.lastTokenResponse?.accessToken {
-            customHeader["Authorization"] = "Bearer \(accessToken)"
+        switch self {
+        case .getMyProfile:
+            var customHeader = ["Accept": "application/json"]
+            if let ytAuth = TPGGAuthManager.shared.authorization,
+               let accessToken = ytAuth.authState.lastTokenResponse?.accessToken {
+                customHeader["Authorization"] = "Bearer \(accessToken)"
+            }
+            
+            return customHeader
+        case .getSuggestQueries(_):
+            return nil
         }
-        
-        return customHeader
     }
 }

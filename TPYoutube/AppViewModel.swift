@@ -20,6 +20,10 @@ class AppViewModel: ObservableObject {
     
     @Published var isShowPopupLogout = false
     
+    lazy var wcSessionDelegator = {
+        TPWCSessionDelegator()
+    }()
+    
     private var _appKeys: TPAppKeys!
     static var appKeys: TPAppKeys {
         return shared._appKeys

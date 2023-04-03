@@ -36,7 +36,8 @@ class TPGGAuthManager: NSObject, ObservableObject {
     private(set) var authorization: GTMAppAuthFetcherAuthorization?
     private(set) var currentAuthorizationFlow: OIDExternalUserAgentSession?
     private(set) var externalUserAgent: OIDExternalUserAgentIOS!
-    private var subscriptions = Set<AnyCancellable>()
+    
+    private var myProfileSubscriptions: AnyCancellable?
     
     func checkSession() {
         if let authorization = GTMAppAuthFetcherAuthorization(fromKeychainForName: kGTMAppAuthExampleAuthorizerKey) {
@@ -189,8 +190,9 @@ class TPGGAuthManager: NSObject, ObservableObject {
     
     private func getProfile() {
         guard let _ = self.authorization else { return }
-        
-        TPYTAPIManager.ggService.getMyProfile()
+        myProfileSubscriptions?.cancel()
+        myProfileSubscriptions = nil
+        myProfileSubscriptions = TPYTAPIManager.ggService.getMyProfile()
             .sink { completion in
                 guard case let .failure(error) = completion else { return }
                 eLog(error.localizedDescription)
@@ -202,7 +204,6 @@ class TPGGAuthManager: NSObject, ObservableObject {
                     self?.profile = value
                 }
             }
-            .store(in: &subscriptions)
     }
 }
 
