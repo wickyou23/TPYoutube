@@ -13,7 +13,7 @@ import WatchConnectivity
 
 @main
 struct TPYoutubeApp: App {
-    @UIApplicationDelegateAdaptor(MyAppDelegate.self) var appDelegate
+    @UIApplicationDelegateAdaptor(TPYoutubeAppDelegate.self) var appDelegate
     
     @StateObject private var theme = TPTheme.shared
     @StateObject private var ggAuth = TPGGAuthManager.shared
@@ -36,31 +36,5 @@ struct TPYoutubeApp: App {
                 ggAuth.logout()
             }
         }
-    }
-}
-
-class MyAppDelegate: NSObject, UIApplicationDelegate {
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        AppViewModel.shared.configurateEnviroment()
-        TPGGAuthManager.shared.checkSession()
-        TPStorageManager.shared.configuration()
-        
-        //Setup log
-        #if DEBUG
-        DDLog.add(DDOSLogger.sharedInstance)
-        #else
-        let fileLogger = DDFileLogger()
-        fileLogger.rollingFrequency = 60 * 60 * 24
-        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
-        DDLog.add(fileLogger)
-        #endif
-        
-        //Setup WCSession
-        if WCSession.isSupported() {
-            WCSession.default.delegate = AppViewModel.shared.wcSessionDelegator
-            WCSession.default.activate()
-        }
-        
-        return true
     }
 }

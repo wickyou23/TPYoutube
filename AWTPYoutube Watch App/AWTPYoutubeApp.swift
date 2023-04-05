@@ -12,11 +12,13 @@ struct AWTPYoutube_Watch_AppApp: App {
     @WKApplicationDelegateAdaptor(AWTPApplicationDelegate.self) private var appDelegate
     
     @StateObject private var theme = TPTheme.shared
+    @StateObject private var appVM = AWTPYoutubeAppVideModel.shared
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(theme)
+                .environmentObject(appVM)
         }
     }
 }

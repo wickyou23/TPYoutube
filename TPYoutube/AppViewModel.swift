@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import WatchConnectivity
 
 struct TPAppKeys {
     let authURLScheme: String
@@ -19,6 +20,7 @@ class AppViewModel: ObservableObject {
     static let shared = AppViewModel()
     
     @Published var isShowPopupLogout = false
+    @Published private(set) var wcSessionState: WCSessionActivationState = .notActivated
     
     lazy var wcSessionDelegator = {
         TPWCSessionDelegator()
@@ -47,5 +49,12 @@ class AppViewModel: ObservableObject {
                          clientID: nsDictionary["clientID"] as! String,
                          innerYoutubeAPIKey: nsDictionary["innerYoutubeAPIKey"] as! String,
                          youtubeAPIKey: nsDictionary["youtubeAPIKey"] as! String)
+    }
+    
+    func setWCSessionState(newState: WCSessionActivationState) {
+        DispatchQueue.main.async {
+            [unowned self] in
+            self.wcSessionState = newState
+        }
     }
 }

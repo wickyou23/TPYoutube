@@ -12,18 +12,17 @@ enum AWTPWCSessionCommandsError: Error {
     case videoNotFound
 }
 
-class AWTPWCSessionCommands {
-    lazy var jsEncoder: JSONEncoder = {
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = Date.getISO8601DateEncodingStrategy()
-        return encoder
-    }()
+struct AWTPWCSessionCommands {
+    private let jsEncoder: JSONEncoder
+    private let jsDecoder: JSONDecoder
     
-    lazy var jsDecoder: JSONDecoder = {
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = Date.getISO8601DateDecodingStrategy()
-        return decoder
-    }()
+    init() {
+        self.jsEncoder = JSONEncoder()
+        self.jsEncoder.dateEncodingStrategy = Date.getISO8601DateEncodingStrategy()
+        
+        self.jsDecoder = JSONDecoder()
+        self.jsDecoder.dateDecodingStrategy = Date.getISO8601DateDecodingStrategy()
+    }
     
     func getSearchingVideos(completion: @escaping (TPYTPaging<TPYTVideo>?, Error?) -> Void) {
         let command = TPCommand(command: .getSearchingVideo, phrase: .sent)
@@ -34,8 +33,7 @@ class AWTPWCSessionCommands {
         }
         
         WCSession.default.sendMessage(jsCommand, replyHandler: {
-            [weak self] replyMessage in
-            guard let self = self else { return }
+            replyMessage in
             guard let repliedCommand = TPCommand.initWithJson(json: replyMessage),
                   let metadata = repliedCommand.metadata else {
                 return
@@ -54,8 +52,8 @@ class AWTPWCSessionCommands {
         })
     }
     
-    func playVideo(at video: TPYTItemResource, completion: @escaping (Bool, Error?) -> Void) {
-        let command = TPCommand(command: .playVideo, phrase: .sent, metadata: ["videoId": video.id])
+    func loadVideo(at video: TPYTItemResource, completion: @escaping (Bool, Error?) -> Void) {
+        let command = TPCommand(command: .loadVideo, phrase: .sent, metadata: ["videoId": video.id])
         guard WCSession.default.activationState == .activated,
               let jsCommand = command.toJson() else {
             eLog("WCSession is not activated yet!")
@@ -79,16 +77,15 @@ class AWTPWCSessionCommands {
         }
     }
     
-    func pauseVideo(completion: @escaping (Bool, Error?) -> Void) {
-        let command = TPCommand(command: .pauseVideo, phrase: .sent)
+    func playControl(completion: @escaping (Bool, Error?) -> Void) {
+        let command = TPCommand(command: .playControl, phrase: .sent)
         guard WCSession.default.activationState == .activated,
               let jsCommand = command.toJson() else {
             eLog("WCSession is not activated yet!")
             return
         }
         
-        WCSession.default.sendMessage(jsCommand, replyHandler: {
-            replyMessage in
+        WCSession.default.sendMessage(jsCommand, replyHandler: { _ in
             DispatchQueue.main.async {
                 completion(true, nil)
             }
@@ -99,8 +96,27 @@ class AWTPWCSessionCommands {
         }
     }
     
-    func nextVideo(completion: @escaping (TPYTItemResource?, Error?) -> Void) {
-        let command = TPCommand(command: .nextVideo, phrase: .sent)
+    func pauseControl(completion: @escaping (Bool, Error?) -> Void) {
+        let command = TPCommand(command: .pauseControl, phrase: .sent)
+        guard WCSession.default.activationState == .activated,
+              let jsCommand = command.toJson() else {
+            eLog("WCSession is not activated yet!")
+            return
+        }
+        
+        WCSession.default.sendMessage(jsCommand, replyHandler: { _ in
+            DispatchQueue.main.async {
+                completion(true, nil)
+            }
+        }) { error in
+            DispatchQueue.main.async {
+                completion(false, error)
+            }
+        }
+    }
+    
+    func nextControl(completion: @escaping (TPYTItemResource?, Error?) -> Void) {
+        let command = TPCommand(command: .nextControl, phrase: .sent)
         guard WCSession.default.activationState == .activated,
               let jsCommand = command.toJson() else {
             eLog("WCSession is not activated yet!")
@@ -108,23 +124,8 @@ class AWTPWCSessionCommands {
         }
         
         WCSession.default.sendMessage(jsCommand, replyHandler: {
-            [weak self] replyMessage in
-            guard let self = self else { return }
-            guard let repliedCommand = TPCommand.initWithJson(json: replyMessage),
-                  let metadata = repliedCommand.metadata else {
-                return
-            }
-            
-            do {
-                let video = try self.jsDecoder.decode(TPYTVideo.self, from: metadata)
-                DispatchQueue.main.async {
-                    completion(video, nil)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
-            }
+            replyMessage in
+            self.handleVideoReponse(replyMessage: replyMessage, completion: completion)
         }) { error in
             DispatchQueue.main.async {
                 completion(nil, error)
@@ -132,8 +133,8 @@ class AWTPWCSessionCommands {
         }
     }
     
-    func backVideo(completion: @escaping (TPYTItemResource?, Error?) -> Void) {
-        let command = TPCommand(command: .nextVideo, phrase: .sent)
+    func backControl(completion: @escaping (TPYTItemResource?, Error?) -> Void) {
+        let command = TPCommand(command: .nextControl, phrase: .sent)
         guard WCSession.default.activationState == .activated,
               let jsCommand = command.toJson() else {
             eLog("WCSession is not activated yet!")
@@ -141,24 +142,27 @@ class AWTPWCSessionCommands {
         }
         
         WCSession.default.sendMessage(jsCommand, replyHandler: {
-            [weak self] replyMessage in
-            guard let self = self else { return }
-            guard let repliedCommand = TPCommand.initWithJson(json: replyMessage),
-                  let metadata = repliedCommand.metadata else {
-                return
-            }
-            
-            do {
-                let video = try self.jsDecoder.decode(TPYTVideo.self, from: metadata)
-                DispatchQueue.main.async {
-                    completion(video, nil)
-                }
-            } catch {
-                DispatchQueue.main.async {
-                    completion(nil, error)
-                }
-            }
+            replyMessage in
+            self.handleVideoReponse(replyMessage: replyMessage, completion: completion)
         }) { error in
+            DispatchQueue.main.async {
+                completion(nil, error)
+            }
+        }
+    }
+    
+    private func handleVideoReponse(replyMessage: [String: Any], completion: @escaping (TPYTItemResource?, Error?) -> Void) {
+        guard let repliedCommand = TPCommand.initWithJson(json: replyMessage),
+              let metadata = repliedCommand.metadata else {
+            return
+        }
+        
+        do {
+            let video = try self.jsDecoder.decode(TPYTVideo.self, from: metadata)
+            DispatchQueue.main.async {
+                completion(video, nil)
+            }
+        } catch {
             DispatchQueue.main.async {
                 completion(nil, error)
             }

@@ -80,6 +80,7 @@ fileprivate struct TPMainPlayerView: View {
             
             Task(priority: .background) {
                 let colors = await getGradientColorsFromImage()
+                player.wcNotifyAverageColorOfCurrentVideo(cgColor: colors.first!.cgColor!)
                 DispatchQueue.main.async {
                     mainColorOfImage = colors
                 }

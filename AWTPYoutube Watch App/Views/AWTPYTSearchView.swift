@@ -10,27 +10,36 @@ import SwiftUI
 import CachedAsyncImage
 
 struct AWTPYTSearchView: View {
+    @EnvironmentObject private var appVM: AWTPYoutubeAppVideModel
     @StateObject private var vm = AWTPYTSearchViewModel()
-    
+
     var body: some View {
-        ZStack {
-            if case .loading = vm.state {
-                ProgressView()
-            }
-            else {
-                List(vm.videos, id: \.id) { video in
-                    NavigationLink {
-                        AWTPPlayerView(video: video)
-                    } label: {
-                        AWTPVideoCell(video: video)
+        Group {
+            if appVM.wcSessionState == .activated {
+                ZStack {
+                    if case .loading = vm.state {
+                        ProgressView()
                     }
-                    .id(video)
+                    else {
+                        List(vm.videos, id: \.id) { video in
+                            Button {
+                                AWTPPlayerManager.shared.loadVideo(video: video)
+                            } label: {
+                                AWTPVideoCell(video: video)
+                            }
+                            .id(video)
+                        }
+                    }
+                }
+                .navigationTitle("Videos")
+                .navigationBarTitleDisplayMode(.large)
+                .onAppear {
+                    vm.getSearchingVideosFromPhone()
                 }
             }
-        }
-        .navigationTitle("Videos")
-        .onAppear {
-            vm.getSearchingVideosFromPhone()
+            else {
+                ProgressView()
+            }
         }
     }
 }

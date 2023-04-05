@@ -19,9 +19,7 @@ class AWTPYTSearchViewModel: ObservableObject {
     private let wcCommand = AWTPWCSessionCommands()
     
     func getSearchingVideosFromPhone() {
-//        videos = TPDummyDatas().getDumpVideos()
-        
-        state = .loading
+        state = videos.isEmpty ? .loading : .done(nil)
         wcCommand.getSearchingVideos {
             [weak self] paging, error in
             guard let self = self else { return }

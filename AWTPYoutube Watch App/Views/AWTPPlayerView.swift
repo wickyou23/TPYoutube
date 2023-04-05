@@ -9,20 +9,30 @@ import Foundation
 import SwiftUI
 
 struct AWTPPlayerView: View {
-    @EnvironmentObject private var theme: TPTheme
-    @ObservedObject private var vm: AWTPPlayerViewModel
+    @StateObject private var player = AWTPPlayerManager.shared
+    @StateObject private var vm = AWTPPlayerViewModel()
     
-    init(video: TPYTItemResource) {
-        vm = AWTPPlayerViewModel(video: video)
+    private var disableColor: Color {
+        player.isLoadingDetails ? .gray : .white
     }
+    
+    private var titleVideo: String {
+        return player.video?.title ?? "TPYoutube"
+    }
+    
+    private var subTitleVideo: String {
+        return player.video?.channelTitle ?? "..."
+    }
+    
+    private var screenSize = WKInterfaceDevice.current().screenBounds
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(vm.video.title)
+            Text(titleVideo)
                 .lineLimit(1)
                 .appFont(13)
             
-            Text(vm.video.channelTitle)
+            Text(subTitleVideo)
                 .lineLimit(1)
                 .foregroundColor(.gray)
                 .appFont(11)
@@ -38,54 +48,69 @@ struct AWTPPlayerView: View {
             
             HStack {
                 Button {
-                    vm.preVideo()
+                    player.backControl()
                 } label: {
                     Image(systemName: "backward.fill")
                         .frame(width: 30, height: 30)
-                        .foregroundColor(.white)
+                        .foregroundColor(disableColor)
                 }
                 .tint(.clear)
+                .disabled(player.isLoadingDetails)
                 
-                if vm.state == .loading {
+                if player.isLoadingDetails && player.video != nil {
                     ProgressView()
                         .frame(width: 70, height: 70)
                         .padding()
                 }
                 else {
                     Button {
-                        if vm.state == .pause {
-                            vm.playVideo()
+                        if player.state != .playing {
+                            player.playControl()
                         }
                         else {
-                            vm.pauseVideo()
+                            player.pauseControl()
                         }
                     } label: {
-                        Image(systemName: vm.state == .play ? "pause.circle.fill" : "play.circle.fill")
+                        Image(systemName: player.isPlaying ? "pause.circle.fill" : "play.circle.fill")
                             .resizable(resizingMode: .stretch)
                             .frame(width: 70, height: 70)
-                            .foregroundColor(.white)
+                            .foregroundColor(disableColor)
                     }
                     .tint(.clear)
+                    .disabled(player.isLoadingDetails)
                 }
-                
                 
                 Button {
-                    vm.nextVideo()
+                    player.nextControl()
                 } label: {
                     Image(systemName: "forward.fill")
-                        .foregroundColor(.white)
                         .frame(width: 30, height: 30)
+                        .foregroundColor(disableColor)
                 }
                 .tint(.clear)
+                .disabled(player.isLoadingDetails)
             }
+            .shadow(color: player.averageColorOfCurrentVideo, radius: 10)
         }
-        .navigationTitle("Videos")
-        .navigationBarTitleDisplayMode(.inline)
+        .padding()
+        .background(
+            Circle()
+                .fill(
+                    RadialGradient(gradient: Gradient(colors: [player.averageColorOfCurrentVideo, .black]),
+                                   center: .center,
+                                   startRadius: 0,
+                                   endRadius: 75)
+                )
+                .position(x: screenSize.width / 2,
+                          y: screenSize.height / 2 - 12)
+                .scaleEffect(1.2)
+        )
     }
 }
 
 struct AWTPPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        AWTPPlayerView(video: TPDummyDatas().getDumpVideos().first!)
+        AWTPPlayerView()
+            .environmentObject(TPTheme.shared)
     }
 }

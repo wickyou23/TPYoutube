@@ -147,14 +147,6 @@ extension TPWCSessionCommands {
         
         postNotificationOnMainQueueAsync(name: .dataDidFlow, object: commandStatus)
     }
-    
-    // Post a notification from the main queue asynchronously.
-    //
-    private func postNotificationOnMainQueueAsync(name: NSNotification.Name, object: CommandStatus) {
-        DispatchQueue.main.async {
-            NotificationCenter.default.post(name: name, object: object)
-        }
-    }
 
     // Handle unactivated session error. WCSession commands require an activated session.
     //

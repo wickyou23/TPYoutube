@@ -12,68 +12,6 @@ import MediaPlayer
 import MobileVLCKit
 import Combine
 
-enum TPYTPlayerViewState {
-    case loadingDetails, ready, unStarted, ended, playing, paused, buffering, cued, stopped, unknown
-    
-    static func convertState(ytState: YTPlayerState) -> TPYTPlayerViewState {
-        switch ytState {
-        case .unstarted:
-            return .unStarted
-        case .ended:
-            return .ended
-        case .playing:
-            return .playing
-        case .paused:
-            return .paused
-        case .buffering:
-            return .buffering
-        case .cued:
-            return .cued
-        case .unknown:
-            return .unknown
-        @unknown default:
-            return .unknown
-        }
-    }
-    
-    static func convertState(vlcState: VLCMediaPlayerState) -> TPYTPlayerViewState {
-        switch vlcState {
-        case .stopped:
-            return .stopped
-        case .ended:
-            return .ended
-        case .playing:
-            return .playing
-        case .paused:
-            return .paused
-        case .buffering:
-            return .buffering
-        case .opening, .esAdded:
-            return .ready
-        default:
-            return .unknown
-        }
-    }
-    
-    func getIconPlay() -> String {
-        switch self {
-        case .playing:
-            return "pause.circle.fill"
-        default:
-            return "play.circle.fill"
-        }
-    }
-    
-    func getMinimizeIconPlay() -> String {
-        switch self {
-        case .playing:
-            return "pause.fill"
-        default:
-            return "play.fill"
-        }
-    }
-}
-
 protocol ITPYTPlayerAction {
     func play()
     func pause()
@@ -96,7 +34,7 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     @Published var isPresented = false
     @Published var playerType: TPYTPlayerType = .undefined
     
-    @Published private(set) var state: TPYTPlayerViewState = .unknown
+    @Published private(set) var state: TPPlayerState = .unknown
     @Published private(set) var currentVideo: TPYTItemResource?
     
     private var appDidEnterBackground = false
@@ -116,6 +54,7 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     private var reloadVideoTime: TPYTPlayerTime?
     private var videoV1Subscription: AnyCancellable?
     private var reloadVideoCount = 0
+    private let wcCommand = TPWCSessionCommands()
     
     var isAutoPlay = true
     var isLoopList = false
@@ -262,6 +201,8 @@ class TPYTPlayerManager: NSObject, ObservableObject {
         case .undefined:
             return
         }
+        
+        wcCommand.notifyLoadVideo(video: crVideo)
     }
     
     private func cleanPlayer() {
@@ -358,10 +299,16 @@ class TPYTPlayerManager: NSObject, ObservableObject {
             return .commandFailed
         }
     }
+    
+    func wcNotifyAverageColorOfCurrentVideo(cgColor: CGColor) {
+        wcCommand.notifyAverageColorOfCurrentVideo(cgColor: cgColor)
+    }
 }
 
 extension TPYTPlayerManager: ITPYTPlayerAction {
     func play() {
+        guard let _ = currentVideo else { return }
+        
         switch playerType {
         case .vlc:
             vlcPlayer.play()
@@ -370,9 +317,13 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
         case .undefined:
             return
         }
+        
+        wcCommand.notifyPlayControl()
     }
     
     func pause() {
+        guard let _ = currentVideo else { return }
+        
         switch playerType {
         case .vlc:
             vlcPlayer.pause()
@@ -381,9 +332,13 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
         case .undefined:
             return
         }
+        
+        wcCommand.notifyPauseControl()
     }
     
     func seekToTime(time: Float) {
+        guard let _ = currentVideo else { return }
+        
         switch playerType {
         case .vlc:
             let positionDiff = Double(time) - self.vlcMediaMetaData.elapsedPlaybackTime
@@ -396,6 +351,8 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
     }
     
     func next10() {
+        guard let _ = currentVideo else { return }
+        
         switch playerType {
         case .vlc:
             vlcPlayer.jumpForward(10)
@@ -407,6 +364,8 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
     }
     
     func back10() {
+        guard let _ = currentVideo else { return }
+        
         switch playerType {
         case .vlc:
             vlcPlayer.jumpBackward(10)
@@ -419,9 +378,8 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
     
     @discardableResult
     func nextSong() -> TPYTItemResource? {
-        guard !playlist.isEmpty else {
-            return nil
-        }
+        guard let _ = currentVideo else { return nil }
+        guard !playlist.isEmpty else { return nil }
         
         currentIndexVideo += 1
         if currentIndexVideo >= playlist.count, isLoopList {
@@ -435,9 +393,8 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
     
     @discardableResult
     func backSong() -> TPYTItemResource? {
-        guard !playlist.isEmpty else {
-            return nil
-        }
+        guard let _ = currentVideo else { return nil }
+        guard !playlist.isEmpty else { return nil }
         
         currentIndexVideo -= 1
         if currentIndexVideo < 0, isLoopList {
@@ -474,7 +431,7 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
 extension TPYTPlayerManager {
     func getStateIcon() -> String {
         if isPlaying {
-            return TPYTPlayerViewState.playing.getIconPlay()
+            return TPPlayerState.playing.getIconPlay()
         }
         
         return state.getIconPlay()
@@ -482,7 +439,7 @@ extension TPYTPlayerManager {
     
     func getMinimizeIconPlay() -> String {
         if isPlaying {
-            return TPYTPlayerViewState.playing.getMinimizeIconPlay()
+            return TPPlayerState.playing.getMinimizeIconPlay()
         }
         
         return state.getMinimizeIconPlay()
@@ -554,7 +511,7 @@ extension TPYTPlayerManager: YTPlayerViewDelegate {
         
         DispatchQueue.main.async {
             [weak self] in
-            self?.state = TPYTPlayerViewState.convertState(ytState: state)
+            self?.state = TPPlayerState.convertState(ytState: state)
         }
     }
     
@@ -637,7 +594,7 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
             break
         }
         
-        state = TPYTPlayerViewState.convertState(vlcState: vlcPlayer.state)
+        state = TPPlayerState.convertState(vlcState: vlcPlayer.state)
     }
     
     func mediaPlayerTimeChanged(_ aNotification: Notification) {

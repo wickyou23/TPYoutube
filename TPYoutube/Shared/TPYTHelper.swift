@@ -229,6 +229,33 @@ extension Animation {
     }
 }
 
+extension CGColor {
+    func toInt() -> UInt {
+        guard let components = self.components else {
+            return 0
+        }
+        
+        let r = UInt(components[0] * 255) << 24
+        let g = UInt(components[1] * 255) << 16
+        let b = UInt(components[2] * 255) << 8
+        let a = UInt(components[3] * 255)
+        
+        return r + g + b + a
+    }
+    
+    static func initWithHex(hex: UInt) -> CGColor {
+        let r = hex >> 24
+        let g = hex >> 16 & 0xFF
+        let b = hex >> 8 & 0xFF
+        let a = hex & 0xFF
+        
+        return CGColor(red: CGFloat(r) / 255,
+                       green: CGFloat(g) / 255,
+                       blue: CGFloat(b) / 255,
+                       alpha: CGFloat(a) / 255)
+    }
+}
+
 //MARK: - iOS Extension
 
 #if os(iOS)

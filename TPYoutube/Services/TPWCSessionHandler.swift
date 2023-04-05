@@ -42,33 +42,37 @@ class TPWCSessionHandler {
             
             let command = TPCommand(command: .getSearchingVideo, phrase: .replied, metadata: dataResponse)
             replyHandler(command.toJson() ?? [:])
-        case .playVideo:
+        case .loadVideo:
             guard let videoId = rawCommand.jsonMetadata?["videoId"] as? String else {
                 return
             }
             
             let isPlayed = playVideo(videoId: videoId)
-            let command = TPCommand(command: .playVideo, phrase: .replied, metadata: ["isPlayed": isPlayed])
+            let command = TPCommand(command: .loadVideo, phrase: .replied, metadata: ["isPlayed": isPlayed])
             replyHandler(command.toJson() ?? [:])
-        case .pauseVideo:
-            pauseVideo()
-            let command = TPCommand(command: .pauseVideo, phrase: .replied)
+        case .playControl:
+            playControl()
+            let command = TPCommand(command: .pauseControl, phrase: .replied)
             replyHandler(command.toJson() ?? [:])
-        case .nextVideo:
-            guard let nextVideo = nextVideo(),
+        case .pauseControl:
+            pauseControl()
+            let command = TPCommand(command: .pauseControl, phrase: .replied)
+            replyHandler(command.toJson() ?? [:])
+        case .nextControl:
+            guard let nextVideo = nextControl(),
                   let data = try? jsEncoder.encode(nextVideo) else {
                 return
             }
             
-            let command = TPCommand(command: .nextVideo, phrase: .replied, metadata: data)
+            let command = TPCommand(command: .nextControl, phrase: .replied, metadata: data)
             replyHandler(command.toJson() ?? [:])
-        case .backVideo:
-            guard let backVideo = backVideo(),
+        case .backControl:
+            guard let backVideo = backControl(),
                   let data = try? jsEncoder.encode(backVideo) else {
                 return
             }
             
-            let command = TPCommand(command: .backVideo, phrase: .replied, metadata: data)
+            let command = TPCommand(command: .backControl, phrase: .replied, metadata: data)
             replyHandler(command.toJson() ?? [:])
         default:
             return
@@ -100,15 +104,19 @@ class TPWCSessionHandler {
         }
     }
     
-    private func pauseVideo() {
+    private func pauseControl() {
+        TPYTPlayerManager.shared.play()
+    }
+    
+    private func playControl() {
         TPYTPlayerManager.shared.pause()
     }
     
-    private func nextVideo() -> TPYTItemResource? {
+    private func nextControl() -> TPYTItemResource? {
         return TPYTPlayerManager.shared.nextSong()
     }
     
-    private func backVideo() -> TPYTItemResource? {
+    private func backControl() -> TPYTItemResource? {
         return TPYTPlayerManager.shared.backSong()
     }
 }
