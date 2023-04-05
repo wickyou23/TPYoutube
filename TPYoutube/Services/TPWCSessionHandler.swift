@@ -52,7 +52,7 @@ class TPWCSessionHandler {
             replyHandler(command.toJson() ?? [:])
         case .playControl:
             playControl()
-            let command = TPCommand(command: .pauseControl, phrase: .replied)
+            let command = TPCommand(command: .playControl, phrase: .replied)
             replyHandler(command.toJson() ?? [:])
         case .pauseControl:
             pauseControl()
@@ -105,11 +105,11 @@ class TPWCSessionHandler {
     }
     
     private func pauseControl() {
-        TPYTPlayerManager.shared.play()
+        TPYTPlayerManager.shared.pause()
     }
     
     private func playControl() {
-        TPYTPlayerManager.shared.pause()
+        TPYTPlayerManager.shared.play()
     }
     
     private func nextControl() -> TPYTItemResource? {

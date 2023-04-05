@@ -1282,7 +1282,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "AWTPYoutube-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = AWTPYoutube;
+				INFOPLIST_KEY_CFBundleDisplayName = TPYoutube;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.tp.example.TPYoutube;
 				INFOPLIST_KEY_WKExtensionDelegateClassName = "";
@@ -1316,7 +1316,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "AWTPYoutube-Watch-App-Info.plist";
-				INFOPLIST_KEY_CFBundleDisplayName = AWTPYoutube;
+				INFOPLIST_KEY_CFBundleDisplayName = TPYoutube;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.tp.example.TPYoutube;
 				INFOPLIST_KEY_WKExtensionDelegateClassName = "";
