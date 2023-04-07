@@ -49,7 +49,6 @@ class AWTPApplicationDelegate: NSObject, WKApplicationDelegate {
 #endif
     }
     
-    
     func completeBackgroundTasks() {
         guard !wcBackgroundTasks.isEmpty else { return }
         
@@ -69,6 +68,7 @@ class AWTPApplicationDelegate: NSObject, WKApplicationDelegate {
         
         wcBackgroundTasks.removeAll()
     }
+    
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
         for task in backgroundTasks {
             if let wcTask = task as? WKWatchConnectivityRefreshBackgroundTask {

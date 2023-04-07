@@ -113,7 +113,7 @@ struct TPYTSearchView: View {
                     .listRowSeparator(.hidden)
                     .listRowInsets(EdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 0))
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(.white.opacity(0.1))
+                    .contentShape(Rectangle())
                 }
                 .listStyle(.plain)
                 .padding(.zero)

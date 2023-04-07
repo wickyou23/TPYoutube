@@ -27,6 +27,19 @@ class AWTPWCSessionDelegator: NSObject, WCSessionDelegate {
     }
     
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        iLog("[MESSAGE] \(message)")
         handler.handleCommandRecived(command: message, replyHandler: replyHandler)
+    }
+    
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        iLog("applicationContext \(applicationContext)")
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        iLog("applicationContext \(userInfo)")
+    }
+    
+    func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
+        iLog("applicationContext \(userInfoTransfer)")
     }
 }

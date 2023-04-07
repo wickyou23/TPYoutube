@@ -12,7 +12,7 @@ import YouTubeiOSPlayerHelper
 import MobileVLCKit
 #endif
 
-enum TPPlayerState {
+enum TPPlayerState: Int {
     case loadingDetails, ready, unStarted, ended, playing, paused, buffering, cued, stopped, unknown
     
 #if os(iOS)

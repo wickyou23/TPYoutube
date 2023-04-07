@@ -97,7 +97,52 @@ struct TPWCSessionCommands {
             return
         }
         
-        let command = TPCommand(command: .averageColorOfCurrentVideo, phrase: .notify, metadata: ["Color": cgColor.toInt()])
+        let command = TPCommand(command: .averageColorOfCurrentVideo, phrase: .notify, metadata: [kColor: cgColor.toInt()])
+        guard let jsCommand = command.toJson() else {
+            eLog("Json convert failed")
+            return
+        }
+
+        WCSession.default.sendMessage(jsCommand, replyHandler: { _ in })
+    }
+    
+    func notifyClosePlayer() {
+        guard WCSession.default.activationState == .activated else {
+            eLog("WCSession is not activated yet")
+            return
+        }
+        
+        let command = TPCommand(command: .closePlayer, phrase: .notify)
+        guard let jsCommand = command.toJson() else {
+            eLog("Json convert failed")
+            return
+        }
+
+        WCSession.default.sendMessage(jsCommand, replyHandler: { _ in })
+    }
+    
+    func notifyPlayerTime(time: TPPlayerTime) {
+        guard WCSession.default.activationState == .activated else {
+            eLog("WCSession is not activated yet")
+            return
+        }
+        
+        let command = TPCommand(command: .playerTime, phrase: .notify, metadata: [kTime: time.time, kDuration: time.duration])
+        guard let jsCommand = command.toJson() else {
+            eLog("Json convert failed")
+            return
+        }
+
+        WCSession.default.sendMessage(jsCommand, replyHandler: { _ in })
+    }
+    
+    func notifyAppDidEnterBackground() {
+        guard WCSession.default.activationState == .activated else {
+            eLog("WCSession is not activated yet")
+            return
+        }
+        
+        let command = TPCommand(command: .parentAppDidEnterBackground, phrase: .notify)
         guard let jsCommand = command.toJson() else {
             eLog("Json convert failed")
             return

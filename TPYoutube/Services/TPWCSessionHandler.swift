@@ -20,6 +20,8 @@ class TPWCSessionHandler {
         return decoder
     }()
     
+    private let player = TPYTPlayerManager.shared
+    
     func handleCommandRecived(command: Any, replyHandler: @escaping ([String : Any]) -> Void) {
         var rawCommand: TPCommand?
         if let command = command as? [String: Any],
@@ -43,12 +45,12 @@ class TPWCSessionHandler {
             let command = TPCommand(command: .getSearchingVideo, phrase: .replied, metadata: dataResponse)
             replyHandler(command.toJson() ?? [:])
         case .loadVideo:
-            guard let videoId = rawCommand.jsonMetadata?["videoId"] as? String else {
+            guard let videoId = rawCommand.jsonMetadata?[kVideoID] as? String else {
                 return
             }
             
             let isPlayed = playVideo(videoId: videoId)
-            let command = TPCommand(command: .loadVideo, phrase: .replied, metadata: ["isPlayed": isPlayed])
+            let command = TPCommand(command: .loadVideo, phrase: .replied, metadata: [kIsPlayed: isPlayed])
             replyHandler(command.toJson() ?? [:])
         case .playControl:
             playControl()
@@ -74,6 +76,29 @@ class TPWCSessionHandler {
             
             let command = TPCommand(command: .backControl, phrase: .replied, metadata: data)
             replyHandler(command.toJson() ?? [:])
+        case .playerTime:
+            let time = player.playertime
+            let command = TPCommand(command: .playerTime, phrase: .replied, metadata: [kTime: time.time, kDuration: time.duration])
+            replyHandler(command.toJson() ?? [:])
+        case .currentVideoIsPlaying:
+            Task {
+                var command: TPCommand!
+                if let nextVideo = getCurrentVideoIsPlaying(),
+                   let videoData = try? jsEncoder.encode(nextVideo),
+                    let jsVideo = try? JSONSerialization.jsonObject(with: videoData) as? [String: Any] {
+                    let metadata: [String: Any] = [kVideoData: jsVideo,
+                                                 kPlayerState: player.state.rawValue,
+                                                        kTime: player.playertime.time,
+                                                    kDuration: player.playertime.duration,
+                                                       kColor: await player.getGradientColorsFromImage().first!.cgColor!.toInt()]
+                    command = TPCommand(command: .nextControl, phrase: .replied, metadata: metadata)
+                }
+                else {
+                    command = TPCommand(command: .nextControl, phrase: .replied)
+                }
+                
+                replyHandler(command.toJson() ?? [:])
+            }
         default:
             return
         }
@@ -88,15 +113,14 @@ class TPWCSessionHandler {
     }
     
     private func playVideo(videoId: String) -> Bool {
-        let playerManager = TPYTPlayerManager.shared
-        if !playerManager.isPlaying && playerManager.currentVideo?.id == videoId {
-            playerManager.play()
+        if !player.isPlaying && player.currentVideo?.id == videoId {
+            player.play()
             return true
         }
         
         let searchingVideos = TPStorageManager.yt.getSearchingVideoPage()?.items ?? []
         if let first = searchingVideos.first(where: { $0.id == videoId }) {
-            playerManager.load(video: first, playlist: searchingVideos)
+            player.load(video: first, playlist: searchingVideos)
             return true
         }
         else {
@@ -105,18 +129,22 @@ class TPWCSessionHandler {
     }
     
     private func pauseControl() {
-        TPYTPlayerManager.shared.pause()
+        player.pause()
     }
     
     private func playControl() {
-        TPYTPlayerManager.shared.play()
+        player.play()
     }
     
     private func nextControl() -> TPYTItemResource? {
-        return TPYTPlayerManager.shared.nextSong()
+        return player.nextSong()
     }
     
     private func backControl() -> TPYTItemResource? {
-        return TPYTPlayerManager.shared.backSong()
+        return player.backSong()
+    }
+    
+    private func getCurrentVideoIsPlaying() -> TPYTItemResource? {
+        return player.currentVideo
     }
 }

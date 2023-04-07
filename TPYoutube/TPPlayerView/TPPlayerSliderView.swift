@@ -37,7 +37,7 @@ struct TPPlayerSliderView: View {
                 } onEnded: {
                     endedValue in
                     onSliderChange(endedValue)
-                    player.playertime = TPYTPlayerTime(time: endedValue, duration: player.playertime.duration)
+                    player.playertime = TPPlayerTime(time: endedValue, duration: player.playertime.duration)
                     
                     withAnimation(Animation.easeInOut(duration: 0.2)) {
                         isSliderDragging = false

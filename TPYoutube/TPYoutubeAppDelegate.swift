@@ -33,9 +33,18 @@ class TPYoutubeAppDelegate: NSObject, UIApplicationDelegate {
             WCSession.default.delegate = AppViewModel.shared.wcSessionDelegator
             WCSession.default.activate()
         }
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(self.applicationDidEnterBackground(_:)),
+                                               name: UIApplication.didEnterBackgroundNotification,
+                                               object: nil)
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         return true
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        TPWCSessionCommands().notifyAppDidEnterBackground()
     }
 }

@@ -31,6 +31,8 @@ class TPWCSessionDelegator: NSObject, WCSessionDelegate {
     }
     
     func sessionDidDeactivate(_ session: WCSession) {
+        iLog("activationState = \(session.activationState)")
+        
         session.activate()
     }
     

@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct AWTPYoutube_Watch_AppApp: App {
+struct AWTPYoutubeWatchApp: App {
     @WKApplicationDelegateAdaptor(AWTPApplicationDelegate.self) private var appDelegate
     
     @StateObject private var theme = TPTheme.shared

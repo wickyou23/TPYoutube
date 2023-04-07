@@ -10,6 +10,7 @@ import SwiftUI
 
 class AWTPWCSessionHandler {
     private let playerManager = AWTPPlayerManager.shared
+    private let wcCommand = AWTPWCSessionCommands()
     
     lazy var jsEncoder: JSONEncoder = {
         let encoder = JSONEncoder()
@@ -51,12 +52,24 @@ class AWTPWCSessionHandler {
             playerManager.setNewVideo(newVideo: newVideo)
         case .averageColorOfCurrentVideo:
             guard let metadata = rawCommand.jsonMetadata,
-                  let hexColor = metadata["Color"] as? UInt else {
+                  let hexColor = metadata[kColor] as? UInt else {
                 return
             }
             
             let color = Color(cgColor: CGColor.initWithHex(hex: hexColor))
             playerManager.setAverageColorOfCurrentVideo(color: color)
+        case .closePlayer:
+            playerManager.closePlayer()
+        case .playerTime:
+            guard let metadata = rawCommand.jsonMetadata,
+                  let time = metadata[kTime] as? Float,
+                  let duration = metadata[kDuration] as? Float else {
+                return
+            }
+            
+            playerManager.setNewTime(time: TPPlayerTime(time: time, duration: duration))
+        case .parentAppDidEnterBackground:
+            playerManager.getCurrentVideoIsPlaying()
         default:
             return
         }

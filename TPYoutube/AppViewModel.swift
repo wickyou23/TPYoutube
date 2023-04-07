@@ -25,7 +25,7 @@ class AppViewModel: ObservableObject {
     lazy var wcSessionDelegator = {
         TPWCSessionDelegator()
     }()
-    
+
     private var _appKeys: TPAppKeys!
     static var appKeys: TPAppKeys {
         return shared._appKeys

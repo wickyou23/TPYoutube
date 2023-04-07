@@ -79,7 +79,7 @@ fileprivate struct TPMainPlayerView: View {
             }
             
             Task(priority: .background) {
-                let colors = await getGradientColorsFromImage()
+                let colors = await player.getGradientColorsFromImage()
                 player.wcNotifyAverageColorOfCurrentVideo(cgColor: colors.first!.cgColor!)
                 DispatchQueue.main.async {
                     mainColorOfImage = colors
@@ -318,16 +318,7 @@ fileprivate struct TPMainPlayerView: View {
         .shadow(color: .black, radius: 10)
     }
     
-    private func getGradientColorsFromImage() async -> [Color] {
-        guard let mainColor = UIImage.getImageCached(from: URLRequest(url: URL(string: video.thumbnails.default.url)!))?.getAverageColor()
-        else {
-            return [Color(uiColor: .darkGray)]
-        }
-        
-        return [Color(uiColor: mainColor),
-                Color(uiColor: mainColor),
-                Color(uiColor: .black)]
-    }
+    
 }
 
 struct TPPlayerViewModifier_Previews: PreviewProvider {

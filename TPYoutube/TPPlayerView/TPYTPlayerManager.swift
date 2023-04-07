@@ -11,6 +11,8 @@ import AVFoundation
 import MediaPlayer
 import MobileVLCKit
 import Combine
+import SwiftUI
+import WatchConnectivity
 
 protocol ITPYTPlayerAction {
     func play()
@@ -30,7 +32,7 @@ private let LIMITED_RELOADING_VIDEO = 3
 class TPYTPlayerManager: NSObject, ObservableObject {
     static let shared = TPYTPlayerManager()
     
-    @Published var playertime: TPYTPlayerTime = .init(time: 0, duration: 0)
+    @Published var playertime: TPPlayerTime = .init(time: 0, duration: 0)
     @Published var isPresented = false
     @Published var playerType: TPYTPlayerType = .undefined
     
@@ -51,10 +53,11 @@ class TPYTPlayerManager: NSObject, ObservableObject {
                                                      hostName2: "baidu.com",
                                                      hostName3: "youtube.com")
     private var reloadVideoTimer: Timer?
-    private var reloadVideoTime: TPYTPlayerTime?
+    private var reloadVideoTime: TPPlayerTime?
     private var videoV1Subscription: AnyCancellable?
     private var reloadVideoCount = 0
     private let wcCommand = TPWCSessionCommands()
+    private var timeToNotifyPlayerTime: Date?
     
     var isAutoPlay = true
     var isLoopList = false
@@ -211,6 +214,7 @@ class TPYTPlayerManager: NSObject, ObservableObject {
         reloadVideoTimer?.invalidate()
         reloadVideoTimer = nil
         reloadVideoCount = 0
+        timeToNotifyPlayerTime = nil
         
         switch playerType {
         case .vlc:
@@ -303,6 +307,18 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     func wcNotifyAverageColorOfCurrentVideo(cgColor: CGColor) {
         wcCommand.notifyAverageColorOfCurrentVideo(cgColor: cgColor)
     }
+    
+    func getGradientColorsFromImage() async -> [Color] {
+        guard let video = currentVideo,
+              let mainColor = UIImage.getImageCached(from: URLRequest(url: URL(string: video.thumbnails.default.url)!))?.getAverageColor()
+        else {
+            return [Color(uiColor: .darkGray)]
+        }
+        
+        return [Color(uiColor: mainColor),
+                Color(uiColor: mainColor),
+                Color(uiColor: .black)]
+    }
 }
 
 extension TPYTPlayerManager: ITPYTPlayerAction {
@@ -334,6 +350,7 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
         }
         
         wcCommand.notifyPauseControl()
+        timeToNotifyPlayerTime = nil
     }
     
     func seekToTime(time: Float) {
@@ -409,18 +426,20 @@ extension TPYTPlayerManager: ITPYTPlayerAction {
     func closePlayer() {
         isPresented = false
         currentVideo = nil
+        timeToNotifyPlayerTime = nil
         
         UIApplication.shared.endReceivingRemoteControlEvents()
         MPNowPlayingInfoCenter.default().nowPlayingInfo = nil
         
         cleanPlayer()
+        wcCommand.notifyClosePlayer()
     }
     
     private func handleReachabilityChange(_ connection: Reachability.Connection) {
         iLog("[Reachability.Connection] \(connection)")
         if let latestReachabilityConnection = latestReachabilityConnection,
-            latestReachabilityConnection != connection,
-            !isNetworkChanged {
+           latestReachabilityConnection != connection,
+           !isNetworkChanged {
             isNetworkChanged = true
         }
         
@@ -525,7 +544,7 @@ extension TPYTPlayerManager: YTPlayerViewDelegate {
         DispatchQueue.main.async {
             [weak self] in
             self?.state = .ready
-            self?.playertime = TPYTPlayerTime(time: 0, duration: duration.rounded())
+            self?.playertime = TPPlayerTime(time: 0, duration: duration.rounded())
         }
     }
     
@@ -535,7 +554,7 @@ extension TPYTPlayerManager: YTPlayerViewDelegate {
         DispatchQueue.main.async {
             [weak self] in
             guard let self = self else { return }
-            self.playertime = TPYTPlayerTime(time: playTime.rounded(), duration: self.videoDuration)
+            self.playertime = TPPlayerTime(time: playTime.rounded(), duration: self.videoDuration)
         }
     }
     
@@ -565,7 +584,7 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
             if let reloadVideoTime = self.reloadVideoTime {
                 iLog("Tryning to reload video at (\(reloadVideoTime.time) - \(reloadVideoTime.duration))")
                 vlcPlayer.jumpForward(Int32(max(0, reloadVideoTime.time - 1)))
-                playertime = TPYTPlayerTime(time: reloadVideoTime.time - 1, duration: reloadVideoTime.duration)
+                playertime = TPPlayerTime(time: reloadVideoTime.time - 1, duration: reloadVideoTime.duration)
                 self.reloadVideoTime = nil
             }
             else {
@@ -573,16 +592,16 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
                 if let elapsedPlaybackTime = vlcPlayer.time.value {
                     let playbackTime = elapsedPlaybackTime.doubleValue / 1000
                     iLog("\(playbackTime) - \(playbackDuration)")
-                    playertime = TPYTPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
+                    playertime = TPPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
                 }
                 else {
-                    playertime = TPYTPlayerTime(time: 0, duration: Float(playbackDuration))
+                    playertime = TPPlayerTime(time: 0, duration: Float(playbackDuration))
                 }
             }
             
             return
         case .ended:
-            playertime = TPYTPlayerTime(time: playertime.time + 1, duration: playertime.duration)
+            playertime = TPPlayerTime(time: playertime.time + 1, duration: playertime.duration)
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 [unowned self] in
                 self.nextSong()
@@ -603,7 +622,8 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
         if let elapsedPlaybackTime = vlcPlayer.time.value {
             let playbackTime = elapsedPlaybackTime.doubleValue / 1000
             iLog("[VLC PlayerTime] \(playbackTime) - \(playbackDuration)")
-            playertime = TPYTPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
+            playertime = TPPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
+            notifyPlayerTime(time: playertime)
             
             ///The solution is just temporary because vlckit doesn't support APIs needed.
             ///After 5s if the player doesn't change time, it means that the network was lost or very slow or URL from youtube was closed.
@@ -621,8 +641,8 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
             [weak self] _ in
             guard let self = self else { return }
             guard let currentVideo = self.currentVideo,
-                    self.vlcPlayer.state == .buffering,
-                    self.vlcPlayer.isPlaying else { return }
+                  self.vlcPlayer.state == .buffering,
+                  self.vlcPlayer.isPlaying else { return }
             iLog("Trying to reload current video")
             if self.reloadVideoCount == LIMITED_RELOADING_VIDEO {
                 self.reloadVideoCount = 0
@@ -634,6 +654,21 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
                 self.load(video: currentVideo, isReloading: true)
             }
         })
+    }
+    
+    private func notifyPlayerTime(time: TPPlayerTime) {
+        guard let mTimeToNotifyPlayerTime = timeToNotifyPlayerTime else {
+            timeToNotifyPlayerTime = .now
+            wcCommand.notifyPlayerTime(time: time)
+            return
+        }
+        
+        guard Date.now.timeIntervalSince1970 - mTimeToNotifyPlayerTime.timeIntervalSince1970 > 30 else {
+            return
+        }
+        
+        timeToNotifyPlayerTime = .now
+        wcCommand.notifyPlayerTime(time: time)
     }
 }
 

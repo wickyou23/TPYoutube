@@ -1,10 +1,22 @@
 import UIKit
 import WatchConnectivity
 
+let kColor = "Color"
+let kVideoID = "VideoID"
+let kIsPlayed = "isPlayed"
+let kTime = "Time"
+let kDuration = "Duration"
+let kVideoData = "VideoData"
+let kPlayerState = "PlayerState"
+ 
 enum TPCommandType: String {
     case getSearchingVideo = "getSearchingVideo"
     case loadVideo = "loadVideo"
     case averageColorOfCurrentVideo = "averageColorOfCurrentVideo"
+    case closePlayer = "closePlayer"
+    case playerTime = "playerTime"
+    case currentVideoIsPlaying = "currentVideoIsPlaying"
+    case parentAppDidEnterBackground = "parentAppDidEnterBackground"
     
     case playControl = "playControl"
     case pauseControl = "pauseControl"

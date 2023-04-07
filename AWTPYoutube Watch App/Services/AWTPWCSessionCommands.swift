@@ -7,6 +7,7 @@
 
 import Foundation
 import WatchConnectivity
+import SwiftUI
 
 enum AWTPWCSessionCommandsError: Error {
     case videoNotFound
@@ -53,7 +54,7 @@ struct AWTPWCSessionCommands {
     }
     
     func loadVideo(at video: TPYTItemResource, completion: @escaping (Bool, Error?) -> Void) {
-        let command = TPCommand(command: .loadVideo, phrase: .sent, metadata: ["videoId": video.id])
+        let command = TPCommand(command: .loadVideo, phrase: .sent, metadata: [kVideoID: video.id])
         guard WCSession.default.activationState == .activated,
               let jsCommand = command.toJson() else {
             eLog("WCSession is not activated yet!")
@@ -68,7 +69,7 @@ struct AWTPWCSessionCommands {
             }
             
             DispatchQueue.main.async {
-                completion(jsonMetadata["isPlayed"] as! Bool, nil)
+                completion(jsonMetadata[kIsPlayed] as! Bool, nil)
             }
         }) { error in
             DispatchQueue.main.async {
@@ -125,7 +126,7 @@ struct AWTPWCSessionCommands {
         
         WCSession.default.sendMessage(jsCommand, replyHandler: {
             replyMessage in
-            self.handleVideoReponse(replyMessage: replyMessage, completion: completion)
+            handleVideoReponse(replyMessage: replyMessage, completion: completion)
         }) { error in
             DispatchQueue.main.async {
                 completion(nil, error)
@@ -143,10 +144,53 @@ struct AWTPWCSessionCommands {
         
         WCSession.default.sendMessage(jsCommand, replyHandler: {
             replyMessage in
-            self.handleVideoReponse(replyMessage: replyMessage, completion: completion)
+            handleVideoReponse(replyMessage: replyMessage, completion: completion)
         }) { error in
             DispatchQueue.main.async {
                 completion(nil, error)
+            }
+        }
+    }
+    
+    func getPlayerTime(completion: @escaping (TPPlayerTime?, Error?) -> Void) {
+        let command = TPCommand(command: .playerTime, phrase: .sent)
+        guard WCSession.default.activationState == .activated,
+              let jsCommand = command.toJson() else {
+            eLog("WCSession is not activated yet!")
+            return
+        }
+        
+        WCSession.default.sendMessage(jsCommand, replyHandler: {
+            replyMessage in
+            guard let repliedCommand = TPCommand.initWithJson(json: replyMessage),
+                  let jsonMetadata = repliedCommand.jsonMetadata else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                completion(TPPlayerTime(time: jsonMetadata[kTime] as! Float, duration: jsonMetadata[kDuration] as! Float), nil)
+            }
+        }) { error in
+            DispatchQueue.main.async {
+                completion(nil, error)
+            }
+        }
+    }
+    
+    func getCurrentVideoIsPlaying(completion: @escaping (TPYTItemResource?, TPPlayerState, TPPlayerTime, Color?, Error?) -> Void) {
+        let command = TPCommand(command: .currentVideoIsPlaying, phrase: .sent)
+        guard WCSession.default.activationState == .activated,
+              let jsCommand = command.toJson() else {
+            eLog("WCSession is not activated yet!")
+            return
+        }
+        
+        WCSession.default.sendMessage(jsCommand, replyHandler: {
+            replyMessage in
+            handleGettingCurrentVideoReponse(replyMessage: replyMessage, completion: completion)
+        }) { error in
+            DispatchQueue.main.async {
+                completion(nil, .unknown, .zero, nil, error)
             }
         }
     }
@@ -165,6 +209,37 @@ struct AWTPWCSessionCommands {
         } catch {
             DispatchQueue.main.async {
                 completion(nil, error)
+            }
+        }
+    }
+    
+    private func handleGettingCurrentVideoReponse(replyMessage: [String: Any], completion: @escaping (TPYTItemResource?, TPPlayerState, TPPlayerTime, Color?, Error?) -> Void) {
+        guard let repliedCommand = TPCommand.initWithJson(json: replyMessage),
+              let jsMetadata = repliedCommand.jsonMetadata,
+              let jsVideo = jsMetadata[kVideoData],
+              let metadataVideo = try? JSONSerialization.data(withJSONObject: jsVideo),
+              let stateInt = jsMetadata[kPlayerState] as? Int,
+              let time = jsMetadata[kTime] as? Float,
+              let duration = jsMetadata[kDuration] as? Float,
+              let hexColor = jsMetadata[kColor] as? UInt else {
+            DispatchQueue.main.async {
+                completion(nil, .unknown, .zero, nil, AWTPWCSessionCommandsError.videoNotFound)
+            }
+            
+            return
+        }
+        
+        do {
+            let color = Color(cgColor: CGColor.initWithHex(hex: hexColor))
+            let state = TPPlayerState(rawValue: stateInt) ?? .unknown
+            let video = try self.jsDecoder.decode(TPYTVideo.self, from: metadataVideo)
+            let time = TPPlayerTime(time: time, duration: duration)
+            DispatchQueue.main.async {
+                completion(video, state, time, color, nil)
+            }
+        } catch {
+            DispatchQueue.main.async {
+                completion(nil, .unknown, .zero, nil, error)
             }
         }
     }

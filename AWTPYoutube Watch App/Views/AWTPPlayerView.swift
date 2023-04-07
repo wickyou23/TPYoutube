@@ -11,6 +11,7 @@ import SwiftUI
 struct AWTPPlayerView: View {
     @StateObject private var player = AWTPPlayerManager.shared
     @StateObject private var vm = AWTPPlayerViewModel()
+    @State private var animationColor: Color = TPTheme.shared.appColor
     
     private var disableColor: Color {
         player.isLoadingDetails ? .gray : .white
@@ -40,8 +41,8 @@ struct AWTPPlayerView: View {
             Spacer()
                 .frame(height: 10)
             
-            RoundedRectangle(cornerRadius: 2)
-                .frame(height: 2)
+            AWTPPlayerViewProgressBarView()
+                .shadow(color: animationColor, radius: 5)
             
             Spacer()
                 .frame(height: 16)
@@ -76,6 +77,8 @@ struct AWTPPlayerView: View {
                             .frame(width: 70, height: 70)
                             .foregroundColor(disableColor)
                     }
+                    .frame(width: 70, height: 70)
+                    .padding()
                     .tint(.clear)
                     .disabled(player.isLoadingDetails)
                 }
@@ -90,13 +93,13 @@ struct AWTPPlayerView: View {
                 .tint(.clear)
                 .disabled(player.isLoadingDetails)
             }
-            .shadow(color: player.averageColorOfCurrentVideo, radius: 10)
+            .shadow(color: animationColor, radius: 5)
         }
         .padding()
         .background(
             Circle()
                 .fill(
-                    RadialGradient(gradient: Gradient(colors: [player.averageColorOfCurrentVideo, .black]),
+                    RadialGradient(gradient: Gradient(colors: [animationColor, .black]),
                                    center: .center,
                                    startRadius: 0,
                                    endRadius: 75)
@@ -105,6 +108,11 @@ struct AWTPPlayerView: View {
                           y: screenSize.height / 2 - 12)
                 .scaleEffect(1.2)
         )
+        .onReceive(player.$averageColorOfCurrentVideo) { newColor in
+            withAnimation(.easeInOut.speed(1)) {
+                animationColor = newColor
+            }
+        }
     }
 }
 
