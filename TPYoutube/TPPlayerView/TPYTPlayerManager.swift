@@ -158,7 +158,9 @@ class TPYTPlayerManager: NSObject, ObservableObject {
         else {
             videoV1Subscription?.cancel()
             videoV1Subscription = nil
-            videoV1Subscription = TPYTAPIManager.ytService.getVideoV1(videoId: video.id)
+            videoV1Subscription = TPYTAPIManager
+                .ytService
+                .getVideoV1(videoId: video.id)
                 .timeout(5, scheduler: DispatchQueue.global())
                 .sink { completion in
                     guard case let .failure(error) = completion else { return }
@@ -172,15 +174,6 @@ class TPYTPlayerManager: NSObject, ObservableObject {
                     }
                 } receiveValue: {
                     [weak self] videoV1 in
-//                    TPStorageManager.shared.saveVideoV1ById(videoId: video.id, videoV1: videoV1)
-//                    DispatchQueue.main.async {
-//                        [weak self] in
-//                        guard let self = self else { return }
-//                        self.state = .unknown
-//                        self.playerType = .vlc
-//                        self.loadCurrentVideo()
-//                    }
-                    
                     self?.getM3U8URL(video: video, videoV1: videoV1)
                 }
         }
@@ -188,7 +181,9 @@ class TPYTPlayerManager: NSObject, ObservableObject {
     
     private func getM3U8URL(video: TPYTItemResource, videoV1: TPYTVideoV1) {
         m3u8Subscription = nil
-        m3u8Subscription = TPYTAPIManager.ytService.getStreammingAudioURL(m3u8URL: videoV1.streamingData.hlsManifestUrl)
+        m3u8Subscription = TPYTAPIManager
+            .ytService
+            .getStreammingAudioURL(m3u8URL: videoV1.streamingData.hlsManifestUrl)
             .sink { completion in
                 guard case let .failure(error) = completion else { return }
                 eLog("\(error.localizedDescription)")
