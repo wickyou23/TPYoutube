@@ -15,13 +15,22 @@ enum TPYTServiceTarget {
     case getMostPopularVideos(regionCode: String)
     case getVideosByPlaylist(playlistId: String)
     case getVideoV1(videoId: String)
+    case downloadm3u8File(url: String)
 }
 
 extension TPYTServiceTarget: ITPGGServiceTargetType {
+    static var tempoM3U8URL: URL = {
+        let temporaryDirectory = FileManager.default.temporaryDirectory
+        let fileUrl = temporaryDirectory.appendingPathComponent("videov1.m3u8")
+        return fileUrl
+    }()
+    
     var baseURL: URL {
         switch self {
         case .getVideoV1(_):
             return URL(string: "https://youtubei.googleapis.com/youtubei/v1")!
+        case .downloadm3u8File(let m3u8Url):
+            return URL(string: m3u8Url)!
         default:
             return URL(string: "https://youtube.googleapis.com/youtube/v3")!
         }
@@ -39,6 +48,8 @@ extension TPYTServiceTarget: ITPGGServiceTargetType {
             return "/playlistItems"
         case .getVideoV1(_):
             return "/player"
+        case .downloadm3u8File(_):
+            return ""
         }
     }
     
@@ -46,7 +57,8 @@ extension TPYTServiceTarget: ITPGGServiceTargetType {
         switch self {
         case .search(_), .getPlaylist, .getLikedVideos,
                 .getMostPopularVideos(_),
-                .getVideosByPlaylist(_):
+                .getVideosByPlaylist(_),
+                .downloadm3u8File(_):
             return .get
         case .getVideoV1(_):
             return .post
@@ -106,6 +118,12 @@ extension TPYTServiceTarget: ITPGGServiceTargetType {
             
             return .requestCompositeData(bodyData: try! JSONSerialization.data(withJSONObject: bodyParams, options: .prettyPrinted),
                                          urlParameters: params)
+        case .downloadm3u8File(_):
+            var downloadDest: DownloadDestination {
+                return { _, _ in return (Self.tempoM3U8URL, [.removePreviousFile, .createIntermediateDirectories]) }
+            }
+            
+            return .downloadDestination(downloadDest)
         }
     }
     

@@ -54,10 +54,12 @@ class TPYTPlayerManager: NSObject, ObservableObject {
                                                      hostName3: "youtube.com")
     private var reloadVideoTimer: Timer?
     private var reloadVideoTime: TPPlayerTime?
-    private var videoV1Subscription: AnyCancellable?
     private var reloadVideoCount = 0
     private let wcCommand = TPWCSessionCommands()
     private var timeToNotifyPlayerTime: Date?
+    
+    private var videoV1Subscription: AnyCancellable?
+    private var m3u8Subscription: AnyCancellable?
     
     var isAutoPlay = true
     var isLoopList = false
@@ -143,7 +145,17 @@ class TPYTPlayerManager: NSObject, ObservableObject {
             isPresented = true
         }
         
-        if video.videoV1 == nil {
+        if let videoV1Exist = video.videoV1 {
+            if videoV1Exist.streamingData.hasStreamingAudioURL {
+                self.getM3U8URL(video: video, videoV1: videoV1Exist)
+            }
+            else {
+                state = .unknown
+                playerType = .vlc
+                loadCurrentVideo()
+            }
+        }
+        else {
             videoV1Subscription?.cancel()
             videoV1Subscription = nil
             videoV1Subscription = TPYTAPIManager.ytService.getVideoV1(videoId: video.id)
@@ -160,21 +172,45 @@ class TPYTPlayerManager: NSObject, ObservableObject {
                     }
                 } receiveValue: {
                     [weak self] videoV1 in
-                    TPStorageManager.shared.saveVideoV1ById(videoId: video.id, videoV1: videoV1)
-                    DispatchQueue.main.async {
-                        [weak self] in
-                        guard let self = self else { return }
-                        self.state = .unknown
-                        self.playerType = .vlc
-                        self.loadCurrentVideo()
-                    }
+//                    TPStorageManager.shared.saveVideoV1ById(videoId: video.id, videoV1: videoV1)
+//                    DispatchQueue.main.async {
+//                        [weak self] in
+//                        guard let self = self else { return }
+//                        self.state = .unknown
+//                        self.playerType = .vlc
+//                        self.loadCurrentVideo()
+//                    }
+                    
+                    self?.getM3U8URL(video: video, videoV1: videoV1)
                 }
         }
-        else {
-            state = .unknown
-            playerType = .vlc
-            loadCurrentVideo()
-        }
+    }
+    
+    private func getM3U8URL(video: TPYTItemResource, videoV1: TPYTVideoV1) {
+        m3u8Subscription = nil
+        m3u8Subscription = TPYTAPIManager.ytService.getStreammingAudioURL(m3u8URL: videoV1.streamingData.hlsManifestUrl)
+            .sink { completion in
+                guard case let .failure(error) = completion else { return }
+                eLog("\(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    [weak self] in
+                    guard let self = self else { return }
+                    self.state = .unknown
+                    self.playerType = .vlc
+                    self.loadCurrentVideo()
+                }
+            } receiveValue: { m3u8URL in
+                var newVideoV1 = videoV1
+                newVideoV1.streamingData.setStreamingAudioURL(audioURL: m3u8URL)
+                TPStorageManager.shared.saveVideoV1ById(videoId: video.id, videoV1: newVideoV1)
+                DispatchQueue.main.async {
+                    [weak self] in
+                    guard let self = self else { return }
+                    self.state = .unknown
+                    self.playerType = .vlc
+                    self.loadCurrentVideo()
+                }
+            }
     }
     
     private func loadCurrentVideo() {
@@ -621,13 +657,18 @@ extension TPYTPlayerManager: VLCMediaPlayerDelegate {
         let playbackDuration = Double(media.length.intValue / 1000)
         if let elapsedPlaybackTime = vlcPlayer.time.value {
             let playbackTime = elapsedPlaybackTime.doubleValue / 1000
-            iLog("[VLC PlayerTime] \(playbackTime) - \(playbackDuration)")
-            playertime = TPPlayerTime(time: Float(playbackTime), duration: Float(playbackDuration))
-            notifyPlayerTime(time: playertime)
+            if playertime.time != Float(playbackTime.rounded()) {
+                iLog("[VLC PlayerTime] \(playbackTime) - \(playbackDuration)")
+                playertime = TPPlayerTime(time: Float(playbackTime.rounded()), duration: Float(playbackDuration))
+                notifyPlayerTime(time: playertime)
+            }
             
             ///The solution is just temporary because vlckit doesn't support APIs needed.
             ///After 5s if the player doesn't change time, it means that the network was lost or very slow or URL from youtube was closed.
-            startReloadAudio()
+            let hasStreamingAudioURL = currentVideo?.videoV1?.streamingData.hasStreamingAudioURL
+            if let hasStreamingAudioURL = hasStreamingAudioURL, !hasStreamingAudioURL {
+                startReloadAudio()
+            }
         }
     }
     

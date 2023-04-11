@@ -17,6 +17,7 @@ protocol ITPYTServices {
     func getMostPopularVideos(regionCode: String) -> AnyPublisher<TPYTPaging<TPYTVideo>, MoyaError>
     func getVideosByPlaylist(playlist: TPYTPlaylist) -> AnyPublisher<TPYTPaging<TPYTPlaylistItem>, MoyaError>
     func getVideoV1(videoId: String) -> AnyPublisher<TPYTVideoV1, MoyaError>
+    func getStreammingAudioURL(m3u8URL: String) -> AnyPublisher<[Int: String], Moya.MoyaError>
 }
 
 enum TPYTVideoType {
@@ -134,4 +135,48 @@ struct TPYTServicesImp: ITPYTServices {
             .mapMoyaError()
             .eraseToAnyPublisher()
     }
+    
+    func getStreammingAudioURL(m3u8URL: String) -> AnyPublisher<[Int: String], Moya.MoyaError> {
+        return provider.requestGGPublisher(.downloadm3u8File(url: m3u8URL))
+            .tryMap({ reponse in
+                guard reponse.statusCode == 200 else {
+                    throw MoyaError.statusCode(reponse)
+                }
+                
+                let fileManager = FileManager.default
+                guard fileManager.fileExists(atPath: TPYTServiceTarget.tempoM3U8URL.path()) else {
+                    throw MoyaError.jsonMapping(reponse)
+                }
+                
+                let m3u8Content = try String(contentsOf: TPYTServiceTarget.tempoM3U8URL)
+                let m3u8Lines = m3u8Content.components(separatedBy: "\n")
+                var streamingAudioUrls: [Int: String] = [:]
+                for line in m3u8Lines {
+                    guard line.hasPrefix("#EXT-X-MEDIA:URI") else {
+                        continue
+                    }
+                    
+                    let groupId = line.components(separatedBy: "GROUP-ID=")
+                    let regex = try Regex("#EXT-X-MEDIA:URI=\\\"(.+?)\\\"")
+                    if groupId[1].hasPrefix("\"233\"") {
+                        if let regexMatch = groupId[0].firstMatch(of: regex),
+                           let group1MatchRange = regexMatch[1].range {
+                            streamingAudioUrls[233] = String(groupId[0][group1MatchRange])
+                        }
+                    }
+                    
+                    if groupId[1].hasPrefix("\"234\"") {
+                        if let regexMatch = groupId[0].firstMatch(of: regex),
+                           let group1MatchRange = regexMatch[1].range {
+                            streamingAudioUrls[234] = String(groupId[0][group1MatchRange])
+                        }
+                    }
+                }
+                
+                return streamingAudioUrls
+            })
+            .mapMoyaError()
+            .eraseToAnyPublisher()
+    }
 }
+

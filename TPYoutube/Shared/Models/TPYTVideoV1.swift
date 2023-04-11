@@ -8,7 +8,7 @@
 import Foundation
 
 struct TPYTVideoV1: Codable {
-    let streamingData: TPYTVideoV1StreamingData
+    var streamingData: TPYTVideoV1StreamingData
     let videoDetails: TPYTVideoV1VideoDetails
     let createdTime: Date
     
@@ -45,11 +45,20 @@ struct TPYTVideoV1: Codable {
     }
     
     func getAudioURL() -> URL? {
-        guard let streamFormat = streamingData.adaptiveFormats.first(where: { $0.itag == 140 }) else {
-            return nil
+        var streamFormat: String? = streamingData.streamingAudio234URL
+        if streamFormat == nil {
+            streamFormat = streamingData.streamingAudio233URL
         }
         
-        return URL(string: streamFormat.url)
+        if streamFormat == nil {
+            streamFormat = streamingData.adaptiveFormats.first(where: { $0.itag == 140 })?.url
+        }
+        
+        if let streamFormat = streamFormat {
+            return URL(string: streamFormat)
+        }
+        
+        return nil
     }
 }
 
@@ -59,6 +68,12 @@ struct TPYTVideoV1StreamingData: Codable {
     let aspectRatio: Double
     let serverAbrStreamingUrl: String
     let adaptiveFormats: [TPYTVideoV1AdaptiveFormats]
+    var streamingAudio233URL: String?
+    var streamingAudio234URL: String?
+    
+    var hasStreamingAudioURL: Bool {
+        return streamingAudio233URL == nil || streamingAudio234URL == nil
+    }
     
     enum CodingKeys: CodingKey {
         case expiresInSeconds
@@ -66,6 +81,8 @@ struct TPYTVideoV1StreamingData: Codable {
         case aspectRatio
         case serverAbrStreamingUrl
         case adaptiveFormats
+        case streamingAudio233URL
+        case streamingAudio234URL
     }
     
     init(from decoder: Decoder) throws {
@@ -75,6 +92,8 @@ struct TPYTVideoV1StreamingData: Codable {
         self.aspectRatio = try container.decode(Double.self, forKey: .aspectRatio)
         self.serverAbrStreamingUrl = try container.decode(String.self, forKey: .serverAbrStreamingUrl)
         self.adaptiveFormats = try container.decode([TPYTVideoV1AdaptiveFormats].self, forKey: .adaptiveFormats)
+        self.streamingAudio233URL = try? container.decode(String.self, forKey: .streamingAudio233URL)
+        self.streamingAudio234URL = try? container.decode(String.self, forKey: .streamingAudio234URL)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -84,6 +103,19 @@ struct TPYTVideoV1StreamingData: Codable {
         try container.encode(self.aspectRatio, forKey: .aspectRatio)
         try container.encode(self.serverAbrStreamingUrl, forKey: .serverAbrStreamingUrl)
         try container.encode(self.adaptiveFormats, forKey: .adaptiveFormats)
+        
+        if self.streamingAudio233URL != nil {
+            try container.encode(self.streamingAudio233URL, forKey: .streamingAudio233URL)
+        }
+        
+        if self.streamingAudio234URL != nil {
+            try container.encode(self.streamingAudio234URL, forKey: .streamingAudio234URL)
+        }
+    }
+    
+    mutating func setStreamingAudioURL(audioURL: [Int: String]) {
+        self.streamingAudio233URL = audioURL[233]
+        self.streamingAudio234URL = audioURL[234]
     }
 }
 
